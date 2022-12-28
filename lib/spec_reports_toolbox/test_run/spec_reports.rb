@@ -1,33 +1,22 @@
-require "spec_reports_toolbox/test_run/spec_reports/artifact_fetching"
+require "spec_reports_toolbox/test_run/spec_reports/artifact_manager"
 require "json"
 
 class TestRun
   class SpecReports
-    include ArtifactFetching
-    
+
     attr_reader :test_run
-    def initialize(test_run, options = {fetch_source: :s3})
+    def initialize(test_run, options = {})
       @test_run = test_run
       @options = options
+      @artifact_manager = ArtifactManager.new(@test_run)
     end
 
     def fetch!
-      fetch_source = @options.dig(:fetch_source)
-
-      case fetch_source
-      when :s3
-        fetch_from_s3!
-      when :github
-        fetch_from_github!
-      else
-        raise NotImplementedError.new(
-          "Fetch source for artifacts from '#{fetch_source}' not implemented"
-        )
-      end
+      @artifact_manager.fetch_from_s3!
     end
 
     def fetch_spec_data(key)
-      files.flat_map do |file|
+      @artifact_manager.files.flat_map do |file|
         JSON.parse(File.read(file)).fetch(key)
       end
     end

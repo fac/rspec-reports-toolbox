@@ -9,4 +9,19 @@ RSpec.describe TestRun::SpecReports do
       expect(spec_reports.test_run).to eq test_run
     end
   end
+
+  describe "fetch!" do
+    it "fetches from s3 by default" do
+      expect(spec_reports).to receive(:fetch_from_s3!)
+      spec_reports.fetch!
+    end
+
+    context "fetch_source is :github" do
+      let(:spec_reports) { TestRun::SpecReports.new(test_run, {fetch_source: :github}) }
+      it "calls fetch_from_github!" do
+        expect(spec_reports).to receive(:fetch_from_github!)
+        spec_reports.fetch!
+      end
+    end
+  end
 end

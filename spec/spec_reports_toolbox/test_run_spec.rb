@@ -14,7 +14,7 @@ RSpec.describe TestRun do
   end
 
   describe "#spec_reports" do
-    it "it creates a spec reports instance" do
+    it "creates a spec reports instance" do
       expect(test_run.spec_reports).to be_kind_of TestRun::SpecReports
     end
   end

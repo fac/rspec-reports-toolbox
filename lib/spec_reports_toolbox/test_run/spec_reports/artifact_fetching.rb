@@ -6,6 +6,22 @@ class TestRun
       def artifacts_base_dir
         Pathname.new("/tmp")
       end
+
+      def files
+        dir.glob("**/*.json")
+      end
+  
+      def exist?
+        dir.exist?
+      end
+  
+      def delete_dir!
+        raise NotImplementedError
+      end
+  
+      def dir
+        artifacts_base_dir + 'test_suite_json_reports'
+      end
       
       def fetch_from_s3!
         output_directory = dir.to_path

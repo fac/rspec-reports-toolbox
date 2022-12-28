@@ -10,7 +10,7 @@ class TestRun
       @test_run = test_run
       @options = options
     end
-    
+
     def fetch!
       fetch_source = @options.dig(:fetch_source)
 
@@ -26,20 +26,24 @@ class TestRun
       end
     end
 
-    def files
-      dir.glob("**/*.json")
-    end
-
-    def exist?
-      dir.exist?
-    end
-
-    def delete_dir!
-      raise NotImplementedError
-    end
-
-    def dir
-      artifacts_base_dir + 'test_suite_json_reports'
+    def overall_summary
+      result = {
+        "duration" => 0,
+        "example_count" => 0,
+        "failure_count" => 0,
+        "pending_count" => 0,
+      }
+  
+    #   summaries = read_reports("summary")
+  
+    #   summaries.each do |summary|
+    #     result["duration"] += summary["duration"]
+    #     result["example_count"] += summary["example_count"]
+    #     result["failure_count"] += summary["failure_count"]
+    #     result["pending_count"] += summary["pending_count"]
+    #   end
+  
+    #   result
     end
   end
 end

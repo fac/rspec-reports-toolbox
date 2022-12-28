@@ -10,6 +10,19 @@ RSpec.describe TestRun::SpecReports do
     end
   end
 
+  describe "#overall_summary" do
+    it "reads all the files to get the overall summary" do
+      expected = {
+        "duration" => 0,
+        "example_count" => 0,
+        "failure_count" => 0,
+        "pending_count" => 0,
+      }
+
+      expect(spec_reports.overall_summary).to eq(expected)
+    end
+  end
+
   describe "fetch!" do
     it "fetches from s3 by default" do
       expect(spec_reports).to receive(:fetch_from_s3!)

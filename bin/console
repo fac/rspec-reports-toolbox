@@ -2,12 +2,12 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "FreeAgentTestSuiteFailuresTriage"
+require "spec_reports_toolbox/test_run"
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+tr = TestRun.new(3765051133)
+# tr.spec_reports.fetch!
 
-# (If you use this, don't forget to add pry to your Gemfile!)
+
 # require "pry"
 # Pry.start
 

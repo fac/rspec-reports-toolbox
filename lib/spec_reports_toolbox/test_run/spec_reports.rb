@@ -32,6 +32,28 @@ class TestRun
       end
     end
 
+    def per_dir_summary
+      # examples grouped by path
+      grouped = fetch_spec_data("examples").group_by do |example|
+        example["file_path"].split("/").first(3).last(2)
+      end
+
+      result = {}
+      grouped.each_key do |key|
+        duration = grouped[key].map{ |ex| ex["run_time"] }.sum
+        status_counts = grouped[key].map{ |ex| ex["status"] }.tally
+
+        result[key.join("/")] = {
+          "example_count" => grouped[key].count,
+          "failure_count" => status_counts["failed"] || 0,
+          "pending_count" => status_counts["pending"] || 0,
+          "duration" => (duration/60).round(2)
+        }
+      end
+
+      result
+    end
+
     def overall_summary
       result = {
         "duration" => 0,

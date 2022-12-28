@@ -29,6 +29,24 @@ RSpec.describe TestRun::SpecReports do
     end
   end
 
+  describe "#per_dir_summary" do
+    it "reads all the files to get the per dir summary" do
+      per_dir_summary = spec_reports.per_dir_summary
+      expect(per_dir_summary).to be_kind_of(Hash)
+      expect(per_dir_summary.count).to eq 32
+      expect(per_dir_summary.keys).to include("spec/freeagent")
+
+      expected_dir_summary = {
+        "example_count"=>2586,
+        "failure_count"=>0,
+        "pending_count"=>0,
+        "duration"=>7.68
+      }
+
+      expect(per_dir_summary.fetch("spec/freeagent")).to eq(expected_dir_summary)
+    end
+  end
+
   describe "fetch!" do
     it "fetches from s3 by default" do
       expect(spec_reports).to receive(:fetch_from_s3!)

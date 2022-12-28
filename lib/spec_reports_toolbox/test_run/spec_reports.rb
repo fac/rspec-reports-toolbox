@@ -12,13 +12,17 @@ class TestRun
     end
     
     def fetch!
-      case @options.dig(:fetch_source)
+      fetch_source = @options.dig(:fetch_source)
+
+      case fetch_source
       when :s3
         fetch_from_s3!
       when :github
         fetch_from_github!
       else
-        raise NotImplementedError.new("Fetch source for artifacts from #{@optons[:fetch_source]} not implimented")
+        raise NotImplementedError.new(
+          "Fetch source for artifacts from '#{fetch_source}' not implemented"
+        )
       end
     end
 

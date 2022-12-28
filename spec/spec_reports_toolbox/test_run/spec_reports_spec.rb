@@ -23,5 +23,14 @@ RSpec.describe TestRun::SpecReports do
         spec_reports.fetch!
       end
     end
+    
+    context "fetch_source is :unknown" do
+      let(:spec_reports) { TestRun::SpecReports.new(test_run, {fetch_source: :unknown}) }
+      it "calls fetch_from_github!" do
+        expect { spec_reports.fetch! }
+          .to raise_error(NotImplementedError)
+          .with_message("Fetch source for artifacts from 'unknown' not implemented")
+      end
+    end
   end
 end

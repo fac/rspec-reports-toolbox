@@ -4,6 +4,12 @@ RSpec.describe TestRun::SpecReports do
   let(:test_run) { TestRun.new(123, 1) }
   let(:spec_reports) { TestRun::SpecReports.new(test_run) }
 
+  before do
+    allow(ENV)
+      .to receive(:fetch).with("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
+      .and_return("spec/fixtures")
+  end
+
   describe "#initialize" do
     it "has a test_run" do
       expect(spec_reports.test_run).to eq test_run
@@ -13,10 +19,10 @@ RSpec.describe TestRun::SpecReports do
   describe "#overall_summary" do
     it "reads all the files to get the overall summary" do
       expected = {
-        "duration" => 0,
-        "example_count" => 0,
+        "duration" => 224.079857726,
+        "example_count" => 54237,
         "failure_count" => 0,
-        "pending_count" => 0,
+        "pending_count" => 3,
       }
 
       expect(spec_reports.overall_summary).to eq(expected)

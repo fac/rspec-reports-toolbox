@@ -4,7 +4,7 @@ class TestRun
   class SpecReports
     module ArtifactFetching
       def artifacts_base_dir
-        Pathname.new("/tmp")
+        Pathname.new("/tmp") || ENV.fetch("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
       end
 
       def files

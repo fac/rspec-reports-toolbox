@@ -5,9 +5,7 @@ RSpec.describe TestRun::SpecReports do
   let(:spec_reports) { TestRun::SpecReports.new(test_run) }
 
   before do
-    allow(ENV).to receive(:fetch)
-                    .with("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
-                    .and_return("./spec/fixtures")
+    stub_const("ENV", { "SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR" => "./spec/fixtures" })
   end
 
   describe "#initialize" do

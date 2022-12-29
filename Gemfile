@@ -20,3 +20,5 @@ gem "guard", "~> 2.18"
 gem "guard-rake", "~> 1.0"
 
 gem "guard-rspec", "~> 4.7"
+
+gem "terminal-table", "~> 3.0"

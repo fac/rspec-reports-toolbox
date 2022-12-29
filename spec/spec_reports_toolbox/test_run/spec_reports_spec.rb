@@ -47,7 +47,7 @@ RSpec.describe TestRun::SpecReports do
     end
   end
 
-  describe "fetch!" do
+  describe "#fetch!" do
     let(:artifact_manager_double) { double(TestRun::SpecReports::ArtifactManager)}
 
     before do
@@ -58,6 +58,12 @@ RSpec.describe TestRun::SpecReports do
     it "calls fetch_from_s3!" do
       expect(artifact_manager_double).to receive(:fetch_from_s3!)
       spec_reports.fetch!
+    end
+  end
+
+  describe "#to_table" do
+    it "returns a table" do
+      expect(spec_reports.to_table).to be_kind_of(Terminal::Table)
     end
   end
 end

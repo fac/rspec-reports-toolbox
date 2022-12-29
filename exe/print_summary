@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
+require "spec_reports_toolbox/test_run"
+
+test_run = TestRun.new(3765051133)
+
+table = test_run.spec_reports.to_table
+message = "### Spec report: :rocket: \n \n #{table}"
+puts message
+File.write(ENV["GITHUB_STEP_SUMMARY"] || "/tmp/summary", message, mode: "a+")

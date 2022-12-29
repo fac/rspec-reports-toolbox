@@ -2,7 +2,7 @@ require "spec_reports_toolbox/test_run/artifact_manager"
 
 class TestRun
   class SpecArtifacts
-    attr_reader :test_run
+    attr_reader :test_run, :artifact_manager
 
     def initialize(test_run, options = {})
       @test_run = test_run

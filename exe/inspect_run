@@ -3,6 +3,7 @@
 $LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
 
 require "spec_reports_toolbox/test_run"
+require "spec_reports_toolbox/test_run/failed_spec_log_printer"
 require "slop"
 
 begin
@@ -11,8 +12,8 @@ begin
 
     options.string "-r", "--run-id", "Run ID", required: true
     options.integer "-a", "--run-attempt", "Run Attempt", default: 1
-    options.bool "-f", "--fetch-artifacts", "Fetch artifacts from S3", default: false
-    options.bool "-p", "--fetch-reports", "Fetch reports from S3", default: false
+    options.bool "-fa", "--fetch-artifacts", "Fetch artifacts from S3", default: false
+    options.bool "-fr", "--fetch-reports", "Fetch reports from S3", default: false
     options.bool "-t", "--display-table", "Display table", default: false
     options.bool "-l", "--display-logs", "Display logs", default: false
 
@@ -27,7 +28,7 @@ begin
   test_run.spec_reports.fetch! if opts[:fetch_reports]
 
   puts test_run.spec_reports.to_table if opts[:display_table]
-  puts test_run.spec_reports.to_logs if opts[:display_logs]
+  puts test_run.display_logs if opts[:display_logs]
 rescue Slop::Error => error
   puts error
 end

@@ -1,4 +1,4 @@
-require "spec_reports_toolbox/test_run/spec_reports/artifact_manager"
+require "spec_reports_toolbox/test_run/artifact_manager"
 
 require "json"
 require "terminal-table"
@@ -10,7 +10,7 @@ class TestRun
     def initialize(test_run, options = {})
       @test_run = test_run
       @options = options
-      @artifact_manager = ArtifactManager.new(@test_run, "test_suite_json_reports")
+      @artifact_manager = TestRun::ArtifactManager.new(@test_run, "test_suite_json_reports")
     end
 
     def fetch!

@@ -47,10 +47,10 @@ RSpec.describe TestRun::SpecReports do
   end
 
   describe "#fetch!" do
-    let(:artifact_manager_double) { double(TestRun::SpecReports::ArtifactManager) }
+    let(:artifact_manager_double) { double(TestRun::ArtifactManager) }
 
     before do
-      allow(TestRun::SpecReports::ArtifactManager).to receive(:new).with(test_run, "test_suite_json_reports").and_return(artifact_manager_double)
+      allow(TestRun::ArtifactManager).to receive(:new).with(test_run, "test_suite_json_reports").and_return(artifact_manager_double)
     end
 
     it "calls fetch_from_s3!" do

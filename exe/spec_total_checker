@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
+require "spec_reports_toolbox/test_run"
+
+class SpecTotalSanityChecker
+  def initialize(overall_summary, acceptable_number_of_specs:)
+    @overall_summary = overall_summary
+    @acceptable_number_of_specs = acceptable_number_of_specs
+  end
+
+  def run
+    puts "👉 Sanity checking more than #{@acceptable_number_of_specs} specs have run"
+    specs_run = @overall_summary["example_count"]
+    if specs_run < @acceptable_number_of_specs
+      not_enough_specs_run_error = [
+        "Not enough specs have run on this runner.",
+        "Expected more than #{@acceptable_number_of_specs}, ran #{@overall_summary["example_count"]}"
+      ].join("\n")
+
+      raise not_enough_specs_run_error
+    else
+      puts "✅ #{specs_run} main app specs have run"
+    end
+  end
+end
+
+if ENV["ACCEPTABLE_NUMBER_OF_SPECS"].nil?
+  acceptable_number_of_specs = 52_500
+else
+  acceptable_number_of_specs = ENV["ACCEPTABLE_NUMBER_OF_SPECS"].to_i
+end
+
+test_run = TestRun.new(3765051133)
+
+SpecTotalSanityChecker.new(
+  test_run.spec_reports.overall_summary,
+  acceptable_number_of_specs: 52000
+).run

@@ -9,7 +9,9 @@ class TestRun
     end
 
     def artifacts_base_dir
-      Pathname.new("/tmp") || ENV.fetch("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
+      artifact_location = Pathname.new(ENV.fetch("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")) || Pathname.new("/tmp")
+      test_run_location = artifact_location + "#{@run_id}/#{@run_attempt}"
+      test_run_location
     end
 
     def files

@@ -5,7 +5,8 @@ RSpec.describe TestRun::SpecReports do
   let(:spec_reports) { TestRun::SpecReports.new(test_run) }
 
   before do
-    allow(ENV).to receive(:fetch).with("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
+    allow(ENV).to receive(:fetch)
+                    .with("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
                     .and_return("spec/fixtures")
   end
 
@@ -50,7 +51,7 @@ RSpec.describe TestRun::SpecReports do
     let(:artifact_manager_double) { double(TestRun::ArtifactManager) }
 
     before do
-      allow(TestRun::ArtifactManager).to receive(:new).with(test_run, "test_suite_json_reports").and_return(artifact_manager_double)
+      allow(TestRun::ArtifactManager).to receive(:new).with(test_run, "test-suite-json-reports").and_return(artifact_manager_double)
     end
 
     it "calls fetch_from_s3!" do

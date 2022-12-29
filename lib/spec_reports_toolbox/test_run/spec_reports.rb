@@ -10,7 +10,7 @@ class TestRun
     def initialize(test_run, options = {})
       @test_run = test_run
       @options = options
-      @artifact_manager = TestRun::ArtifactManager.new(@test_run, "test_suite_json_reports")
+      @artifact_manager = TestRun::ArtifactManager.new(@test_run, "test-suite-json-reports")
     end
 
     def fetch!

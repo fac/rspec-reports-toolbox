@@ -29,14 +29,10 @@ class TestRun
     end
 
     def fetch_from_s3!
-      puts "Fetching artifacts from S3"
-
+      puts "Fetching #{@artifact_name} artifacts from S3"
       output_directory = dir.to_path
-
-      puts `aws-vault exec fa-ci-prod-github-run-artifacts -- aws s3 cp \
-        --recursive \
-        --include "*" \
-        "s3://raw-test-suite-data-fa-ci-prod/#{@artifact_name}/#{@run_id}/#{@run_attempt}" "#{output_directory}" --verbose`
+      cmd = "aws-vault exec fa-ci-prod -- aws s3 cp --recursive --include '*' s3://raw-test-suite-data-fa-ci-prod/#{@artifact_name}/#{@run_id}/#{@run_attempt} #{output_directory}"
+      system(cmd)
     end
   end
 end

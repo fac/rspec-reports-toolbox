@@ -11,6 +11,7 @@ class TestRun
     end
 
     def fetch!
+      @artifact_manager.fetch_from_s3!
     end
   end
 end

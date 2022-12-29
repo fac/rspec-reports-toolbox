@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
+
+require "spec_reports_toolbox/test_run"
+require "slop"
+
+begin
+  opts = Slop.parse do |options|
+    options.banner = "Usage: inspect_run.rb [options]"
+
+    options.string "-r", "--run-id", "Run ID", required: true
+    options.integer "-a", "--run-attempt", "Run Attempt", default: 1
+    options.bool "-f", "--fetch-artifacts", "Fetch artifacts from S3", default: false
+    options.bool "-p", "--fetch-reports", "Fetch reports from S3", default: false
+    options.bool "-t", "--display-table", "Display table", default: false
+    options.bool "-l", "--display-logs", "Display logs", default: false
+
+    options.on "-h", "--help" do
+      puts options
+      exit
+    end
+  end
+
+  test_run = TestRun.new(opts[:run_id], opts[:run_attempt])
+  test_run.spec_artifacts.fetch! if opts[:fetch_artifacts]
+  test_run.spec_reports.fetch! if opts[:fetch_reports]
+
+  puts test_run.spec_reports.to_table if opts[:display_table]
+  puts test_run.spec_reports.to_logs if opts[:display_logs]
+rescue Slop::Error => error
+  puts error
+end

@@ -1,4 +1,5 @@
 require "spec_reports_toolbox/test_run/spec_reports"
+require "spec_reports_toolbox/test_run/spec_artifacts"
 
 class TestRun
   attr_reader :run_id, :run_attempt
@@ -10,5 +11,9 @@ class TestRun
 
   def spec_reports
     @spec_reports = TestRun::SpecReports.new(self)
+  end
+
+  def spec_artifacts
+    @spec_artifacts ||= TestRun::SpecArtifacts.new(self)
   end
 end

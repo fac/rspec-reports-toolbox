@@ -18,4 +18,10 @@ RSpec.describe TestRun do
       expect(test_run.spec_reports).to be_kind_of TestRun::SpecReports
     end
   end
+
+  describe "#spec_artifacts" do
+    it "creates a spec artifacts instance" do
+      expect(test_run.spec_artifacts).to be_kind_of TestRun::SpecArtifacts
+    end
+  end
 end

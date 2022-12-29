@@ -1,0 +1,1511 @@
+I, [2022-12-15T09:58:57.225506 #245]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual 'it's. Thanks to that a single slow test file can be split across parallel CI nodes). Analyzing 7 slow test files.
+2022-12-15T09:59:13.031Z pid=324 tid=9nc INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+DocumentsController
+  for permission_level < 4 users
+    GET on #index
+      should be unauthorized
+  given a few shared and personal files
+    for permission_level 4-6 users
+      GET on #index
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+        should return only shared files
+      PUT on #update
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+Found unpermitted params: kind
+        should not be able to update the privacy level
+    for permission_level 7-8 users
+      GET on #index
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+        should return company shared files and their own private files
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+        should not return other users' private files
+      PUT on #update
+        when the document belongs to the logged in user
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+          can change the privacy level from shared to personal
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+          can change the privacy level from personal to shared
+        when the document does not belong to the logged in user
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+Found unpermitted params: kind
+          can not change the privacy level from shared to personal
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+ActiveRecord::RecordNotFound (Couldn't find Document with 'id'=60 [WHERE `documents`.`company_id` = ? AND (`documents`.`kind` = ? OR `documents`.`kind` = ? AND `documents`.`user_id` = ?)])
+          can not change the privacy level from personal to shared
+    for an account manager
+      PUT on #update
+        when the document belongs to the logged in account manager
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+Found unpermitted params: kind
+          can not change the privacy level from shared to personal
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+Found unpermitted params: kind
+          can not change the privacy level from personal to shared
+        when the document does not belong to the logged in account manager
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+Found unpermitted params: kind
+          can not change the privacy level from shared to personal
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+Found unpermitted params: kind
+          can not change the privacy level from personal to shared
+      POST on #create
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+Found unpermitted params: kind
+        can create a document, but ignores the privacy/kind if specified
+  signed in super-user
+Error for #<Document id: 97, company_id: 895397833, created_at: "2022-12-13 09:59:35.000000000 +0000", updated_at: "2022-12-15 09:59:36.000000000 +0000", user_id: nil, kind: "shared", upload_source: "unknown", text_extraction_enabled: false, suggested_bank_account_entry_id: nil> - missing attachment
+    GET on #index
+    POST on #create
+    AJAX POST on #create
+    AJAX POST on #create with unicode filename
+    AJAX POST on #create with emoji filename
+Found unpermitted params: attachment
+    POST on #create without a file
+    GET on #show
+    GET on #edit
+    PUT on #update
+    PUT on #update with emoji in filename
+    PUT on #update with invalid parameters
+    DELETE on #destroy
+    on successful create
+      emits a FILE_UPLOADED event
+  signed in user on an expired trial
+    allows GET on #index
+    allows GET on #show
+    redirects POST on #create to new payment path
+    redirects GET on #edit to new payment path
+    redirects PUT on #update to new payment path
+    redirects DELETE on #destroy to new payment path
+  signed in user on a suspended company
+    allows GET on #index
+    allows GET on #show
+    redirects POST on #create to expired payments path
+    redirects GET on #edit to expired payments path
+    redirects PUT on #update to expired payments path
+    redirects DELETE on #destroy to expired payments path
+
+Accounting::CorporationTax::SubmissionPayload
+  with a single tax year
+    #render
+      ct600 version 1
+        returns the expected XML
+        when the computations are cached
+          returns the same XML
+        when the return is amended
+          returns the expected XML
+      ct600 version 3
+        returns the expected XML
+        when the computations are cached
+          returns the same XML
+        when the return is amended
+          returns the expected XML
+      ct600 version 3 with ct600a
+        returns the expected XML
+        when the loans_outstanding_for_all_periods is nil
+          doesn't raise an error
+        when the computations are cached
+          returns the same XML
+      ct600 version 4
+        returns the expected XML
+        when the computations are cached
+          returns the same XML
+        when the return is amended
+          returns the expected XML
+      ct600 version 4 with ct600a
+        returns the expected XML
+        when the loans_outstanding_for_all_periods is nil
+          doesn't raise an error
+        when the computations are cached
+          returns the same XML
+  with two tax years
+    #render
+      ct600 version 1
+        returns the expected XML
+        when the computations are cached
+          returns the same XML
+        when the return is amended
+          returns the expected XML
+      ct600 version 3
+        returns the expected XML
+        when the computations are cached
+          returns the same XML
+        when the return is amended
+          returns the expected XML
+      ct600 version 3 with ct600a
+        returns the expected XML
+        when the loans_outstanding_for_all_periods is nil
+          doesn't raise an error
+        when the computations are cached
+          returns the same XML
+      ct600 version 4
+        returns the expected XML
+        when the computations are cached
+          returns the same XML
+        when the return is amended
+          returns the expected XML
+      ct600 version 4 with ct600a
+        returns the expected XML
+        when the loans_outstanding_for_all_periods is nil
+          doesn't raise an error
+        when the computations are cached
+          returns the same XML
+
+PayrollOverview
+  With a user and a payroll profile
+    With an employee to be migrated
+      manually
+Capybara starting Puma...
+* Version 6.0.0 , codename: Sunflower
+* Min threads: 0, max threads: 4
+* Listening on http://0.0.0.0:9895
+        transfers their profile
+      automatically
+[ActiveJob] [EmailMark…] [5e5e3563-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 5e5e3563-8794-4350-80f2-86f0fd6c19c7) from staged jobs, not found
+[ActiveJob] [Payroll::…] [072701f2-…] Failed to delete Payroll::AutoMigrationJob (Job ID: 072701f2-5d03-46d6-b686-2ea8ee9ba811) from staged jobs, not found
+        transfers their profile
+        missing economic activity settings
+          cannot transfer their profile
+    With all payroll profiles setup
+[ActiveJob] [Payroll::…] [e8ecd870-…] Failed to delete Payroll::PeriodPreparationJob (Job ID: e8ecd870-a54c-475e-9b43-043aaeed235b) from staged jobs, not found
+      runs payroll (FAILED - 1)
+  [0;33mHTML screenshot: /var/freeagent/log/capybara/screenshot_payrolloverview-with-a-user-and-a-payroll-profile-with-all-payroll-profiles-setup-runs-payroll_2022-12-15-10-00-36.728.html[0m
+  [0;33mImage screenshot: /var/freeagent/log/capybara/screenshot_payrolloverview-with-a-user-and-a-payroll-profile-with-all-payroll-profiles-setup-runs-payroll_2022-12-15-10-00-36.728.png[0m
+[ActiveJob] [Payroll::…] [25a38f50-…] Failed to delete Payroll::PeriodPreparationJob (Job ID: 25a38f50-4b72-44c4-a853-41d6fbc965c3) from staged jobs, not found
+      runs payroll using the link in the message
+    With payslips generated for an unfiled period
+[ActiveJob] [Payroll::…] [51fd13ac-…] Failed to delete Payroll::PeriodPreparationJob (Job ID: 51fd13ac-a217-45b1-8820-5dbc08e903e7) from staged jobs, not found
+      updates payslip details if a profile changes
+    Viewing legacy tax years
+      redirects to the payslips view
+  Setting up a payroll profile within the first year at FreeAgent
+[8] [76] Found unpermitted params: selected_user_id, payroll_profile, paid_this_year, commit
+[8] [76] Found unpermitted params: selected_user_id, payroll_profile, paid_this_year, commit
+    doesn't default to Month 1 when the first valid payroll month is deleted
+
+I, [2022-12-15T10:00:48.012970 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:00:48.013050 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/controllers/documents_controller_spec.rb" "spec/models/accounting/corporation_tax/submission_payload_spec.rb" "spec/features/payroll/payroll_overview_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+billing_profiles/_invoice_preview
+  when the company has an introductory offer
+    when only the core service is due
+      shows the introductory offer fineprint
+      doesn't show the discounts fineprint
+      doesn't show the pro-rata fineprint
+    when only addon pro-rata payments are due
+      doesn't show the introductory offer fineprint
+      doesn't show the discounts fineprint
+      shows the pro-rata fineprint
+    when the core service and addon pro-rata payments are due
+      shows the introductory offer fineprint
+      doesn't show the discounts fineprint
+      shows the pro-rata fineprint
+  when the company qualifies for a discount
+    when only the core service is due
+      doesn't show the introductory offer fineprint
+      shows the discounts fineprint
+      doesn't show the pro-rata fineprint
+    when only addon pro-rata payments are due
+      doesn't show the introductory offer fineprint
+      doesn't show the discounts fineprint
+      shows the pro-rata fineprint
+    when the core service and addon pro-rata payments are due
+      doesn't show the introductory offer fineprint
+      shows the discounts fineprint
+      shows the pro-rata fineprint
+  when the company has an introductory offer and qualifies for a discount
+    when only the core service is due
+      shows the introductory offer fineprint
+      doesn't show the discounts fineprint
+      doesn't show the pro-rata fineprint
+    when only addon pro-rata payments are due
+      doesn't show the introductory offer fineprint
+      doesn't show the discounts fineprint
+      shows the pro-rata fineprint
+    when the core service and addon pro-rata payments are due
+      shows the introductory offer fineprint
+      doesn't show the discounts fineprint
+      shows the pro-rata fineprint
+  when the company has no discounts
+    when only the core service is due
+      doesn't show the introductory offer fineprint
+      doesn't show the discounts fineprint
+      doesn't show the pro-rata fineprint
+    when only addon pro-rata payments are due
+      doesn't show the introductory offer fineprint
+      doesn't show the discounts fineprint
+      shows the pro-rata fineprint
+    when the core service and addon pro-rata payments are due
+      doesn't show the introductory offer fineprint
+      doesn't show the discounts fineprint
+      shows the pro-rata fineprint
+
+AccountingCategories::AdminExpensesCategoriesController
+  GET index
+  While logged in as a regular user
+    getting index
+    getting new
+    validly posting to create
+    invalidly posting to create
+    POST to create with an invalid code
+    validly posting to create and adding another
+    posting as out of scope of VAT
+    universal company posting to create without a default sales tax rate
+    GET index when the company has no admin_expenses categories
+    where the company has admin_expenses categories
+      get index
+      GET edit
+      PUT to update
+      invalidly putting to update
+      PUT update with an invalid code
+      DELETE
+      DELETE with an invalid id
+
+RBSGSubscription
+  scopes
+    with a range of subscriptions
+      can return subscriptions active after month zero
+      can return subscriptions with no recent activity
+      billable
+        is not billable after cancellation
+      non-billable
+        is still non-billable after cancellation
+  state machine
+    initial state
+      with the provisioned_subscription_status feature enabled
+        for a company with a rbs_frontbook_provisioned signup
+          is expected to have attributes {:billable => false, :status => "Provisioned"}
+        for a company with a backbook_provisioned signup
+          is expected to have attributes {:billable => false, :status => "Provisioned"}
+        for a company with a mettle_smart_provisioned signup
+          is expected to have attributes {:billable => false, :status => "Provisioned"}
+        for a company with a rbs_agent_signup signup
+          is expected to have attributes {:billable => false, :status => "Provisioned"}
+      with the provisioned_subscription_status feature disabled
+        for a company with a rbs_frontbook_provisioned signup
+          is expected to have attributes {:billable => false, :status => "Subscribed"}
+        for a company with a backbook_provisioned signup
+          is expected to have attributes {:billable => false, :status => "Subscribed"}
+        for a company with a mettle_smart_provisioned signup
+          is expected to have attributes {:billable => false, :status => "Subscribed"}
+        for a company with a rbs_agent_signup signup
+          is expected to have attributes {:billable => false, :status => "Subscribed"}
+      for a company with a self serve signup
+        is expected to have attributes {:billable => false, :status => "Subscribed"}
+      for a company without an rbsg_profile
+        is expected to have attributes {:billable => false, :status => "Subscribed"}
+      without an associated company
+        is expected to have attributes {:billable => false, :status => "Subscribed"}
+    transitions
+      #cancel!
+        marks the subscription as non-billable
+        revokes access
+        cancels outgoing and disables bank feeds
+        sets cancelled_at when a time is given
+      #subscribe!
+        when access level is nil
+          gives the subscription full access
+        when there is no user activity in the last 90 days
+          marks the subscription as non-billable
+        when there is user activity in the last 90 days, after month 0
+          marks the subscription as billable
+        when there is user activity in the last 90 days, only in month 0
+          marks the subscription as non-billable
+  #is_direct?
+    is expected to equal false
+  #expired_free_trial?
+    is expected to equal false
+  #can_show_cancellation_instructions?
+    is expected to equal true
+  #can_be_cancelled_by_customer?
+    is expected to equal true
+  #active_billing_cycle?
+    subscribed
+      is expected to equal false
+      with billable addons
+        is expected to equal true
+    cancelled
+      is expected to equal false
+      with billable addons
+        is expected to equal false
+  #core_service_billing_active?
+    is expected to equal false
+
+OverviewController when displaying the bills panel
+  when the company has no bills
+    allow the user to create a new bill
+  when the company has no open or overdue bills
+    tells the user they have no open bills
+  when the company has open bills
+    orders the bills by the date and displays total amount outstanding
+  when paginating the list of bills
+    with multiple pages of bills
+      loads the first three pages of bills initially (five per page)
+      loads the fourth page of bills when requested
+
+I, [2022-12-15T10:01:09.807310 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:09.807379 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/views/billing_profiles/_invoice_preview.html.erb_spec.rb" "spec/controllers/accounting_categories/admin_expenses_categories_controller_spec.rb" "spec/models/rbsg_subscription_spec.rb" "spec/controllers/overview_controller_bills_panel_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Radar::Insights::OvernightInsightGenerator
+  #evaluate_rules
+    when all rules are enabled
+      calls #evaluate_for_relevant_companies on all overnight rules
+      but there exists a rule with a disabled feature flag
+        only calls #evaluate_for_relevant_companies on enabled rules
+  #evaluate_for_relevant_companies
+    when .companies_for_evaluation returns an `ActiveRecord::Relation`
+      schedules RuleEvaluationBatchJobs for all companies
+      starts each batch 6 seconds after the previous one
+    testing the insights generated
+      when there is not yet an insight for that company
+        if the company is in companies_for_evaluation
+          and applies? returns true
+[ActiveJob] [EmailMark…] [af30b9cb-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: af30b9cb-abe6-48b1-839d-471344d74721) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [1098c8a9-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 1098c8a9-adec-4232-84b0-88ad4b83a805) from staged jobs, not found
+            creates a new insight
+[ActiveJob] [EmailMark…] [ec29da64-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: ec29da64-da92-4c50-8698-12ad0003959a) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [b9da3c2c-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: b9da3c2c-c3a0-4a98-9607-e8ce68a89cd2) from staged jobs, not found
+            creates new user insight notifications
+          and applies? returns false
+[ActiveJob] [EmailMark…] [895e1e8d-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 895e1e8d-97d1-458d-a7c9-de47e7e7dbaa) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [bd48dc9c-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: bd48dc9c-0fef-4723-a444-12e713d33d45) from staged jobs, not found
+            does not create a new insight
+[ActiveJob] [EmailMark…] [2e979ed9-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 2e979ed9-30cf-4b07-8fda-e80f23ab046a) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [82b2bc73-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 82b2bc73-f570-446a-affc-bc1bf6a3a8df) from staged jobs, not found
+            does not create new user insight notifications
+        if the company is not in companies_for_evaluation
+[ActiveJob] [EmailMark…] [3e53f6de-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 3e53f6de-76d9-44d2-b37d-b1b89abff6f4) from staged jobs, not found
+          does not create a new insight
+[ActiveJob] [EmailMark…] [61e0cf69-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 61e0cf69-6687-44d4-8ff2-406e9d09d8e4) from staged jobs, not found
+          does not create new user insight notifications
+        if the company is not in companies_for_evaluation
+[ActiveJob] [EmailMark…] [e33ebb37-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: e33ebb37-09a6-4690-b775-df30e60f7c62) from staged jobs, not found
+          does not create a new insight
+[ActiveJob] [EmailMark…] [f3eb093e-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: f3eb093e-4d0c-43f3-bac5-aab44cc2740a) from staged jobs, not found
+          does not create new user insight notifications
+      when there is a already an insight for that company
+        if the company is still in companies_for_evaluation
+          and applies? still returns true
+[ActiveJob] [EmailMark…] [abb1ba9a-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: abb1ba9a-1ba8-44c7-b651-9f809a9b885d) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [e6066094-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: e6066094-a705-46cc-982a-93246714ca6e) from staged jobs, not found
+            sets rule_applies to true on the insight
+[ActiveJob] [EmailMark…] [1bee1c07-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 1bee1c07-2412-42d3-a19d-e6b20d541e32) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [17167c1e-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 17167c1e-c9a9-459f-ba44-55c401d9ed20) from staged jobs, not found
+            does not create a new insight
+[ActiveJob] [EmailMark…] [8fc06c98-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 8fc06c98-e210-4aa3-a07b-c26161862768) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [0d3e74be-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 0d3e74be-cc6b-4c36-a50d-96c299751c3a) from staged jobs, not found
+            does not create new user insight notifications
+          but applies? now returns false
+[ActiveJob] [EmailMark…] [ad6c9a1e-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: ad6c9a1e-bed9-478a-a8b4-46c2cc267a9a) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [f921579f-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: f921579f-65d0-438b-b9af-ea10d6ff59d6) from staged jobs, not found
+            sets rule_applies to false on the insight
+[ActiveJob] [EmailMark…] [992ebe92-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 992ebe92-d595-47f2-953d-9a28f6d962dc) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [ae2151c9-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: ae2151c9-b174-4e7c-be5a-76d1dc2dd2ad) from staged jobs, not found
+            does not create a new insight
+[ActiveJob] [EmailMark…] [8941e17c-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 8941e17c-b5cd-468d-879a-993704a2b548) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [00f8e6f4-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 00f8e6f4-1397-45aa-bfe2-a1ad8daf2a46) from staged jobs, not found
+            does not create new user insight notifications
+          but the company is no longer in companies_for_evaluation
+[ActiveJob] [EmailMark…] [46ad7ecf-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 46ad7ecf-581d-4a1b-bdb0-c81a4bd0c2e3) from staged jobs, not found
+            does not change rule_applies on the insight
+[ActiveJob] [EmailMark…] [67f5f6eb-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 67f5f6eb-840b-496e-b417-bc4ea4ba3ae7) from staged jobs, not found
+            does not create a new insight
+[ActiveJob] [EmailMark…] [5f805e84-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 5f805e84-79f8-4812-a9e4-5066a3a78c0e) from staged jobs, not found
+            does not create new user insight notifications
+        but the company is no longer in companies_for_evaluation
+[ActiveJob] [EmailMark…] [0ae819e7-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 0ae819e7-268d-4810-98fe-cf1ecf17b584) from staged jobs, not found
+          does not change rule_applies on the insight
+[ActiveJob] [EmailMark…] [d05f4e9a-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: d05f4e9a-49d7-46da-9210-0ac3e4ed31ee) from staged jobs, not found
+          does not create a new insight
+[ActiveJob] [EmailMark…] [52d9acdb-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 52d9acdb-c895-49c7-ac7f-ad79ef75a336) from staged jobs, not found
+          does not create new user insight notifications
+
+Cashflow::BillPayments
+  #payments_on
+    includes payments from open bills and bill credit notes
+    ignores payments from paid bills
+    includes payments from partially paid bills
+    ignores payments from foreign currency bills
+    ignores payments from bills due after the cutoff
+    includes payments from open bills due before today
+    includes payments from partially paid bills due before today
+    does not include payments from paid bills due before today
+    includes payments from bills due on the cutoff
+
+Cashflow::Report::PDF
+  #title
+    returns the title
+  #subtitle
+    returns the subtitle
+  #columns
+    returns the column names in an array
+  #data_rows
+    returns rows to render
+
+SupportEngineering::SamlTransfer
+  Transferring a resold account over to a free trial FreeAgent account
+    should successfully transfer the accounts
+Unable to cancel gocardless mandates for company: 895398401 (Oauth not enabled)
+    should cancel the resold account if requested
+    should transform to read only if requested
+  Transferring a resold account over to an expired free trial FreeAgent account
+    should transform to read only if requested
+  when transfering a resold account over to a subscribed FreeAgent account
+Unable to cancel gocardless mandates for company: 895398407 (Oauth not enabled)
+    should successfully transfer and cancel the subscription
+Unable to cancel gocardless mandates for company: 895398409 (Oauth not enabled)
+    should cancel the resold account if requested
+    should transform to read only if requested
+  when transfering a resold account over to a FreeAgent account with an existing reseller
+    should not successfully transfer
+    should not disable the resold account
+    should not make the resold account read only
+  when transfering a resold account over to a FreeAgent account with a Yodlee feed
+    should explain the problem
+
+CompanyReactivation
+  A free trial, cancelled company
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+    should reactivate
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+    should persist the subscription status as LIVE_FREE_TRIAL
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+    should extend the free trial by two weeks
+    with a cancelled billing profile
+Unable to cancel gocardless mandates for company: 895398424 (Oauth not enabled)
+      reactivates the account
+  A subscribed, cancelled company
+Unable to cancel gocardless mandates for company: 895398425 (Oauth not enabled)
+    should reactivate
+Unable to cancel gocardless mandates for company: 895398426 (Oauth not enabled)
+    should log the reactivation
+Unable to cancel gocardless mandates for company: 895398427 (Oauth not enabled)
+    should persist the subscription status as SUBSCRIBED
+Unable to cancel gocardless mandates for company: 895398428 (Oauth not enabled)
+    should clear the cancellation time on subscription
+Unable to cancel gocardless mandates for company: 895398429 (Oauth not enabled)
+    should reactivate the billing profile
+Unable to cancel gocardless mandates for company: 895398430 (Oauth not enabled)
+    should give the customer 7 days of access to their account
+    with a stripe billing profile
+Unable to cancel gocardless mandates for company: 895398431 (Oauth not enabled)
+      reactivates the billing profile
+    where something might explode during reactivation
+Unable to cancel gocardless mandates for company: 895398432 (Oauth not enabled)
+      should not commit changes
+Unable to cancel gocardless mandates for company: 895398433 (Oauth not enabled)
+      should retain the initial status
+Unable to cancel gocardless mandates for company: 895398434 (Oauth not enabled)
+      should not clear the cancellation time on subscription
+  A direct suspended company
+    extends the next_payment_date
+    reactivates the billing profile
+    changes the subscription status to subscribed
+  A free company with a billing profile
+    should give the customer at least 7 days access to their account
+    should reactivate the billing profile
+    should not change a next_payment_date more than 7 days in the future
+    that had previously made an annual payment
+      does not bring forward the next payment date
+    with active addon billing
+      reactivates core service billing, aligned with addon payments
+      that had previously made an annual payment
+        does not bring forward the next payment date
+  A free company without valid payment details
+    should be put on a free trial and log out that it is in this state
+  A company that was free by referrals but without valid payment details
+    with an invalid payment profile
+      should be reactivated with a next payment date of 7 days from now
+    without a payment profile
+      should find or create payment profile before reactivating billing with next payment date in 7 days
+  A resold company that has been cancelled
+    should be active after reactivation
+    should remain resold after reactivation
+
+I, [2022-12-15T10:01:26.630677 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:26.630768 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/freeagent/radar/insights/overnight_insight_generator_spec.rb" "spec/freeagent/cashflow/bill_payments_spec.rb" "spec/freeagent/cashflow/report/pdf_spec.rb" "spec/models/support_engineering/saml_transfer_spec.rb" "spec/models/lifecycle/company_reactivation_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+CompanySeeder::DeleteAllDataSeeder
+  #seed
+    does not delete data when preserve_data config is true
+    does delete data when preserve_data config is false
+    does delete data when preserve_data config is missing
+    for a UK unincorporated landlord company
+Unable to cancel gocardless mandates for company: 895398449 (Oauth not enabled)
+      gets rid of any global owners and ownerships
+
+PracticeClient::Message
+  is expected to validate that :message_thread cannot be empty/falsy
+  is expected to validate that :body cannot be empty/falsy
+  #author
+    when the author belongs to the thread
+      is expected to be valid
+    when the author does not belong to the thread
+#<RuntimeError: User with id 975572884 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected not to be valid
+    when the author is blank
+      is expected not to be valid
+  #increment_unread_messages
+    increments the unread_messages count for subscribers to the thread
+    does not increment the unread_messages count for the author's subscription
+  #author_full_name
+    returns the author first and last name
+  #author_business_name
+    when the author of a message is a user
+      returns the user's company name
+    when the author of a message is an account manager
+      returns the account manager's practice name
+  #mark_as_deleted!
+    for a message with a body
+#<RuntimeError: User with id 975572885 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      destroys the body
+    for a message without a body
+#<RuntimeError: User with id 975572886 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      does not change the body
+  #can_be_deleted_by?
+    for a message with a body
+      given the message author
+#<RuntimeError: User with id 975572887 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        is expected to equal true
+      given another user
+#<RuntimeError: User with id 975572888 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+#<RuntimeError: User with id 975572889 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        is expected to equal false
+    for a message without a body
+      given the message author
+#<RuntimeError: User with id 975572890 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        is expected to equal false
+      given another user
+#<RuntimeError: User with id 975572891 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+#<RuntimeError: User with id 975572892 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        is expected to equal false
+  #notify_subscribers
+    when the author of the message is a user
+      emails the account manager subscribers
+    when the author of the message is an account manager
+      emails the account manager subscribers
+  #save_author_name
+    when the author is a user
+      saves the author first and last name correctly
+    when the author is an account manager
+      saves the author first and last name correctly
+
+EmailJob
+  An email
+Email already marked as failed. Email not sent.
+    is not sent when marked as failed
+No valid recipients for Email 109201. Email not sent.
+    is not sent without recipients and transitions it to a 'failed' state
+Delivery already attempted for Email 109201. Email already delivered.
+    is not sent when not marked as sending
+Email #109201 body would be blank. Email not sent.
+    is not sent and marked as failed when email body is blank
+    is sent if it has recipients and is marked as sending
+    is sent even if PDF generation has previously failed
+  when the email fails to send
+    logs the failure and re-raises
+  PDF generation failures
+    retries sending the email if it is not the last attempt
+    on the last attempt
+PDF failed to generate Invoice: 13.
+      sets the delivery attempts status of all emails to pdf_failed
+      for a supported emailable class
+PDF failed to generate Invoice: 14.
+        sends a notification email to the customer by triggering a PDFGenerationFailedMailer
+      for an unsupported emailable class
+PDF failed to generate RecurringInvoiceProfile: 5.
+        does not send a notification email
+  when sending the email times out
+    if it is not the last attempt
+      logs a warning and raises FailAndRetry
+    on the last attempt
+      logs a warning and re-raises
+  when EOFError is raised during the request
+    if it is not the last attempt
+      logs a warning and raises FailAndRetry
+    on the last attempt
+      logs a warning and re-raises
+  A job for a non-existent email
+Email not found:-1. Email not sent.
+    does not send an email
+Email not found:-1. Email not sent.
+    does not throw an exception
+
+corporation_tax_returns/show
+  when the return is not filed
+    does not display the submission receipts section
+  when the return is filed
+    displays the submission receipts section
+  navigation links
+    has links to the different parts of the return
+    with CT600A not included
+      does not have link to the CT600A
+    with CT600A included
+      has a link to the CT600A
+    with legacy computations
+      doesn't have a link to the different parts of the return
+
+Cashflow::Components::Actions::ApproveBankingExplanationsComponent
+  when there are marked_for_approval transactions
+    on a single bank account (second bank account)
+      #title
+        returns a link with the title
+      #description
+        returns the description text
+    across multiple bank accounts
+      #title
+        returns a link with the title
+      #description
+        returns the description text
+
+I, [2022-12-15T10:01:33.762994 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:33.763060 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/tools/company_seeder/delete_all_data_seeder_spec.rb" "spec/models/practice_client/message_spec.rb" "spec/jobs/email_job_spec.rb" "spec/views/corporation_tax_returns/show.html.erb_spec.rb" "spec/freeagent/cashflow/components/actions/approve_banking_explanations_component_spec.rb"
+Run options:
+  include {:ids=>{"./spec/controllers/invoices_controller_spec.rb"=>["2:3:1"], "./spec/models/uk_accounts_mapper_spec.rb"=>["1:3:1:2:4:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+BankFeeds::BankTransactionSet
+  #importable
+    should only select transactions on or after start date
+    should not select duplicates
+    should not select duplicates when existing transaction was blocked from reimport
+    should not select transactions that occur on date with uploaded transactions
+    should select transactions that occur on date with previous feed-imported transactions
+    should select transactions that occur on date with only manual transactions
+    should work fine if there are no transactions
+
+Accounting::FinalAccounts::CompaniesHouse::SubmissionMocker
+  without the :companies_house_mock_response feature
+    is expected to equal false
+  with the :companies_house_mock_response feature
+    creates a new submission
+    injects the company number
+    when given an unmockable status
+      is expected to equal false
+    when given the status 'Pending'
+      mocks a pending response
+    when given the status 'Filed'
+      mocks a filed response
+    when given the status 'Rejected'
+      mocks a rejected response
+    when given the status 'Status check failed'
+      mocks a status check failed response
+    when given the status 'Bad XML'
+Error processing status response for Companies House submission  (FFFFFF)
+#<Accounting::FinalAccounts::CompaniesHouse::MissingStatusError: Accounting::FinalAccounts::CompaniesHouse::MissingStatusError>
+app/models/accounting/final_accounts/companies_house/submission_status_parser.rb:45:in `status_node'
+app/models/accounting/final_accounts/companies_house/submission_status_parser.rb:16:in `status'
+app/models/accounting/final_accounts/companies_house/submission.rb:116:in `parsed_status'
+app/models/accounting/final_accounts/companies_house/submission_mocker.rb:55:in `mock_submission'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      mocks a bad response
+
+InvoicesController GET :index sort
+  sort by reference
+    in forward order
+
+UkAccountsMapper
+  Accounts Mapper for UK companies who are VAT registered
+    on the cash accounting basis
+      on the Flat Rate Scheme (at 5%)
+        Bills
+Scoped order is ignored, it's forced to be batch order.
+          representing cost of sales
+
+I, [2022-12-15T10:01:37.507650 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:37.507708 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/models/bank_feeds/bank_transaction_set_spec.rb" "spec/models/accounting/final_accounts/companies_house/submission_mocker_spec.rb" "spec/controllers/invoices_controller_spec.rb[2:3:1]" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:2:4:1]"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:99:1"], "./spec/controllers/invoices_controller_spec.rb"=>["2:9:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Invoice
+  raising credit notes
+    is not possible for a draft invoice
+
+InvoicesController GET :index sort
+  for a landlord account
+    is sortable for property_address field
+
+PaypalPermissionChecksController
+  inits
+    when PaypalPoll already exists with values
+      is resets the checks with blank values
+    when no PaypalPoll already exists
+      when email address is empty
+        doesn't create a PaypalPoll
+      when provided email address isn't a sender email address
+        creates a PaypalPoll
+        is initiated with blank values
+      when email address is an unverified sender email address
+        creates a PaypalPoll
+        is initiated with blank values
+      when email address is a verified sender email address
+        creates a PaypalPoll
+        is initiated with blank values
+      when email address is a verified sender email address with a plus symbol
+        creates a PaypalPoll
+        is initiated with blank values
+  checks
+    when email address is a verified sender email address
+      finds the correct PaypalPoll
+    when email address is a verified sender email address with a plus symbol
+      finds the correct PaypalPoll
+
+Tyl::Requests::LinkStatus
+  behaves like an API request to a Tyl Pay-By-Link endpoint
+    #url
+      when communicating with the MVP API
+        includes the customer id
+      when communicating with the v2 API
+        includes the customer id
+  #request_method
+    is expected to eq :get
+  #params
+    when communicating with the MVP API
+      is expected to eq {:createdDate=>"2022/06/01", :orderId=>"gefvxcjfqmnslxlamrkd"}
+    when communicating with the v2 API
+      is expected to eq {:orderId=>"fgdzifpuxiwzqvkzvzhe"}
+
+I, [2022-12-15T10:01:39.860014 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:39.860101 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/models/invoice_spec.rb[1:99:1]" "spec/controllers/invoices_controller_spec.rb[2:9:1]" "spec/controllers/paypal_permission_checks_controller_spec.rb" "spec/integrations/tyl/requests/link_status_spec.rb"
+Run options:
+  include {:ids=>{"./spec/controllers/invoices_controller_spec.rb"=>["8:3:1:1", "4:2:1", "29:1:2"], "./spec/models/invoice_spec.rb"=>["1:56:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+InvoicesController GET :show for uk company
+  with a customised theme
+    contains customisation stylings
+
+InvoicesController GET :show with a newly created invoice
+  with a custom theme
+    with theme_customisation_circuit_breaker working
+      sets @theme to the custom theme
+
+InvoicesController Multiple projects on invoice
+  Multiple projects on invoice
+    shows company country if client country is different
+
+Invoice
+  An over-refunded credit note
+    is marked as fully paid
+
+SelfAssessmentReminder insight
+  with a UK Limited company
+[ActiveJob] [EmailMark…] [feab4422-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: feab4422-a55e-4d0a-9707-c85a2ccc6aa1) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [66da31c9-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 66da31c9-fb8f-4c27-94ce-32a4eef8143c) from staged jobs, not found
+    renders a SelfAssessmentReminder insight
+
+Paid VAT Invoice
+  VAT due
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, not FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due at 11.5% FRS rate
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due at 11.5% FRS rate
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, FRS, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due at 11.5% FRS rate
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, FRS, then Cash basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due at 11.5% FRS rate
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Invoice basis, FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate deferred until switching to the invoice basis
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate deferred until switching to the invoice basis
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, not FRS, then Cash basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate deferred until payment
+    Given a uk sole trader -> And an invoice: paid, with VAT -> Given VAT settings: Cash basis, FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+I, [2022-12-15T10:01:43.129554 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:43.129638 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/controllers/invoices_controller_spec.rb[8:3:1:1]" "spec/models/invoice_spec.rb[1:56:1]" "spec/controllers/invoices_controller_spec.rb[4:2:1]" "spec/requests/radar/insights/self_assessment_reminder_spec.rb" "spec/accounting_and_sales_tax/uk_vat/invoices/vat_paid.feature" "spec/controllers/invoices_controller_spec.rb[29:1:2]"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:118:1:1", "1:103:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+BankServiceSearch
+  returns results
+  when the request times out
+    logs a warning message
+  when the query fails
+    logs a warning message
+  when some other network error occurs
+    notifies the error service
+
+Invoice
+  #auditable_name
+    combines Invoice and the reference together
+  #full_reference
+    when in a non-English locale
+      returns a localised full_reference
+
+accounting/year_ends/checks/_year_not_complete
+  renders the same text as the check's message
+
+EmailMarketing::CompanyUpdateSyncJob
+  #perform
+    syncs the company to Salesforce
+    when a company event sync error is raised
+      retries the job
+
+AppStoreBilling::Apple::AppStoreResult
+  thorws error for an empty receipt
+  throws error if latest purchase info can't be found
+  throws error if renewal info can't be found
+  with valid receipt and purchase identifiers
+    is expected to eq "apple"
+    is expected to eq "com.freeagent"
+    is expected to eq "LATEST_RECEIPT_DATA"
+    is expected to eq "UK_LIMITED_YEARLY"
+    is expected to eq Mon, 09 Oct 2017
+    is expected to eq Mon, 09 Oct 2017
+    is expected to eq true
+    is expected to eq "UK_LIMITED_YEARLY"
+    is expected to eq "production"
+    sets `auto_renews` to value of `is_in_billing_retry_period` if present in receipt
+    #matches_app_store_event?
+      returns false if receipt has non-successful status
+      returns false if platform is not 'apple'
+      returns false if event bundle identifier is different than the one in receipt
+      returns true if app store event details match receipt
+
+CompaniesHouse::ApiResponse
+  #company_name
+    for a limited company
+      finds the company name
+    for a limited liability partnership
+      finds the company name
+  #company_type
+    for a Limited company
+      returns a UkLimitedCompany
+    for a limited liability partnership
+      returns a UkLimitedLiabilityPartnership
+    for a Scottish partnership
+      returns a UkLimitedCompany
+    for an unknown company type
+      returns a UniversalCompany
+  #company_status_is_active?
+    for FreeAgent
+      returns true
+    for a dissolved company
+      returns false
+  #registration_number
+    for FreeAgent
+      returns the company registration number
+  #company_start_date
+    for FreeAgent
+      returns the company's start date
+  #first_accounting_year_end_date
+    for FreeAgent
+      calculates the accounting end date correctly
+    for a limited company
+      calculates the accounting end date correctly
+    for a limited liability partnership
+      calculates the accounting end date correctly
+  #freeagent_start_date
+    for FreeAgent
+      calculates the FreeAgent start date correctly
+    for a company registered this year
+      calculates the FreeAgent start date correctly
+    for a future accounting end date
+      calculates the FreeAgent start date correctly
+  #company_formatted_address
+    for FreeAgent
+      formats the address properly
+    for a company with a building name premises in their address
+      uses the premises for address line 1
+    for a company with a building number premises in their address
+      uses the premises for address line 1
+
+EmailValidation
+  blocked email address
+    when the email address contains any of the blocked tokens
+      is expected to be invalid
+    when the email address domain is in the banned emails file
+      is expected to be invalid
+    when the email address is acceptable
+      is expected to be valid
+  debounce's response to the email
+    when the email address is invalid
+      when the allow_invalid_user feature is off
+        is expected to be invalid
+      when the allow_invalid_user feature is on
+        is expected to be valid
+    when rejected for an unacceptable, non-listed reason
+      is expected to be invalid
+    when the email address is not rejected
+      is expected to be valid
+    when the response is nil
+      is expected to be valid
+  #block_reasons
+    with a blocked email
+      is expected to eql "the email address is disallowed"
+    with a rejected debounce code
+      is expected to eql "the email address has been flagged as not safe to send to"
+    with both a blocked email and a rejected debounce code
+      contains all error messages
+    with no reason to be invalid
+      is expected to be empty
+
+api/clients/index.rbapi
+  includes the status field
+
+CompanyConfirmation
+  is expected to belong to company required: false
+  is expected to validate that :company cannot be empty/falsy
+  #confirmed?
+    is false when a confirmed_at is not set
+    is true when a confirmed_at is set
+  #unconfirmed?
+    is unconfirmed by default
+    is false if already confirmed
+  #confirm
+    sets confirmed_at to current time
+    an already confirmed account
+      does not update confirmed_at
+  #email_sent
+    sets email_last_sent_at to current time
+  #create_verified_email_sender
+    creates a verified sender email address for the account owner
+  callbacks
+    generates a code on creation
+  #reset!
+    regenerates the code
+    wipes email_last_sent_at
+
+FlyingStart::EventHelper
+  #publish_task_completion_event
+    published a task_completed event with the correct data
+  #publish_task_list_shown
+    publishes a task list shown event with the pending & completed tasks
+    with a nil task list
+      publishes an empty list rather than a null field
+
+Expenses
+  Expenses 20% VAT reclaimable
+    Given a uk sole trader -> And the deregistration VAT return is filed -> Given VAT settings: Any basis, not FRS, then de-registered -> And an expense: VAT of 20% -> Then it does not appear on the VAT return report -> And for either accounting basis it has these transactions
+  Expenses 0% VAT reclaimable
+    Given a uk sole trader -> And the deregistration VAT return is filed -> Given VAT settings: Any basis, not FRS, then de-registered -> And an expense: unreclaimable VAT of 20% -> Then it does not appear on the VAT return report -> And for either accounting basis it has these transactions
+  Expenses 0% VAT reclaimable
+    Given a uk sole trader -> And the deregistration VAT return is filed -> Given VAT settings: Any basis, not FRS, then de-registered -> And an expense: VAT of 0% -> Then it does not appear on the VAT return report -> And for either accounting basis it has these transactions
+  Expenses 0% VAT reclaimable
+    Given a uk sole trader -> And the deregistration VAT return is filed -> Given VAT settings: Any basis, not FRS, then de-registered -> And an expense: exempt from VAT -> Then it does not appear on the VAT return report -> And for either accounting basis it has these transactions
+
+PracticeDashboard::FeatureModalHelper
+  a feature modal without a display method
+    is expected to be blank
+  a feature modal without a satisfied display method
+    does not render a modal
+  a feature modal with a satisfied display method
+    creates a feature modal with the given name
+    has the supplied title
+    has the supplied content
+
+Admin::DevDashboardBadgeHelper
+  #dev_dashboard_email_badge
+    renders a positive badge when a date is present
+    renders a negative badge when a date is not present
+  #dev_dashboard_api_enabled_badge
+    renders a positive badge when the API enabled attribute is true
+    renders a negative badge when the API enabled attribute is false
+  #dev_dashboard_practice_enabled_badge
+    renders a positive badge when the practice_enabled attribute is true
+    renders a negative badge when the practice_enabled attribute is false
+
+ProTipGeneratorConsumer
+  #consume
+    skip pro tips ping generation is set to false
+      attempts to generate pro tips
+      logs the generation time
+      but the feature flag to generate pro tips is off
+        doesn't attempt to generate pro tips
+      but Current.user is nil
+        doesn't raise an error
+      when an error is thrown while generating pro tips
+#<StandardError: StandardError>
+app/consumers/pro_tip_generator_consumer.rb:17:in `block in consume'
+app/consumers/pro_tip_generator_consumer.rb:16:in `consume'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        intercepts the error
+        logs the error to the Error Service
+      and the consumer was invoked from within a mobile user session
+        doesn't attempt to generate pro tips
+    skip pro tips ping generation is set to true
+      doesn't attempt to generate pro tips
+
+EmailPractices::ClientOnboardingEmailJob
+  #perform
+    with a valid client onboarding request
+      sends an email
+      tracks the accountancy practice email event
+    with an invalid client email
+#<EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError: EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError>
+      does not send an email
+#<EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError: EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError>
+      does not track an email event
+    with an invalid practice email address
+#<EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError: EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError>
+      does not send an email
+#<EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError: EmailPractices::ClientOnboardingEmailJob::InvalidClientOnboardingEmailError>
+      does not track an email event
+
+JournalEntriesRedirect
+  A logged in user
+    is redirected to /accounting/journal_sets when trying to visit /accounting/journal_entries
+
+ButtonToConfirmHelper
+  when only passed a url
+    uses the url for the form action
+  when called with both a url and body
+    uses the url for the form action
+    sets the button content
+  when called with a block
+    sets the button content
+    rendered the content for the modal
+
+Cashflow::Components::LineItems::ComputerSoftwareComponent
+  behaves like Line item
+    #title
+      returns the description of the bank_account_entry
+    #meta
+      returns 'Computer software payment'
+    #status
+      returns the correct status
+    #recurring?
+      returns true
+    #predicted?
+      returns true
+
+Entrypoint
+  #save_entrypoint
+    when there is a referer
+      stores the referer in the session as the entrypoint
+    when the referer is from an autocomplete
+      does not store the entrypoint in the session
+    when the user is adding another
+      does not store the entrypoint in the session
+    when the referer path is blank
+      does not store the entrypoint in the session
+    when the referer path ends with login
+      does not store the entrypoint in the session
+    when the referer comes from the audit trail report
+      does not store the entrypoint in the session
+    when the referer path matches the request path
+      does not store the entrypoint in the session
+    when the referer host does not match the request host
+      does not store the entrypoint in the session
+      because it is the admin host
+        stores the referer in the session as the entrypoint
+      because it is the practice dashboard
+        stores the referer in the session as the entrypoint
+    if an entrypoint is set and it should be discarded
+      does not store the entrypoint in the session
+
+SamlSignup
+  is expected to belong to company required: false
+  is expected to allow :saml_source to be ‹"bcsg"›
+  is expected not to allow :saml_source to be ‹"OTHER"›
+  require a unique saml_reference
+    is expected to validate that :saml_reference is case-sensitively unique
+  querying signup source
+    is_via_my_business_works?
+      returns true for a my business works signup
+  #preferred_login_url
+    defaults to using the configured login screen
+  #preferred_logout_url
+    returns the BCSG logout url for a BCSG signup
+
+Bill calculating values for the bill
+  #calculated_total_value
+    calculates the total value of the bill
+  #calculated_sales_tax_value
+    calculates the sales tax value for the bill
+  when creating a bill_item for a bill
+    calculates the second sales tax value for the bill
+
+Accounting::CorporationTax::Ct600Value
+  validations
+    requires a positive number in cjrs_and_jss_received
+    requires a positive number in cjrs_and_jss_entitlement
+    requires a positive number in cjrs_and_jss_overpayment
+    requires a positive number in jrb_and_eotho_overpayment
+    requires a positive whole number in eotho_reimbursed_discounts
+    converts positive whole number values into an integer before validation to satisfy :only_integer validation
+    doesn't convert invalid positive whole number values into integers
+
+CashflowSummary
+  raises an error when neither date range nor number of months are specified
+  when just start date is specified
+  when full date range is specified
+  when number of months are specified
+  accounting totals match the totals for the period
+
+Foreign Currency Bank Account
+  No VAT entries
+    Given a uk sole trader -> And exchange rates are setup -> And a foreign currency bank account -> Given VAT settings: Any scheme -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+CompaniesHouse::Api
+  conducting a company profile search
+    returns api data with no processing
+  when conducting an api call
+    API is rate limited
+      throws UnauthorisedError exception
+    API key authentication fails
+      throws RateLimitExceeded exception
+    API resource is not found
+      throws not found exception
+    API paramter is out of range
+      throws out of range exception
+    API response body is not json format
+      throws InvalidResponse exception
+    API encounters some unexpected behaviour
+      logs a warning and throws an unspecified error
+  #find_by_registration_number
+    searches using the registration_number
+    with registration numbers including spaces
+      removes spaces and zero pads registration numbers before searching
+    with registration numbers of fewer than 8 characters
+      zero pads numeric registration numbers before searching
+      zero pads single-digit registration numbers before searching
+      zero pads empty registration numbers before searching
+      zero pads nil registration numbers before searching
+      does not zero-pad registration numbers which start with a letter before searching
+
+OpenBanking::CaterAllenProviderConfiguration
+  #ca_file_store
+    adds expected files in a production environment
+  #ignore_transaction_ids?
+    returns true
+  #use_iso8601_for_api_transaction_dates?
+    returns true
+  #use_iso8601_z_format?
+    returns true
+
+HealthRobinson::SidekiqCheckRunnerJob
+[ActiveJob] [HealthRob…] [13f62bd0-…] Failed to delete HealthRobinson::SidekiqCheckRunnerJob (Job ID: 13f62bd0-9dd5-4bdc-874a-131d28123d93) from staged jobs, not found
+  delegates run to runner
+  when the job processing is not allowed by the feature switch
+[ActiveJob] [HealthRob…] [7299eb5c-…] Failed to delete HealthRobinson::SidekiqCheckRunnerJob (Job ID: 7299eb5c-9852-4695-8943-6b9a6c7842e3) from staged jobs, not found
+    doesn't run the check runner
+  when the company does not exist
+[ActiveJob] [HealthRob…] [a3239ffa-…] Could not find company 999999999 for Check
+[ActiveJob] [HealthRob…] [a3239ffa-…] Failed to delete HealthRobinson::SidekiqCheckRunnerJob (Job ID: a3239ffa-e2b9-4953-ac9d-13d4d4b99024) from staged jobs, not found
+    doesn't run the check runner
+  when the company is rebuilding
+[ActiveJob] [HealthRob…] [cadacba6-…] Failed to delete HealthRobinson::SidekiqCheckRunnerJob (Job ID: cadacba6-f39e-4f40-9715-c6e4e78f7ddd) from staged jobs, not found
+    doesn't run the check runner
+
+admin/companies/subscriptions/_header
+  when the company is cancellable
+    displays the 'Cancel account' button
+  when the company is not cancellable
+    does not display the 'Cancel account' button
+
+Refunded Credit Note
+  No VAT
+    Given a uk sole trader -> And a credit note: refunded -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a credit note: refunded -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a credit note: refunded -> Given VAT settings: Not registered, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+FreeStyle::Builder::Radar::TableBuilder
+  #table
+    renders a table wrapped in a div
+  #header_row
+    renders a header row
+  #data
+    renders a header row
+  with page numbers
+    #row
+      blows up if a previous builder has not been set
+      renders a row with a page number
+      renders a row without a page number
+  #cell
+    blows up if a previous builder has not been set
+    renders a cell
+
+OpenBanking::PreAssessedLimitEligibility::BrandName
+  .human_readable_company_brand_name
+    NW
+      is expected to eq "NatWest"
+    RBS
+      is expected to eq "Royal Bank of Scotland"
+    Non-RBSG
+      is expected to be nil
+  .human_readable_bank_account_brand_name
+    NW
+      is expected to eq "NatWest"
+    RBS
+      is expected to eq "Royal Bank of Scotland"
+    non-RBSG
+      is expected to be nil
+
+OpenBankingStatementTransactions::Collection
+  #valid_timestamps?
+    when all transactions have unique timestamps
+      is expected to equal true
+    when transactions do not have unique timestamps
+      is expected to equal false
+    when there is a single transaction at midnight
+      is expected to equal true
+    when transactions have unique timestamps but include fee transactions
+      is expected to equal true
+  #ordering
+    when no transactions
+      is expected to eq :EMPTY
+    when only 1 transaction
+      is expected to eq :ONE
+    when transactions span more than one day
+      when transactions are date DESC
+        is expected to eq :DESC
+      when transactions are date ASC
+        is expected to eq :ASC
+      when transaction aren't in date order
+        is expected to eq :UNKNOWN
+    when order can't be determined from dates
+      when transactions are missing balances
+        is expected to eq :UNKNOWN
+      when transaction have balances
+        when transactions are date DESC
+          is expected to eq :DESC
+        when transactions are date ASC
+          is expected to eq :ASC
+        when transactions include an undecideable pair but are otherwise ASC
+          is expected to eq :ASC
+        when transactions include an undecideable pair but are otherwise DESC
+          is expected to eq :DESC
+        when transactions are unordered
+          is expected to eq :UNKNOWN
+
+Exporter::ExportableTypes::BankAccountTransaction
+  has Bank Account Transactions as its section name
+  has no nested types
+  has correct headings, correctly ordered
+  returns correct values, correctly ordered
+
+Unrefunded Invoice
+  No VAT
+    Given a uk sole trader -> And a credit note: unrefunded -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a credit note: unrefunded -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a credit note: unrefunded -> Given VAT settings: Not registered, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+Quarter
+  .all
+    returns the list of quarters in a year
+  .lookup
+    when quarter exists
+      returns the quarter
+    when quarter doesn't exist
+      returns an error
+  #name
+    when quarter is the first
+      returns the corresponding name
+    when quarter is the second
+      returns the corresponding name
+    when quarter is the third
+      returns the corresponding name
+    when quarter is the fourth
+      returns the corresponding name
+  #months
+    when quarter is the first
+      returns the corresponding months
+    when quarter is the second
+      returns the corresponding months
+    when quarter is the third
+      returns the corresponding months
+    when quarter is the fourth
+      returns the corresponding months
+  #hmrc_label
+    when quarter is the first
+      returns the corresponding hmrc_label
+    when quarter is the second
+      returns the corresponding hmrc_label
+    when quarter is the third
+      returns the corresponding hmrc_label
+    when quarter is the fourth
+      returns the corresponding hmrc_label
+
+estimates/_history
+  renders a list of history entries with the expected content
+
+practice_dashboard/transfers/_transfer_row
+  with a pending transfer
+    shows the correct details
+
+admin/signups/_attempt
+  ip quality score
+    renders as a percentage if the query was successful
+    states that the IP quality wasn't assessed if it failed
+  honeypot
+    renders as Untouched if the honeypot was left blank
+    renders as Filled in with x if the honeypot was taken
+  signup form elapsed time
+    shows the elapsed time if we have the data available
+    is unknown if we have no data available
+
+Banking::Events::BankTransactionCreated
+  #data
+    when bank transaction doesn't have the `uploaded_at` field
+      does not contain the uploaded_at field
+    when bank transaction has the `uploaded_at` field
+      contains the uploaded_at field
+    when bank transaction is manual
+      includes the manual transaction field as true
+  #publish
+    when no context is passed
+      contains the default context
+    when context is passed
+#<EventSystem::PublishingError: undefined method `data' for {:company=>#<UkLimitedCompany id: 1013, name: "FreeAgent Central">}:Hash
+
+        context: context.data,
+                        ^^^^^>
+app/freeagent/banking/events/event.rb:23:in `publish'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      contains event_context
+
+Mobile::Push::Notification
+  by default
+    is expected to validate that :token cannot be empty/falsy
+    is expected to validate that :platform cannot be empty/falsy
+    is expected to validate that :title cannot be empty/falsy
+    is expected to validate that :body cannot be empty/falsy
+    is expected to validate that :tag cannot be empty/falsy
+    is expected to allow :platform to be ‹"APNs"›
+    is expected to allow :platform to be ‹"GCM"›
+    is expected not to allow :platform to be ‹"Baidu"›
+    is expected to allow :action to be ‹"OPEN_APP"›
+    is expected to allow :action to be ‹"DEEP_LINK"›
+    is expected to allow :action to be ‹"CANCEL"›
+    is expected not to allow :action to be ‹"foo"›
+    sets the default attributes
+  for Apple Push Notification Service
+    formats the message for APNs
+  payload for Google Cloud Messaging Service
+    formats the message for GCM
+
+EmailMarketing::CreateCompanyAndUserJob
+  #perform
+    syncs the company and account owner to Salesforce
+    when a company event sync error is raised
+      retries the job
+
+I, [2022-12-15T10:01:47.216009 #245]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:47.216096 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/models/bank_service_search_spec.rb" "spec/models/invoice_spec.rb[1:118:1:1]" "spec/views/accounting/year_ends/checks/_year_not_complete.html.erb_spec.rb" "spec/jobs/email_marketing/company_update_sync_job_spec.rb" "spec/models/app_store_billing/apple/app_store_result_spec.rb" "spec/lib/companies_house/api_response_spec.rb" "spec/freeagent/email_validation_spec.rb" "spec/views/api/clients/index.rbapi_spec.rb" "spec/models/company_confirmation_spec.rb" "spec/freeagent/flying_start/event_helper_spec.rb" "spec/models/invoice_spec.rb[1:103:1]" "spec/accounting_and_sales_tax/uk_vat/expenses/deregistration_creations.feature" "spec/helpers/practice_dashboard/feature_modal_helper_spec.rb" "spec/helpers/admin/dev_dashboard_badge_helper_spec.rb" "spec/consumers/pro_tip_generator_consumer_spec.rb" "spec/jobs/email_practices/client_onboarding_email_job_spec.rb" "spec/requests/journal_entries_redirect_spec.rb" "spec/helpers/button_to_confirm_helper_spec.rb" "spec/freeagent/cashflow/components/line_items/computer_software_component_spec.rb" "spec/controllers/concerns/entrypoint_spec.rb" "spec/models/saml_signup_spec.rb" "spec/models/bills/calculated_values_spec.rb" "spec/models/accounting/corporation_tax/ct600_value_spec.rb" "spec/models/cashflow_summary_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bank_account/foreign_currency.feature" "spec/lib/companies_house/api_spec.rb" "spec/models/open_banking/cater_allen_provider_configuration_spec.rb" "spec/jobs/health_robinson/sidekiq_check_runner_job_spec.rb" "spec/views/admin/companies/subscriptions/_header.html.erb_spec.rb" "spec/accounting_and_sales_tax/uk_vat/credit_notes/refunded.feature" "spec/helpers/free_style/builder/radar/table_builder_spec.rb" "spec/models/open_banking/pre_assessed_limit_eligibility/brand_name_spec.rb" "spec/models/open_banking_statement_transactions/collection_spec.rb" "spec/models/integrations/exporter/exportable_types/bank_account_transaction_spec.rb" "spec/accounting_and_sales_tax/uk_vat/credit_notes/unrefunded.feature" "spec/models/quarter_spec.rb" "spec/views/estimates/_history.html.erb_spec.rb" "spec/views/practice_dashboard/transfers/_transfer_row.html.erb_spec.rb" "spec/views/admin/signups/_attempt.html.erb_spec.rb" "spec/freeagent/banking/events/bank_transaction_created_spec.rb" "spec/freeagent/mobile/push/notification_spec.rb" "spec/jobs/email_marketing/create_company_and_user_job_spec.rb"
+Knapsack Pro Queue finished!
+
+All failed tests on this CI node:
+
+Failures:
+
+  1) PayrollOverview With a user and a payroll profile With all payroll profiles setup runs payroll
+     Failure/Error: expect(page).to have_link("Run Month 1 Payroll")
+       expected to find visible link "Run Month 1 Payroll" but there were no matches. Also found "", "", which matched the selector but not all filters. 
+     # ./spec/features/payroll/payroll_overview_spec.rb:116:in `block (4 levels) in <main>'
+     # ./spec/spec_type_junit_formatter.rb:95:in `block (2 levels) in <main>'
+     # /usr/local/bundle/gems/knapsack_pro-3.6.0/lib/knapsack_pro/adapters/rspec_adapter.rb:68:in `block (2 levels) in bind_time_tracker'
+     # ./spec/support/capybara.rb:59:in `block (2 levels) in <main>'
+     # ./spec/support/example_index.rb:22:in `block (2 levels) in <main>'
+     # ./engines/radar_todos/spec/support/helper.rb:28:in `block (2 levels) in <main>'
+     # /usr/local/bundle/gems/knapsack_pro-3.6.0/lib/knapsack_pro/runners/queue/rspec_runner.rb:93:in `run_tests'
+     # /usr/local/bundle/gems/knapsack_pro-3.6.0/lib/knapsack_pro/runners/queue/rspec_runner.rb:40:in `run'
+     # /usr/local/bundle/gems/knapsack_pro-3.6.0/lib/tasks/queue/rspec.rake:6:in `block (3 levels) in <main>'
+     # ./lib/tasks/patches.rake:26:in `execute'
+     # ./lib/tasks/patches.rake:72:in `execute'
+
+Finished in 2 minutes 22.3 seconds
+610 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/features/payroll/payroll_overview_spec.rb:105 # PayrollOverview With a user and a payroll profile With all payroll profiles setup runs payroll
+I, [2022-12-15T10:01:47.247769 #245]  INFO -- : [knapsack_pro] To retry all the tests assigned to this CI node, please run the following command on your machine:
+I, [2022-12-15T10:01:47.247938 #245]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_39.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_39.xml --default-path spec "spec/controllers/documents_controller_spec.rb" "spec/models/accounting/corporation_tax/submission_payload_spec.rb" "spec/features/payroll/payroll_overview_spec.rb" "spec/views/billing_profiles/_invoice_preview.html.erb_spec.rb" "spec/controllers/accounting_categories/admin_expenses_categories_controller_spec.rb" "spec/models/rbsg_subscription_spec.rb" "spec/controllers/overview_controller_bills_panel_spec.rb" "spec/freeagent/radar/insights/overnight_insight_generator_spec.rb" "spec/freeagent/cashflow/bill_payments_spec.rb" "spec/freeagent/cashflow/report/pdf_spec.rb" "spec/models/support_engineering/saml_transfer_spec.rb" "spec/models/lifecycle/company_reactivation_spec.rb" "spec/tools/company_seeder/delete_all_data_seeder_spec.rb" "spec/models/practice_client/message_spec.rb" "spec/jobs/email_job_spec.rb" "spec/views/corporation_tax_returns/show.html.erb_spec.rb" "spec/freeagent/cashflow/components/actions/approve_banking_explanations_component_spec.rb" "spec/models/bank_feeds/bank_transaction_set_spec.rb" "spec/models/accounting/final_accounts/companies_house/submission_mocker_spec.rb" "spec/controllers/invoices_controller_spec.rb[2:3:1]" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:2:4:1]" "spec/models/invoice_spec.rb[1:99:1]" "spec/controllers/invoices_controller_spec.rb[2:9:1]" "spec/controllers/paypal_permission_checks_controller_spec.rb" "spec/integrations/tyl/requests/link_status_spec.rb" "spec/controllers/invoices_controller_spec.rb[8:3:1:1]" "spec/models/invoice_spec.rb[1:56:1]" "spec/controllers/invoices_controller_spec.rb[4:2:1]" "spec/requests/radar/insights/self_assessment_reminder_spec.rb" "spec/accounting_and_sales_tax/uk_vat/invoices/vat_paid.feature" "spec/controllers/invoices_controller_spec.rb[29:1:2]" "spec/models/bank_service_search_spec.rb" "spec/models/invoice_spec.rb[1:118:1:1]" "spec/views/accounting/year_ends/checks/_year_not_complete.html.erb_spec.rb" "spec/jobs/email_marketing/company_update_sync_job_spec.rb" "spec/models/app_store_billing/apple/app_store_result_spec.rb" "spec/lib/companies_house/api_response_spec.rb" "spec/freeagent/email_validation_spec.rb" "spec/views/api/clients/index.rbapi_spec.rb" "spec/models/company_confirmation_spec.rb" "spec/freeagent/flying_start/event_helper_spec.rb" "spec/models/invoice_spec.rb[1:103:1]" "spec/accounting_and_sales_tax/uk_vat/expenses/deregistration_creations.feature" "spec/helpers/practice_dashboard/feature_modal_helper_spec.rb" "spec/helpers/admin/dev_dashboard_badge_helper_spec.rb" "spec/consumers/pro_tip_generator_consumer_spec.rb" "spec/jobs/email_practices/client_onboarding_email_job_spec.rb" "spec/requests/journal_entries_redirect_spec.rb" "spec/helpers/button_to_confirm_helper_spec.rb" "spec/freeagent/cashflow/components/line_items/computer_software_component_spec.rb" "spec/controllers/concerns/entrypoint_spec.rb" "spec/models/saml_signup_spec.rb" "spec/models/bills/calculated_values_spec.rb" "spec/models/accounting/corporation_tax/ct600_value_spec.rb" "spec/models/cashflow_summary_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bank_account/foreign_currency.feature" "spec/lib/companies_house/api_spec.rb" "spec/models/open_banking/cater_allen_provider_configuration_spec.rb" "spec/jobs/health_robinson/sidekiq_check_runner_job_spec.rb" "spec/views/admin/companies/subscriptions/_header.html.erb_spec.rb" "spec/accounting_and_sales_tax/uk_vat/credit_notes/refunded.feature" "spec/helpers/free_style/builder/radar/table_builder_spec.rb" "spec/models/open_banking/pre_assessed_limit_eligibility/brand_name_spec.rb" "spec/models/open_banking_statement_transactions/collection_spec.rb" "spec/models/integrations/exporter/exportable_types/bank_account_transaction_spec.rb" "spec/accounting_and_sales_tax/uk_vat/credit_notes/unrefunded.feature" "spec/models/quarter_spec.rb" "spec/views/estimates/_history.html.erb_spec.rb" "spec/views/practice_dashboard/transfers/_transfer_row.html.erb_spec.rb" "spec/views/admin/signups/_attempt.html.erb_spec.rb" "spec/freeagent/banking/events/bank_transaction_created_spec.rb" "spec/freeagent/mobile/push/notification_spec.rb" "spec/jobs/email_marketing/create_company_and_user_job_spec.rb"
+2022-12-15T10:01:47.289Z pid=245 tid=9rx INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}

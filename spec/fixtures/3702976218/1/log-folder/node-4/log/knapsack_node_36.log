@@ -1,0 +1,1624 @@
+I, [2022-12-15T09:58:57.185384 #240]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual 'it's. Thanks to that a single slow test file can be split across parallel CI nodes). Analyzing 7 slow test files.
+2022-12-15T09:59:13.035Z pid=317 tid=9lt INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+SettingsController
+  GET index
+    for a user
+      with FULL_ACCESS permission level
+        shows all index items
+      with TAX_AND_LIMITED_ACCOUNTING permission level
+        shows emails section and only shows allowed index items
+      with BANKING permission level
+        shows the emails section only shows allowed index items
+      with BILLS permission level
+        only shows allowed index items
+      for an ESTIMATES_AND_INVOICES user
+        only shows allowed index items
+      with CONTACTS_AND_PROJECTS permission level
+        only shows allowed index items
+      with MY_MONEY permission level
+        only shows allowed index items
+      with TIME permission level
+        only shows allowed index items
+      with FULL_ACCESS permission level and an accountant role
+        only shows allowed index items
+    when logged in as a practice managed account owner
+      only shows allowed index items
+    when logged in as a practice managed account manager
+      only shows allowed index items
+    when logged in as a linked account manager
+      only shows allowed index items
+  GET logo
+    gets logo page
+  POST update_logo
+    does not update invoices/estimates logo when file is missing
+Rejecting uploaded file with content type: image/bmp
+    does not update invoices/estimates logo with unsupported file format
+    updates the invoices/estimates logo
+    publishes an event
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::SizeNotFound: FastImage::SizeNotFound>
+    handles invalid images
+    removes invoices/estimates logo
+    when a user tries to upload a logo containing an emoji in the filename
+      sanitises the filename
+  GET customize
+    shows date format
+  GET freeagent_url
+    shows the freeagent url page when logged in as the account owner
+  PUT update freeagent_url
+    updates the freeagent_url when logged in as the account owner
+    when logged in as a user with FULL_ACCESS permission level and the accountant role
+Found unpermitted params: subdomain
+      renders the unauthorized page
+    when logged in as a linked account manager
+Found unpermitted params: subdomain
+      cannot update the freeagent_url
+    when logged in as a practice managed account manager
+Found unpermitted params: subdomain
+      cannot update the freeagent_url
+    when logged in as a practice managed account owner
+Found unpermitted params: subdomain
+      cannot update the freeagent_url
+  GET initial_tax_data
+    shows the intial tax data page
+  with dev_dashboard feature enabled
+    GET authorized_apps
+      lists the 3rd party apps
+      when logged in as an account manager
+        is not able to manage authorized apps
+      when Dev Dashboard is unavailable
+        shows flash error
+      with feature dynamic_thumbnail_generation off
+        lists the 3rd party apps
+    POST revoke_app_access
+      when Dev Dashboard is unavailable
+DevDashboardProxy error at authorised_apps_for_entity_id due to Errno::EADDRNOTAVAIL: Failed to open TCP connection to localhost:4000 (Cannot assign requested address - connect(2) for "localhost" port 4000)
+        shows flash error
+      user app
+        doesn't show a flash error
+      company app
+        doesn't show a flash error
+  title navigation
+    for a direct account owner
+      shows all nav items
+    for a practice managed account owner
+      only shows allowed index items
+    for a practice managed account manager
+      only shows allowed nav items
+    for a linked account manager
+      only shows allowed nav items
+  A practice managed company
+    displays business category and description fields with labels
+    can update the business category
+    can update the business description
+    does not see and not able to access accountancy settings
+    settings index grid
+      has the users item and does not have the FreeAgent URL item
+    where the accountancy practice is whitelabelled
+      does not show the gocardless integration link in the index
+  A company resold through BCSG
+    displays business category and type fields with labels
+    sees the link to the Users section
+  A UK company
+    displays business category and description fields with labels
+    shows UK company types first in the dropdown
+    sees the correct formatting for company_town, company_region, and company_postcode
+    hides and disables the US States select
+#<ActiveModel::Errors [#<ActiveModel::Error attribute=name, type=blank, options={}>]>
+    does not render a non allowlisted edit_action when the company params are invalid
+#<ActiveModel::Errors [#<ActiveModel::Error attribute=name, type=blank, options={}>]>
+    renders an allowlisted edit_action when the company params are invalid
+#<ActiveModel::Errors [#<ActiveModel::Error attribute=name, type=blank, options={}>]>
+    fails to update company if invalid
+    redirects to settings on update
+    update company doesn't remove logo
+    reinitializes CT returns when opening_tax_loss_brought_forward is changed
+    reinitializes CT returns when opening_tax_asset_pool_value is changed
+    Updating PAYE settings
+      paye_reference
+        updates the Payroll::Settings object for the company
+      accounts_office_reference
+        updates the Payroll::Settings object for the company
+      NOW pensions fields
+        updates the Payroll::Settings object for the company
+  A US company
+    does not show the GoCardless integration link in the index
+    is expected to have visible css "select#company_type optgroup:first-child[label='For US Businesses']"
+  A Universal company
+    is expected to have visible css "select#company_type[disabled=disabled]"
+    index grid
+      only shows allowed items
+    title switcher
+      has the title navigation items
+    when subscribed
+      when customised categories are present and company type is switched to US Sole Proprietor
+        does not change the company type
+  A UK sole trader
+    is expected to have visible css "select#company_type[disabled=disabled]"
+    index grid
+      only shows allowed items
+    title switcher
+      has the title navigation items
+  A company with monday_motivator enabled
+    index grid
+      includes a link to edit insights and emails
+    title switcher
+      has the title navigation items
+  Updating company details
+    for a UK Sole Trader
+      permits all attributes used on the form
+    for a UK Limited Company
+      permits all attributes used on the form
+  Customizing country options for a Universal company
+    permits all attributes used on the form
+  link to managing account locks
+    for a full access user
+      is shown the link
+    for a tax & limited accounting user
+      is not shown the link
+
+OverviewController
+  GET tax timeline when a US sole proprietor logs in
+  GET tax timeline for other US company types
+  when a universal user logs in
+    and they load the overview index page
+      get expected results
+  loading the overview page
+    is expected to respond with a success status code (2xx)
+    is expected to eq "12months"
+  loading the overview page with a cashflow_series cookie set
+    is expected to respond with a success status code (2xx)
+    is expected to eq "3months"
+  when a UK user logs in
+    and they load the overview index page
+      is able to sort overview panels
+    with no invoices
+      is not able to see the invoice timeline tab on the index page
+    with a sent invoice
+      is able to see the invoice timeline tab on the index page
+      and adding an invoice with a total value of zero
+        does not return any zero total value invoices
+      and adding an invoice with a non-zero total value
+        returns the invoice with a non-zero total value
+    with only a draft invoice
+      is not able to see the invoice timeline tab
+    and they get the invoice timeline panel
+      sets @total_invoices and @sum_value
+      does not set @per_page and @pages_loaded
+      shows the invoice timeline panel
+      has the correct tag to hang the highchart from
+    and they get the invoices panel
+      with no invoices
+        sets @per_page and @pages_loaded
+        renders the invoices panel partial
+        displays the create invoice button
+      with no open or overdue invoices
+        displays a message
+      with three invoices that have differing due dates
+        shows the invoices that are most overdue first
+      pagination
+        with multiple pages of invoices
+          loads the first three pages of invoices initially (five per page)
+          loads the fourth page of invoices when requested
+    and they get the estimates panel
+      with no estimates
+        sets @per_page and @pages_loaded
+        renders the estimates panel partial
+        displays the create estimate button
+      with no open or approved estimates
+        displays a message
+      with three estimates that have differing creation dates
+        shows the most recently created estimates first
+      pagination
+        with multiple pages of estimates
+          loads the first three pages of estimates initially (five per page)
+          loads the fourth page of estimates when requested
+    and they get the projects panel
+      with no projects
+        sets @per_page and @pages_loaded
+        renders the projects panel partial
+        displays the create project button
+      with no projects with unbilled timeslips
+        displays a message
+      with a project with unbilled bills, bank account entries and expenses
+        loads the project
+      with three projects that have differing creation dates
+        shows the most recently created projects first
+      pagination
+        with multiple pages of projects
+          loads the first three pages of projects initially (five per page)
+          loads the fourth page of projects when requested
+    and they get the timeslips panel
+      with no timeslips
+        sets @per_page and @pages_loaded
+        renders the timeslips panel partial
+        displays the create timeslip button
+      with no recent unbilled timeslips
+        displays a message
+      with five timeslips that have differing dates
+        shows the most recently dated timeslips first and those with the same date being ordered by creation date
+      pagination
+        with multiple pages of timeslips
+          loads the first three pages of timeslips initially (five per page)
+          loads the fourth page of timeslips when requested
+    and they get the expenses panel
+      with no expenses
+        sets @per_page and @pages_loaded
+        renders the expenses panel partial
+        displays the create expense button
+      with no recent expenses
+        displays a message
+      with three expenses, one of which has a zeroed project_id
+        shows the three expenses
+      with five expenses that have differing dates
+        shows the most recently dated expenses first and those with the same date being ordered by creation date
+      pagination
+        with multiple pages of expenses
+          loads the first three pages of expenses initially (five per page)
+          loads the fourth page of expenses when requested
+    and they get the profit and loss panel
+      does not set @per_page and @pages_loaded
+      shows the profit and loss panel
+      displays current, last and brought forward profits
+    and they get the tax timeline panel
+      does not set @per_page and @pages_loaded
+      shows the tax timeline panel
+    and they load the cashflow chart data for the last 12 months
+      sets up the cashflow reports
+    and they load cashflow data for the last 6 months
+      sets up the cashflow reports
+    and they post a new panel layout
+      persists that on the user
+    and they post a new panel layout which is blank in error
+      does not persist that on the user
+  when logged in
+    with timeslips
+      getting timeslips as a user with time permissions
+        does not show the total to be invoiced and show the total logged
+      getting timeslips as a user with project permissions
+        shows the total to be invoiced
+  timezone support for overdue invoices
+    in a timezone behind UTC
+      when due date is passed in UTC, but not in Eastern Time
+      on due_date in Eastern Time
+    in a timezone ahead of UTC
+      when due_date is passed in CEST, but not in UTC
+  timezone support for overdue bills
+    in a timezone behind UTC
+      when the overdue date is passed in UTC, but not in Eastern Time
+      on overdue date in Eastern Time
+    in a timezone ahead of UTC
+      when overdue date is passed in CEST, but not in UTC
+  cashflow chart
+    when server date is different from local date
+      for current month
+        determines chart range based on local date
+      for recent 3 months
+        determines chart range based on local date
+      for recent 6 months
+        determines chart range based on local date
+      for recent 12 months
+        determines chart range based on local date
+      for an invalid number of months
+        shows chart range for default 12 months
+    caching behaviour
+      hits the cache on subsequent requests with same parameters
+      doesn't hit the cache on subsequent requests with differing parameters
+      doesn't hit the cache if there have been changes to the cashflow
+  navigation menu
+    elastic search box
+      with search enabled
+        shows the elastic search box
+      with search disabled
+        now shows the elastic search box
+    when a US Sole proprietor logs in
+      shows a link to Schedule C worksheet as primary menu item
+      when registered for Sales Tax
+        shows Schedule C worksheet and Sales Tax links under Taxes tab
+  A BCSG company
+    displays the direct footer
+  A FreeAgent Friendly company
+    uses the freeagent footer
+  immediately after making first subscription payment
+    shows the details of the first payment
+
+PayslipsController
+  GET #index
+    redirects if there is no year parameter
+    returns RTI index page for years after 2012/2013
+    Legacy payroll
+      shows the legacy payroll buttons
+  GET #show
+    on a version 1 payslip
+      can show payslip
+      a user with permission level 1
+        is not authorized
+      a user with permission level 2
+        is authorized
+      a user with permission level 3
+        is authorized
+      a user with permission level 4
+        is authorized
+      a user with permission level 5
+        is authorized
+      a user with permission level 6
+        is authorized
+      a user with permission level 7
+        is authorized
+      a user with permission level 8
+        is authorized
+      a user with permission level FULL_ACCESS
+        is presented with a link to delete the payslip
+        a payslip that is not deletable
+          is not presented with a link to delete the payslip
+      for a Monthly payslip
+        displays Monthly on the payslip
+      for a Weekly payslip
+        displays Weekly on the payslip
+      for a Two Weekly payslip
+        displays Two Weekly on the payslip
+      for a Four Weekly payslip
+        displays Four Weekly on the payslip
+      for a Quarterly payslip
+        displays Quarterly on the payslip
+      for a Annual payslip
+        displays Annual on the payslip
+      for a Correction payslip
+        displays Correction on the payslip
+      a payslip with a refund
+        shows the refund on the payslip
+      a payslip with a postgrad loan deduction
+        shows the postgrad loan deduction if it does not equal zero
+        does not show the postgrad loan deduction if it is zero
+      for an RTI payslip in a filed period
+        when you cannot make a furlough claim
+          does not show an Edit Payslip button
+        when you can make a furlough claim
+          with the feature switch off
+            does not show an Edit Payslip button
+          with the feature switch on
+            shows an Edit Payslip button
+      for a payslip without hours worked
+        does not show hours worked
+      for a payslip with zero hours worked
+        does not show hours worked
+      for a payslip with nonzero hours worked
+        shows hours
+      #payslip_partial
+        returns the v1 template
+    on a version 2 payslip
+      can show payslip
+      a user with permission level 1
+        is not authorized
+      a user with permission level 2
+        is authorized
+      a user with permission level 3
+        is authorized
+      a user with permission level 4
+        is authorized
+      a user with permission level 5
+        is authorized
+      a user with permission level 6
+        is authorized
+      a user with permission level 7
+        is authorized
+      a user with permission level 8
+        is authorized
+      a user with permission level FULL_ACCESS
+        is presented with a link to delete the payslip
+        a payslip that is not deletable
+          is not presented with a link to delete the payslip
+      for a Monthly payslip
+        displays Monthly on the payslip
+      for a Weekly payslip
+        displays Weekly on the payslip
+      for a Two Weekly payslip
+        displays Two Weekly on the payslip
+      for a Four Weekly payslip
+        displays Four Weekly on the payslip
+      for a Quarterly payslip
+        displays Quarterly on the payslip
+      for a Annual payslip
+        displays Annual on the payslip
+      for a Correction payslip
+        displays Correction on the payslip
+      a payslip with a refund
+        shows the refund on the payslip
+      a payslip with a postgrad loan deduction
+        shows the postgrad loan deduction if it does not equal zero
+        does not show the postgrad loan deduction if it is zero
+      for an RTI payslip in a filed period
+        when you cannot make a furlough claim
+          does not show an Edit Payslip button
+        when you can make a furlough claim
+          with the feature switch off
+            does not show an Edit Payslip button
+          with the feature switch on
+            shows an Edit Payslip button
+      for a payslip without hours worked
+        does not show hours worked
+      for a payslip with zero hours worked
+        does not show hours worked
+      for a payslip with nonzero hours worked
+        shows hours
+      #payslip_partial
+        returns the v2 template
+      for a user with an address
+        with company_address_on_payslips set to true
+          shows address
+        with company_address_on_payslips set to false
+          does not show address
+      when the company has a logo
+        with company_logo_on_payslips set to true
+          shows logo
+        with company_logo_on_payslips set to false
+          does not show logo
+      when the payslip has a comment
+        displays the comment
+  GET #new
+    responds successfully
+  POST #create
+    creates payslips
+  GET #edit
+    responds successfully with an existing payslip
+    will edit payslips in unfiled periods
+    won't edit payslips in filed periods
+    won't edit payslips in pending periods
+  PUT #update
+    updates the pay
+    handles empty monetary values by treating them as zero
+    revises PAYE but not NI when updating pension
+    updates the NI letter
+    does not show the comment field in the logs
+    moving a payslip
+      in the same tax year
+        is expected to redirect to "/my_money/975572714/payroll/2016"
+        does not report errors
+      between tax years
+        is expected to respond with a success status code (2xx)
+        reports an error
+  DELETE #destroy
+    destroys payslips
+    deletes payslips in an unfiled period
+    cannot delete payslips in a filed period
+    cannot delete payslips in a pending period
+  #payslip_partial
+    on a version 1 payslip
+      returns the v1 template
+    on a version 2 payslip
+      returns the v2 template
+
+I, [2022-12-15T10:00:40.294684 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:00:40.294757 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/controllers/settings_controller_spec.rb" "spec/controllers/overview_controller_spec.rb" "spec/controllers/payslips_controller_spec.rb"
+Run options:
+  include {:ids=>{"./spec/features/getting_started_spec.rb"=>["1:6:1:1:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+InsuranceRecordsChecker
+  .has_evidence_of_insurance?
+    defers to an instance of the class
+  #has_evidence_of_insurance?
+    for bank transactions
+      when the company has no insurance-related transactions
+        is expected to equal false
+      when the company has old insurance-related transactions
+        is expected to equal false
+      when the company has recent insurance-related transactions
+        is expected to equal true
+      when the company has a recent transaction described as an insurance
+        is expected to equal true
+      when the company has an old transaction described as an insurance
+        is expected to equal false
+      for a company with no insurance account
+        is expected to equal false
+        when the company still has a recent transaction elsewhere, described as insurance
+          is expected to equal true
+    for expenses
+      when the company has no insurance-related expenses
+        is expected to equal false
+      when the company has old insurance-related expenses
+        is expected to equal false
+      when the company has recent insurance-related expenses
+        is expected to equal true
+      when the company has a recent expense described as an insurance
+        is expected to equal true
+      when the company has an old expense described as an insurance
+        is expected to equal false
+    for bill items
+      when the company has no insurance-related bill items
+        is expected to equal false
+      when the company has old insurance-related bill items
+        is expected to equal false
+      when the company has recent insurance-related bill items
+        is expected to equal true
+    when the company has no insurance-related transactions but some expenses
+      is expected to equal true
+    when the company has no insurance-related expenses but some transactions
+      is expected to equal true
+    when a company has both insurance-related expenses and transactions
+      is expected to equal true
+    when a company has no insurance-related expenses and transactions
+      is expected to equal false
+    when the company has insurance-related bill items
+      is expected to equal true
+    when a sole trader has some insurance-related records
+      is expected to equal true
+    when a partnership has some insurance-related records
+      is expected to equal true
+  #company
+    is expected to eq #<UkLimitedCompany id: 895398052, name: "FreeAgent Central">
+  #dated_since
+    is expected to eq 2019-03-30 00:00:00.084028901 +0000
+  #insurance_accounts
+    for a UK Limited company
+      is expected to all be a kind of GeneralLedger::Account(id: integer, company_id: integer, general_ledger_chart_of_account...e, updated_at: datetime, general_ledger_sub_account_code_id: integer, destroying_chartable: boolean)
+    for a Sole Trader company
+      is expected to all be a kind of GeneralLedger::Account(id: integer, company_id: integer, general_ledger_chart_of_account...e, updated_at: datetime, general_ledger_sub_account_code_id: integer, destroying_chartable: boolean)
+    for a Universal company
+      is expected to all be a kind of GeneralLedger::Account(id: integer, company_id: integer, general_ledger_chart_of_account...e, updated_at: datetime, general_ledger_sub_account_code_id: integer, destroying_chartable: boolean)
+    for a US company
+      is expected to all be a kind of GeneralLedger::Account(id: integer, company_id: integer, general_ledger_chart_of_account...e, updated_at: datetime, general_ledger_sub_account_code_id: integer, destroying_chartable: boolean)
+    for a Partnership company
+      is expected to all be a kind of GeneralLedger::Account(id: integer, company_id: integer, general_ledger_chart_of_account...e, updated_at: datetime, general_ledger_sub_account_code_id: integer, destroying_chartable: boolean)
+    for an invalid company
+      is expected to be empty
+
+Getting Started
+  for an RBSG frontbook provisioned company
+    auto_provisioned_nwg_company_fields_unlocked feature is enabled
+      for RBS
+Capybara starting Puma...
+* Version 6.0.0 , codename: Sunflower
+* Min threads: 0, max threads: 4
+* Listening on http://0.0.0.0:9892
+[5] [279] Scoped order is ignored, it's forced to be batch order.
+        company attributes are not locked but bank account attributes are
+
+VatRegistration
+  is expected to belong to company required: false
+  #destroy
+    for a company that has sent VAT invoices
+      has validation errors
+    for a company with VAT journal entries
+      has validation errors
+    for a company with VAT opening balance journal entries
+      has validation errors
+    for a company with a company lock, VAT invoices and VAT Journals
+      has all 3 validation errors
+    for a re-registered company with VAT invoices and VAT Journals
+Scoped order is ignored, it's forced to be batch order.
+      has both journal set and VAT invoice validation errors
+  #valid?
+    for a company with a sent VAT invoice
+      does not let you change the VAT registration date to after the invoice date
+    for a company with VAT journal entries
+      cannot move the registration_effective_date after the entry date
+    for a company with VAT opening balance journal entries
+      is not be able to set the registration_effective_date as on or after the freeagent_start_date
+    for a re-registered company with VAT journal entries
+Scoped order is ignored, it's forced to be batch order.
+      can move registration effective date earlier
+Scoped order is ignored, it's forced to be batch order.
+      can't move registration effective date to after the journal_entry date
+    for a re-registered company with VAT invoices
+Scoped order is ignored, it's forced to be batch order.
+      can move registration effective date earlier
+Scoped order is ignored, it's forced to be batch order.
+      can't move registration effective date to after the invoice date
+    for a de-registered company
+      with an account lock ending after the last filed return
+Scoped order is ignored, it's forced to be batch order.
+        cannot re-register
+      with an account lock ending on or before the last filed return
+Scoped order is ignored, it's forced to be batch order.
+        can re-register
+
+Self Assessment Marriage Allowance
+  Total income under rUK Marriage Allowance threshold
+    Given a UK sole trader with company start date: 2018-01-31, first accounting year end: 2019-04-05 -> Given the customer opts into the other uk income section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the marriage allowance section for 2018/19 -> Then the v3 self assessment return for 2018/19 will show the following boxes:
+  Total income over rUK basic rate band, but rate extended by tax relief contributions
+    Given a UK sole trader with company start date: 2018-01-31, first accounting year end: 2019-04-05 -> Given the customer opts into the other uk income section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the charitable giving section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the marriage allowance section for 2018/19 -> Then the v3 self assessment return for 2018/19 will show the following boxes: -> And the SA302 calculation table for 2018/19 will include "Marriage Allowance Transfer"
+  Total income over rUK basic rate band with no tax relief contributions
+    Given a UK sole trader with company start date: 2018-01-31, first accounting year end: 2019-04-05 -> Given the customer opts into the other uk income section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the marriage allowance section for 2018/19 -> Then the v3 self assessment return for 2018/19 will show the following boxes:
+  Non-Scottish tax payer with total income under rUK basic rate band
+    Given a UK sole trader with company start date: 2018-01-31, first accounting year end: 2019-04-05 -> Given the customer opts into the other uk income section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the marriage allowance section for 2018/19 -> Then the v3 self assessment return for 2018/19 will show the following boxes: -> And the SA302 calculation table for 2018/19 will include "Marriage Allowance Transfer"
+  Scottish tax payer with total income over Scottish basic rate band
+    Given a UK sole trader with company start date: 2018-01-31, first accounting year end: 2019-04-05 -> Given the customer fills in the following boxes for 2018/19: -> And the customer opts into the other uk income section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the marriage allowance section for 2018/19 -> Then the v3 self assessment return for 2018/19 will show the following boxes:
+  Total income exactly on rUK basic rate threshold with no tax relief contributions
+    Given a UK sole trader with company start date: 2018-01-31, first accounting year end: 2019-04-05 -> Given the customer opts into the other uk income section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the marriage allowance section for 2018/19 -> Then the v3 self assessment return for 2018/19 will show the following boxes:
+  Scottish tax payer with total income exactly on Scottish basic rate threshold
+    Given a UK sole trader with company start date: 2018-01-31, first accounting year end: 2019-04-05 -> Given the customer fills in the following boxes for 2018/19: -> And the customer opts into the other uk income section for 2018/19 -> And the customer fills in the following boxes for 2018/19: -> And the customer opts into the marriage allowance section for 2018/19 -> Then the v3 self assessment return for 2018/19 will show the following boxes:
+
+I, [2022-12-15T10:01:07.649410 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:07.649512 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/freeagent/insurance_records_checker_spec.rb" "spec/features/getting_started_spec.rb[1:6:1:1:1]" "spec/models/vat_registration_spec.rb" "spec/acceptance/self_assessment/tax_year20182019/marriage_allowance.feature"
+Run options:
+  include {:ids=>{"./spec/models/company/forget_company_data_spec.rb"=>["1:1:2:3:2"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+AccountancyPracticeReport
+  delegates validation of the report_parameters to the report
+  .destroy_out_of_date_reports
+    destroys all reports that are older than 48 hours, including their payloads
+  #generated?
+    returns false if the accountancy_practice_report doesn't have a file payload
+    returns true if the accountancy_practice_report has a file payload
+  #get_expiring_download_url?
+    returns nil if the accountancy_practice_report doesn't have a file payload
+    returns the file url if the accountancy_practice_report has a file payload
+  #schedule
+    should schedule an AccountancyPracticeReportBulkOperation with this report
+  #report
+    returns a report instance appropriate to the report_type
+  #parameters_for_report
+    only returns directly managed companies when report is owned by a standard account manager
+    returns all companies managed by the practice when report is owned by a senior account manager
+    using account_manager_filter my_clients
+      only returns directly managed companies
+
+Company::ForgetCompanyData
+  Deleting all data
+    for uk limited company
+      corporation tax returns and submissions
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+        does not delete submissions for another company
+
+PracticeDashboard::AccountManagersController
+  while logged in as a regular user
+    is expected to redirect to "/"
+  while logged in as a regular account manager
+    is expected to redirect to "/practice_dashboard"
+  while logged in as a senior account manager
+    Index action
+      renders a list of account managers
+      respects local time zone in the last last_logged_in_at field
+      orders account managers by their first names
+    New action
+      is expected to respond with a success status code (2xx)
+      is expected to render template new
+      is expected to be present
+      is expected to be empty
+    Create action
+      with valid parameters
+      with invalid parameters
+      enqueues an invite
+    Edit action
+      when the current user differs to the account manager being edited
+      when attempting to edit myself
+    Update action
+      with valid parameters
+      with invalid parameters
+      trying to remove my own seniority
+Found unpermitted params: accountancy_practice_id
+Found unpermitted params: accountancy_practice_id
+Found unpermitted params: accountancy_practice_id
+      does not update when malicious parameters are passed (mass assignment attack)
+      when the email changes
+        sends a notification email
+        revokes user sessions
+        invalidates any password reset requests when the email changes
+    Destroy action
+      when the account manager has a client company
+      when the account manager has no client companies
+    #confirm_move
+      renders the confirm move modal when manager has clients
+    #reassign_companies
+      when the account manager has a client company
+      with no other account manager selected
+      when the account manager has a copilot company
+      when the account manager has both a copilot and a non-copilot company
+
+Api::InternalAppAuthController
+  when the login is approved
+Found unpermitted params: signature
+    tracks a native mobile login event
+Found unpermitted params: signature
+    completes the Flying Start 'download mobile app' task
+  when the login is not approved
+Found unpermitted params: signature
+    does not track a native mobile login event
+Found unpermitted params: signature
+    does not complete the Flying Start 'download mobile app' task
+  approving the internal FreeAgent mobile app
+Found unpermitted params: signature
+    is expected to respond with a success status code (2xx)
+Found unpermitted params: signature
+    issues an access and refresh token
+    behaves like a response that will not be cached by a browser
+Found unpermitted params: signature
+      disables browser caching with a Cache-Control header
+Found unpermitted params: signature
+      disables browser caching with a Pragma header
+  trying to approve the app where the signature is invalid
+Found unpermitted params: signature
+    is expected to respond with status code :bad_request (400)
+Found unpermitted params: signature
+    returns an error message
+  approving the app where the user password is wrong
+Found unpermitted params: signature
+    returns unauthorized error
+  approving the app where the direct company has not completed setup
+Found unpermitted params: signature
+    issues an access and refresh token
+  approving the app where RBSG resold company has not completed setup
+Found unpermitted params: signature
+    is expected to respond with status code :forbidden (403)
+  approving the app as a Provisioned RBSG company
+Found unpermitted params: signature
+    issues an access and refresh token
+Found unpermitted params: signature
+    transitions the subscription to subscribed
+  approving the app where there are multiple matching accounts
+Found unpermitted params: signature
+    is expected to respond with status code :unauthorized (401)
+Found unpermitted params: signature
+    fails and return a list of authenticated accounts
+  issue an access token when the user id is supplied along with the email and password
+Found unpermitted params: signature
+    is expected to respond with a success status code (2xx)
+Found unpermitted params: signature
+    issues an access and refresh token
+  trying to issue an access token for a different account to the authenticated account
+Found unpermitted params: signature
+    is expected to respond with status code :unauthorized (401)
+  authorising an app when dev dashboard is unavailable
+Found unpermitted params: signature
+DevDashboardProxy error at create_internal_app_access_token due to Net::HTTPFatalError: 500 ""
+    is expected to respond with status code :internal_server_error (500)
+  when dev dashboard refuses to issue an access token
+Found unpermitted params: signature
+    is expected to respond with status code :unauthorized (401)
+  approving the app where the user has 2 factor authentication enabled
+Found unpermitted params: signature
+    requires 2FA code
+Found unpermitted params: signature
+    does not accept an invalid 2FA code
+Found unpermitted params: signature
+    issues an access token for a valid 2FA code
+Found unpermitted params: signature
+    issues an access token for a valid recovery code
+  Approving the app where subscription does not allow access to the account
+    Company has been cancelled
+Found unpermitted params: signature
+      Returns success and access token
+    Company is expired on free trial
+Found unpermitted params: signature
+DevDashboardProxy error at create_internal_app_access_token due to Errno::EADDRNOTAVAIL: Failed to open TCP connection to localhost:4000 (Cannot assign requested address - connect(2) for "localhost" port 4000)
+Found unpermitted params: signature
+      Returns success and access token
+    Company has inactive license
+Found unpermitted params: signature
+      Returns unauthorized error
+    Company has a closed license
+Found unpermitted params: signature
+      Returns unauthorized error
+  Approving the app where the user has level 0 permissions
+Found unpermitted params: signature
+    access token not issued if user is level 0
+    Log into account where user has level 7 permissions
+Found unpermitted params: signature
+DevDashboardProxy error at create_internal_app_access_token due to Errno::EADDRNOTAVAIL: Failed to open TCP connection to localhost:4000 (Cannot assign requested address - connect(2) for "localhost" port 4000)
+Found unpermitted params: signature
+      access token is issued
+    Log into account where user has level 0 permissions
+Found unpermitted params: signature
+      access token not issues
+  Approving the app where the company is a landlord
+    when the landlord_mobile_login feature flag is disabled
+Found unpermitted params: signature
+      does not issue an access token
+    when the landlord_mobile_login feature flag is enabled
+Found unpermitted params: signature
+      access token is issued
+
+I, [2022-12-15T10:01:22.694567 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:22.694663 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/models/accountancy_practice_report_spec.rb" "spec/models/company/forget_company_data_spec.rb[1:1:2:3:2]" "spec/controllers/practice_dashboard/account_managers_controller_spec.rb" "spec/controllers/api/internal_app_auth_controller_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+freestyle/components/_chart_meta
+  renders the given value and text
+  passes displays a status on a value when the status property is set
+  passes data attributes when the data property is set
+
+PracticeClientMessageHelper
+  #render_message_body
+    a non-blank message
+      without truncation
+#<RuntimeError: User with id 975572866 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        returns the full message body
+      with truncation
+#<RuntimeError: User with id 975572867 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        returns a shortened message of upto 80 characters
+    a multi-paragraph message
+      without truncation
+#<RuntimeError: User with id 975572868 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        returns the full message body
+      with truncation
+#<RuntimeError: User with id 975572869 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        returns a shortened message of upto 80 characters
+    a blank message
+      authored by the current user
+#<RuntimeError: User with id 975572870 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        returns a deleted message tag
+      authored by another user
+#<RuntimeError: User with id 975572871 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+#<RuntimeError: User with id 975572872 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+app/controllers/concerns/current_context_load.rb:10:in `current_user'
+app/helpers/practice_client_message_helper.rb:18:in `copy_for_deleted_message'
+app/helpers/practice_client_message_helper.rb:10:in `render_message_body'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        returns a deleted message tag
+  #list_first_names
+    for no users
+      is expected to eq ""
+    for one user
+#<RuntimeError: User with id 975572873 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to eq "Ed"
+    for one account manager
+      is expected to eq "Michelle"
+    for a combination of users and account managers
+#<RuntimeError: User with id 975572874 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to eq "Ed and Michelle"
+  #recipient_names
+    when the current user is a User
+#<RuntimeError: User with id 975572875 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+app/helpers/practice_client_message_helper.rb:27:in `recipient_names'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      returns the name of the accountancy practice as the thread recipient
+    when the current user is an Account Manager
+#<RuntimeError: User with id 975572876 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      returns the name of the practice client as the thread recipient
+
+Fapd::Sale
+  should allow a blank payment_option for trial sales
+  should allow a blank payment_option for suspended sales
+  should allow a blank payment_option for internal sales
+  should not allow a blank payment_option for active sales
+  a sale trial in trial state
+    should be able to be converted to an internal sale
+  a sale trial in active state
+    should be able to be converted to an internal sale
+  a sale trial in suspended state
+    should be able to be converted to an internal sale
+  an fapd sale
+    is expected to validate that :status is either ‹"trial"›, ‹"active"›, ‹"suspended"›, or ‹"internal"›
+    is expected to validate that :payment_option is either ‹"bacs"› or ‹"gocardless"›
+    should know its channel
+    should default to being in a trial state
+    should know when its trial has expired
+    should know when its trial has not expired
+    should know when it is not on a free trial
+  a trial with a specified expiry date
+    is expected to validate that :free_trial_expires_on cannot be empty/falsy, producing a custom validation error on failure
+    should respect the populated free trial expiry date
+    should raise error if activating without a payment option specified
+    should raise error if activating with a blank payment option specified
+  an active sale
+    is expected to validate that :pricing_plan cannot be empty/falsy, producing a custom validation error on failure
+  a suspended sale
+    should have no free trial expiry date
+    should have its free_trial_expires_on value extended
+  changing status
+    to a paid status
+      updates the active and toggled client subscriptions to billable
+    to an unpaid status
+      updates the client subscriptions to non-billable
+
+Api::SalesTaxPeriodsIntegration
+  GET /v2/sales_tax_periods/:id
+  GET /v2/sales_tax_periods/:id when locked
+  PUT /v2/sales_tax_periods/:id
+  PUT /v2/sales_tax_periods/:id when the sales tax period is locked
+  POST /v2/sales_tax_periods
+  DELETE /v2/sales_tax_periods/:id
+  DELETE /v2/sales_tax_periods/:id when the sales tax period is locked
+  GET /v2/sales_tax_periods
+    with insufficient permissions
+    for a UK company
+    for a US company
+    for a Universal company
+
+BankFeeds::YodleeProfile
+  is expected to validate that :company cannot be empty/falsy
+  is expected to validate that :username cannot be empty/falsy
+  is expected to validate that :password cannot be empty/falsy
+  adds in a digit if the password is generated without one
+  should validate uniqueness of username
+  should return the list of bank accounts from Yodlee
+  generate
+    should set the company
+    should set the username
+    password
+      should not be the same as the username
+      should be between 6 and 50 characters long
+      should contain no whitespace or control characters
+      should contain at least one number and one letter
+      should not contain the same character more than 2 times in a row
+      should not generate the same password every time
+  A profile with a banksy client
+    should get an mfa question by asking the user
+    should submit an mfa response by telling the user
+  refresh_info
+    should return the refresh info from Banksy
+    should return immediately if no retries are requested
+    should retry
+    should return immediately if successful
+    should return immediately on non-40x errors
+    for a 500 response
+      raises an error
+      records the 500 with AppMetrics
+      records the Yodlee Circuit having an error with AppMetrics
+      records the Yodlee Circuit being in a unbroken state (1) with AppMetrics
+    when the yodlee_refresh_logging feature is enabled
+      should log refresh info
+      and the yodlee_bank_auth is missing
+        should log refresh info
+    when the yodlee_refresh_logging feature is disabled
+      should log nothing
+  #bank_accounts
+    when connection occurs
+      returns an empty Array
+  #credit_card_accounts
+    when connection occurs
+      returns an empty Array
+  #bank_feeds
+    only returns Yodlee feeds
+  #request_refresh
+    should raise an error if the requested refresh hasn't started
+    should not raise an error if the requested refresh has started
+    should not raise an error if a refresh is already in progress
+    tracks a 500 response
+  #remove_bank_auth
+    should ask Yodlee to remove the bank auth from this user and return true
+    should not raise an error if the bank auth was already removed, but return false
+    should raise any other error that occurs
+  #remove
+    should destroy profile
+    should tell Yodlee to remove user
+    should disable yodlee feeds
+    should disable yodlee feeds even if Banksy can not find user
+    should not disable other feeds
+  #remove_locally_first
+    removes the profile from the database
+    calls to remove from Yodlee before calling to remove from the database
+  #remove_remotely_first
+    removes the profile from the database
+    calls to remove from the database before calling to remove from Yodlee
+  #remove_from_yodlee
+    when a remote user does not exist
+      does not attempt to remove the remote user from Yodlee
+    when a remote user exists
+      makes a call to remove the remote user from Yodlee
+  #add_user
+    calls Banksy client when adding a user
+  #get_statement
+    tracks a 500 response
+  #stop_refresh
+    tracks a 500 response
+  #remote_user_missing?
+    is true if a remote user does not exist
+    is false if a remote user exists
+    raises an error if Yodlee is unreachable
+  #investigating?
+    when no investigation timestamp
+      is expected to equal false
+    when an investigation timestamp is set
+      is expected to equal true
+  #toggle_investigation
+    when no investigation timestamp
+      sets the investigation timestamp
+    when an investigation timestamp is set
+      clears the investigation timestamp
+  #mark_for_investigation
+    sets the investigation timestamp
+  #resolve_investigation
+    sets the investigation timestamp
+  .cleanup_for
+    when a remote user does not exist
+      destroys the YodleeProfile if the company has no active feeds
+      does not destroy the YodleeProfile if the company has active feeds
+    when a remote user exists
+      does not destroy the YodleeProfile
+
+I, [2022-12-15T10:01:29.469086 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:29.469166 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/views/freestyle/components/_chart_meta.html.erb_spec.rb" "spec/helpers/practice_client_message_helper_spec.rb" "spec/models/fapd/sale_spec.rb" "spec/requests/api/sales_tax_periods_integration_spec.rb" "spec/models/bank_feeds/yodlee_profile_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/company/forget_company_data_spec.rb"=>["1:1:1:24"], "./spec/controllers/invoices_controller_spec.rb"=>["4:10"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+AttachmentExports::UploadFilenamesFileJob
+  #perform
+    does nothing if company has no attachments
+    triggers an export if company has attachments
+    schedules a FetchAttachmentExportJob job
+    uploads filenames to the eu bucket
+    tracks an attachment_exports.upload.success metric
+  #filenames_file_body
+    produces a hash with files and export name
+  #filenames_list
+    with one attachment to export
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+    with two attachments with the same filename to export
+
+Mobile::AppPromotionController
+  GET #index
+    for a customer who reaches the page for the first time
+      marks the mobile promo as seen
+      syncs the preference to SalesForce
+      when the flag nwg_mobile_promo_preference_sync is disabled
+        does not sync the preference to SalesForce
+    for a customer who has seen the page before
+      syncs the preference to SalesForce
+
+Company::ForgetCompanyData
+  Deleting all data
+    for a VAT registered UK company
+Unable to cancel gocardless mandates for company: 314262342 (Oauth not enabled)
+      deletes the companies email templates and documents
+
+InvoicesController GET :show for uk company
+  GET :show for an invoice that is marked as draft
+
+Ledgers::BankAccountEntryCheck#run_check
+  behaves like a ledger check
+    when ledgers are correct
+      behaves like no check errors
+        doesn't report any failure
+    when ledgers have been removed
+      behaves like check errors
+        reports a failed check
+        reports the failure
+    when the source item's ledgers cannot be recalculated
+      behaves like check errors
+        reports a failed check
+        reports the failure
+    when the source item has a ledger with zero as a value
+      behaves like no check errors
+        doesn't report any failure
+    property tagged ledgers
+      behaves like a property tagged ledger check
+        with valid ledgers
+          has no failures
+        missing a property id
+          has failures on the item
+
+I, [2022-12-15T10:01:34.739160 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:34.739232 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/jobs/attachment_exports/upload_filenames_file_job_spec.rb" "spec/controllers/mobile/app_promotion_controller_spec.rb" "spec/models/company/forget_company_data_spec.rb[1:1:1:24]" "spec/controllers/invoices_controller_spec.rb[4:10]" "spec/models/health_robinson/check/ledgers/bank_account_entry_check_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+PracticeDashboard::Payroll::State
+  with profiles_created
+    behaves like ready state
+      #name
+        returns 'Ready to file'
+      #key
+        returns 'ready'
+      #class_name
+        behaves like positive class
+          returns 'status_positive'
+  with period_filed_online
+    behaves like ready state
+      #name
+        returns 'Ready to file'
+      #key
+        returns 'ready'
+      #class_name
+        behaves like positive class
+          returns 'status_positive'
+  with period_filed_manually
+    behaves like ready state
+      #name
+        returns 'Ready to file'
+      #key
+        returns 'ready'
+      #class_name
+        behaves like positive class
+          returns 'status_positive'
+  with period_filed_manually (ready from)
+    behaves like ready_from state
+      #name
+        returns name starting with 'Ready to file'
+      #key
+        returns 'ready_from'
+      #class_name
+        behaves like waiting class
+          returns 'status_waiting'
+  with period_ready (prepared)
+    behaves like prepared state
+      #name
+        returns 'Ready to file'
+      #key
+        returns 'prepared'
+      #class_name
+        behaves like positive class
+          returns 'status_positive'
+  with period_ready (ready from)
+    behaves like ready_from state
+      #name
+        returns name starting with 'Ready to file'
+      #key
+        returns 'ready_from'
+      #class_name
+        behaves like waiting class
+          returns 'status_waiting'
+  with period_pending
+    #name
+      returns 'Pending'
+    behaves like warning class
+      returns 'status_warning'
+  with period_rejected
+    #name
+      returns 'Failed'
+    behaves like negative class
+      returns 'status_negative'
+  with errors
+    #name
+      returns 'Failed'
+    #error_message
+      returns an error message with full stops
+    behaves like negative class
+      returns 'status_negative'
+  with migrating_profiles
+    behaves like migration state
+      #name
+        returns 'Profiles need updating'
+      #key
+        returns 'migration'
+      #class_name
+        behaves like warning class
+          returns 'status_warning'
+  with year_ended
+    behaves like migration state
+      #name
+        returns 'Profiles need updating'
+      #key
+        returns 'migration'
+      #class_name
+        behaves like warning class
+          returns 'status_warning'
+  with year_ended_manually
+    behaves like migration state
+      #name
+        returns 'Profiles need updating'
+      #key
+        returns 'migration'
+      #class_name
+        behaves like warning class
+          returns 'status_warning'
+  with auto_migrating_profiles
+    behaves like migrating state
+      #name
+        returns 'Profiles automatically updating'
+      #key
+        returns 'migrating'
+      #class_name
+        behaves like warning class
+          returns 'status_warning'
+  with period_partially_filed
+    #name
+      returns 'Partially filed'
+    behaves like warning class
+      returns 'status_warning'
+  with no_payroll
+    #name
+      returns 'Payroll profile setup required'
+    behaves like warning class
+      returns 'status_warning'
+  with late
+    #name
+      returns 'Late'
+    #key
+      returns 'late'
+    behaves like negative class
+      returns 'status_negative'
+
+The OpenBanking logo images folder
+  contains an icon logo for aib_uk_business
+  contains a 'main' logo for aib_uk_business
+  contains an icon logo for aib_uk_personal
+  contains a 'main' logo for aib_uk_personal
+  contains an icon logo for b
+  contains a 'main' logo for b
+  contains an icon logo for bank_of_ireland_uk
+  contains a 'main' logo for bank_of_ireland_uk
+  contains an icon logo for bank_of_scotland
+  contains a 'main' logo for bank_of_scotland
+  contains an icon logo for barclaycard
+  contains a 'main' logo for barclaycard
+  contains an icon logo for barclaycard_commercial
+  contains a 'main' logo for barclaycard_commercial
+  contains an icon logo for barclays
+  contains a 'main' logo for barclays
+  contains an icon logo for barclays_business
+  contains a 'main' logo for barclays_business
+  contains an icon logo for barclays_corporate
+  contains a 'main' logo for barclays_corporate
+  contains an icon logo for barclays_personal
+  contains a 'main' logo for barclays_personal
+  contains an icon logo for barclays_wealth
+  contains a 'main' logo for barclays_wealth
+  contains an icon logo for capital_one
+  contains a 'main' logo for capital_one
+  contains an icon logo for cashplus
+  contains a 'main' logo for cashplus
+  contains an icon logo for cashplus_sandbox
+  contains a 'main' logo for cashplus_sandbox
+  contains an icon logo for cater_allen
+  contains a 'main' logo for cater_allen
+  contains an icon logo for clydesdale_bank
+  contains a 'main' logo for clydesdale_bank
+  contains an icon logo for danske_business
+  contains a 'main' logo for danske_business
+  contains an icon logo for danske_personal
+  contains a 'main' logo for danske_personal
+  contains an icon logo for first_direct
+  contains a 'main' logo for first_direct
+  contains an icon logo for halifax
+  contains a 'main' logo for halifax
+  contains an icon logo for hsbc_business
+  contains a 'main' logo for hsbc_business
+  contains an icon logo for hsbc_kinetic
+  contains a 'main' logo for hsbc_kinetic
+  contains an icon logo for hsbc_personal
+  contains a 'main' logo for hsbc_personal
+  contains an icon logo for lloyds
+  contains a 'main' logo for lloyds
+  contains an icon logo for m_s_bank
+  contains a 'main' logo for m_s_bank
+  contains an icon logo for marks_and_spencer
+  contains a 'main' logo for marks_and_spencer
+  contains an icon logo for mbna
+  contains a 'main' logo for mbna
+  contains an icon logo for mettle
+  contains a 'main' logo for mettle
+  contains an icon logo for modelo_bank
+  contains a 'main' logo for modelo_bank
+  contains an icon logo for modelo_bank_-_basic_auth
+  contains a 'main' logo for modelo_bank_-_basic_auth
+  contains an icon logo for modelo_bank_-_private_key_jwt
+  contains a 'main' logo for modelo_bank_-_private_key_jwt
+  contains an icon logo for modelo_bank_-_tls_client_auth
+  contains a 'main' logo for modelo_bank_-_tls_client_auth
+  contains an icon logo for monzo
+  contains a 'main' logo for monzo
+  contains an icon logo for nationwide
+  contains a 'main' logo for nationwide
+  contains an icon logo for natwest
+  contains a 'main' logo for natwest
+  contains an icon logo for natwest_-_sandbox
+  contains a 'main' logo for natwest_-_sandbox
+  contains an icon logo for natwest_bankline
+  contains a 'main' logo for natwest_bankline
+  contains an icon logo for natwest_clearspend
+  contains a 'main' logo for natwest_clearspend
+  contains an icon logo for openbanking_test_bank
+  contains a 'main' logo for openbanking_test_bank
+  contains an icon logo for rbs_-_sandbox
+  contains a 'main' logo for rbs_-_sandbox
+  contains an icon logo for royal_bank_of_scotland
+  contains a 'main' logo for royal_bank_of_scotland
+  contains an icon logo for royal_bank_of_scotland_bankline
+  contains a 'main' logo for royal_bank_of_scotland_bankline
+  contains an icon logo for royal_bank_of_scotland_clearspend
+  contains a 'main' logo for royal_bank_of_scotland_clearspend
+  contains an icon logo for santander
+  contains a 'main' logo for santander
+  contains an icon logo for tesco_bank
+  contains a 'main' logo for tesco_bank
+  contains an icon logo for tide
+  contains a 'main' logo for tide
+  contains an icon logo for tide_sandbox
+  contains a 'main' logo for tide_sandbox
+  contains an icon logo for transferwise
+  contains a 'main' logo for transferwise
+  contains an icon logo for tsb
+  contains a 'main' logo for tsb
+  contains an icon logo for ulster_bank
+  contains a 'main' logo for ulster_bank
+  contains an icon logo for ulster_bank_-_sandbox
+  contains a 'main' logo for ulster_bank_-_sandbox
+  contains an icon logo for ulster_bank_clearspend
+  contains a 'main' logo for ulster_bank_clearspend
+  contains an icon logo for ulster_bank_clearspend_republic_of_ireland
+  contains a 'main' logo for ulster_bank_clearspend_republic_of_ireland
+  contains an icon logo for ulster_bank_ni
+  contains a 'main' logo for ulster_bank_ni
+  contains an icon logo for ulster_bank_ni_bankline
+  contains a 'main' logo for ulster_bank_ni_bankline
+  contains an icon logo for ulster_bank_ni_clearspend
+  contains a 'main' logo for ulster_bank_ni_clearspend
+  contains an icon logo for ulster_bank_republic_of_ireland_-_clearspend
+  contains a 'main' logo for ulster_bank_republic_of_ireland_-_clearspend
+  contains an icon logo for ulster_bank_republic_of_ireland_-_online_banking
+  contains a 'main' logo for ulster_bank_republic_of_ireland_-_online_banking
+  contains an icon logo for virgin_money
+  contains a 'main' logo for virgin_money
+  contains an icon logo for virgin_money_credit_cards
+  contains a 'main' logo for virgin_money_credit_cards
+  contains an icon logo for wise
+  contains a 'main' logo for wise
+  contains an icon logo for yorkshire_bank
+  contains a 'main' logo for yorkshire_bank
+
+Bill
+  cached values
+    when creating a new bill
+      with primary and second sales tax
+        updates the cached values
+      with manual sales tax
+        updates the cached values
+    when adding a bill_item to a bill
+      updates the cached values
+    when creating a bill_item for a bill
+      updates the cached values
+
+Exporter::ExportableTypes::FinalAccountsReport
+  has Final Accounts Reports as its section name
+  has no nested types
+  has correct headings, correctly ordered
+  returns correct values, correctly ordered
+
+I, [2022-12-15T10:01:38.764658 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:38.764733 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/models/practice_dashboard/payroll/state_spec.rb" "spec/open_banking/logo_images_spec.rb" "spec/models/bills/caching_spec.rb" "spec/models/integrations/exporter/exportable_types/final_accounts_report_spec.rb"
+Run options:
+  include {:ids=>{"./spec/controllers/invoices_controller_spec.rb"=>["28:1:2:3:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Mobile::Push::ApnsFormatter
+  formats the APNS message for a notification
+  formats the APNS message for a cancellation
+
+Overpaid Bills
+  No VAT
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Any basis, FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Any basis, FRS, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Any basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Not registered, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Cash basis, not FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  Deferred then undeferred
+    Given a uk sole trader -> And a bill: overpaid -> Given VAT settings: Cash basis, not FRS, then Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+
+JournalSetsHelper
+  #journal_set_description
+    identifies journals
+    identifies opening balances
+  journal_set_entry_field_wrapper_class
+    provides the correct wrapper class
+    with a landlord company
+      provides the correct wrapper class
+  #opening_balances_import_path
+    when the opening_balances_import parameter is nil
+      returns a path to the new opening balances import page
+    when the opening_balances_import parameter is present
+      returns a path to the edit page for the opening balances import
+
+Mobile Reconsent product update
+  renders the Mobile Reconsent product update copy
+  handles unexpected state of MobileReconsentProductUpdate rule
+
+InvoicesController Viewing the online payment status of a newly created invoice
+  Viewing the online payment status of a newly created invoice
+    that is payable online
+      that has a processed GoCardless payment
+        shows the payment as positive
+
+I, [2022-12-15T10:01:41.303679 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:41.303754 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/freeagent/mobile/push/apns_formatter_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/overpaid.feature" "spec/helpers/journal_sets_helper_spec.rb" "spec/requests/radar/insights/mobile_reconsent_product_update_spec.rb" "spec/controllers/invoices_controller_spec.rb[28:1:2:3:1]"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+api/projects/_project.rbapi
+  does not nest the contact model by default
+  nests related if specified
+  when the project's contact has a bank account
+    nests contact with bank account details correctly
+
+CancellationsHelper
+  #can_company_reactivate_prefix
+    when the cancelled_direct_company_reactivation feature is disabled
+      returns 'cannot_reactivate' when company is on a direct subscription
+      returns 'cannot_reactivate' when company is not on a direct subscription
+    when the cancelled_direct_company_reactivation feature is enabled
+      returns 'can_reactivate' when company is on a direct subscription
+      returns 'cannot_reactivate' when company is not on a direct subscription
+
+PDFRendering
+  can render a partial to a pdf
+  can handle a PDF service exception
+
+LayoutHelper
+  #body_class
+    is empty by default
+    returns @content_class if set
+  #section_content
+    returns a section with 'content' id
+    returns sets the class on the section when specified
+    stores the provided class in @content_class
+    renders the given block
+  #body_tag
+    renders the given block
+    sets the base_body_class if provided
+    connects the analytics controller
+    uses @content_class as the body class if set
+    sets the branding classes if not logged into the practice dashboard
+    does not set the branding classes if logged into the practice dashboard
+    sets a turbo data attribute to false when turbo is disabled
+    sets a turbo data attribute to true when turbo enabled
+    sets the stimulus debug flag when stimulus debug is enabled
+    sets the stimulus debug flag off when stimulus debug is disabled
+    sets a turbo data attribute to false when reponse is a 403
+    sets a turbo data attribute to false when reponse is a 404
+    sets a turbo data attribute to false when reponse is a 500
+    with page_load_metrics enabled
+      sets page to records metrics when chosen
+      notifies of exception but continues to render body tag
+
+Initial Creditor Payment Bank Account Entries
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Not registered, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, FRS, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Invoice basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Cash basis, not FRS, then Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Cash basis, FRS, then Invoice basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Cash basis, FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  No VAT entries
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given VAT settings: Cash basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions
+  20% VAT reclaimed
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  20% VAT reclaimed
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  20% VAT reclaimed
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+  20% VAT reclaimed
+    Given a uk sole trader -> And an initial creditor payment bank account entry -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions
+
+Admin::Companies::AddonsController
+  #index
+    renders successfully
+
+SearchPolicy
+  a user with permission level below MY_MONEY
+    is expected to equal false
+  a user with permission level MY_MONEY
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Settings::LoginAttemptsHelper
+  #failure_summary
+    when the state is incorrect_password
+      is expected to eq "Wrong password"
+    when the state is two_factor_failed
+      is expected to eq "2-Step Verification failed"
+    when the state is backoff_exceeded
+      is expected to eq "Too many failed attempts"
+    when the state is user_not_found
+      is expected to eq "Wrong email address"
+    when the state is no_credentials
+      is expected to eq "No credentials entered"
+    when the state is no_access
+      is expected to eq "No access"
+    when the state is something_else_entirely
+      is expected to eq "Failed"
+    when the state is in_progress
+      is expected to eq "In progress"
+
+PasswordsController
+  #search
+    with signup params
+      returns json response indicating password is common
+      with a valid password
+        returns json response indicating password is not compromised
+    editing existing user
+      compromised
+        returns json response indicating password is common
+      trying to set the same password
+        returns json response indicating password is common
+    reseting password with activation code
+      returns json response indicating password is common
+    with invalid params
+      responds with nothing
+
+ExpenseRedirectsController
+  #edit
+    redirects to the bank account entries controller edit action
+    returns a 404 if the entry is not found
+
+I, [2022-12-15T10:01:44.375732 #240]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:44.375801 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/views/api/projects/_project.rbapi_spec.rb" "spec/helpers/cancellations_helper_spec.rb" "spec/controllers/concerns/pdf_rendering_spec.rb" "spec/helpers/layout_helper_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bank_account_entries/initial_creditor_payments.feature" "spec/controllers/admin/companies/addons_controller_spec.rb" "spec/policies/search_policy_spec.rb" "spec/helpers/settings/login_attempts_helper_spec.rb" "spec/controllers/passwords_controller_spec.rb" "spec/controllers/expense_redirects_controller_spec.rb"
+Knapsack Pro Queue finished!
+
+
+Finished in 2 minutes 20.7 seconds
+787 examples, 0 failures
+I, [2022-12-15T10:01:44.397094 #240]  INFO -- : [knapsack_pro] To retry all the tests assigned to this CI node, please run the following command on your machine:
+I, [2022-12-15T10:01:44.397186 #240]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_36.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_36.xml --default-path spec "spec/controllers/settings_controller_spec.rb" "spec/controllers/overview_controller_spec.rb" "spec/controllers/payslips_controller_spec.rb" "spec/freeagent/insurance_records_checker_spec.rb" "spec/features/getting_started_spec.rb[1:6:1:1:1]" "spec/models/vat_registration_spec.rb" "spec/acceptance/self_assessment/tax_year20182019/marriage_allowance.feature" "spec/models/accountancy_practice_report_spec.rb" "spec/models/company/forget_company_data_spec.rb[1:1:2:3:2]" "spec/controllers/practice_dashboard/account_managers_controller_spec.rb" "spec/controllers/api/internal_app_auth_controller_spec.rb" "spec/views/freestyle/components/_chart_meta.html.erb_spec.rb" "spec/helpers/practice_client_message_helper_spec.rb" "spec/models/fapd/sale_spec.rb" "spec/requests/api/sales_tax_periods_integration_spec.rb" "spec/models/bank_feeds/yodlee_profile_spec.rb" "spec/jobs/attachment_exports/upload_filenames_file_job_spec.rb" "spec/controllers/mobile/app_promotion_controller_spec.rb" "spec/models/company/forget_company_data_spec.rb[1:1:1:24]" "spec/controllers/invoices_controller_spec.rb[4:10]" "spec/models/health_robinson/check/ledgers/bank_account_entry_check_spec.rb" "spec/models/practice_dashboard/payroll/state_spec.rb" "spec/open_banking/logo_images_spec.rb" "spec/models/bills/caching_spec.rb" "spec/models/integrations/exporter/exportable_types/final_accounts_report_spec.rb" "spec/freeagent/mobile/push/apns_formatter_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/overpaid.feature" "spec/helpers/journal_sets_helper_spec.rb" "spec/requests/radar/insights/mobile_reconsent_product_update_spec.rb" "spec/controllers/invoices_controller_spec.rb[28:1:2:3:1]" "spec/views/api/projects/_project.rbapi_spec.rb" "spec/helpers/cancellations_helper_spec.rb" "spec/controllers/concerns/pdf_rendering_spec.rb" "spec/helpers/layout_helper_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bank_account_entries/initial_creditor_payments.feature" "spec/controllers/admin/companies/addons_controller_spec.rb" "spec/policies/search_policy_spec.rb" "spec/helpers/settings/login_attempts_helper_spec.rb" "spec/controllers/passwords_controller_spec.rb" "spec/controllers/expense_redirects_controller_spec.rb"
+2022-12-15T10:01:44.437Z pid=240 tid=9rs INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}

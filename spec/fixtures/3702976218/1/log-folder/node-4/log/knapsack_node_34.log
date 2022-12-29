@@ -1,0 +1,1555 @@
+I, [2022-12-15T09:58:57.186786 #247]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual 'it's. Thanks to that a single slow test file can be split across parallel CI nodes). Analyzing 7 slow test files.
+2022-12-15T09:59:13.014Z pid=318 tid=9lu INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+FAPDSubscription
+  #activating_practice_client?
+    reports when status_event will activate a practice client
+    doesn't report when status_event will inactivate a practice client
+  #can_change_practice_status?
+    is able to change practice status
+    on a demo practice
+      can change practice status
+      that has been activated
+        can change practice status
+    for a closed subscription
+      cannot change practice status
+  #activate!
+    for an Inactive licence
+      does not change account_type when already live
+      gives the subscription full access
+      marks the subscription as billable
+      expires the fapd free period
+      when previously set to test
+        does not change account_type
+      when previously set to demo
+        updates account_type to live
+      when free_periods are enabled
+        remains non-billable
+        sets the fapd free period expiry date to the first of next month
+      for a practice with a TRIAL sale status
+        does not change account_type when already live
+        gives the subscription full access
+        expires the fapd free period
+        remains non-billable
+        when previously set to test
+          does not change account_type
+        when previously set to demo
+          updates account_type to live
+    for a non-live account
+      marks the subscription as non-billable
+      clears cancelled_at and free_trial_expires_on
+    for a demo account_type
+      marks the subscription as non-billable
+    for an active licence in its free period
+      retains the fapd free period expiry date
+      remains non-billable
+    for an active licence whose free period expires today
+      retains the fapd free period expiry date
+      remains non-billable
+    for an inactive licence in its free period
+      sets the correct status
+      retains the fapd free period expiry date
+      remains non-billable
+    for an inactive licence with an expired free period
+      marks the subscription as billable
+      retains the fapd free period expiry date
+    for a closed licence
+      does not change the status
+      does not change the billable flag
+      does not change the inactivated_at timestamp
+  #force_activate!
+    on a inactive subscription
+      does not change account_type when already live
+      gives the subscription full access
+      marks the subscription as billable
+      expires the fapd free period
+      sets the correct status
+      when previously set to test
+        does not change account_type
+      when previously set to demo
+        updates account_type to live
+      for a practice with a TRIAL sale status
+        does not change account_type when already live
+        gives the subscription full access
+        expires the fapd free period
+        remains non-billable
+        when previously set to test
+          does not change account_type
+        when previously set to demo
+          updates account_type to live
+    on a closed subscription
+      does not change account_type when already live
+      gives the subscription full access
+      marks the subscription as billable
+      expires the fapd free period
+      sets the correct status
+      when previously set to test
+        does not change account_type
+      when previously set to demo
+        updates account_type to live
+      for a practice with a TRIAL sale status
+        does not change account_type when already live
+        gives the subscription full access
+        expires the fapd free period
+        remains non-billable
+        when previously set to test
+          does not change account_type
+        when previously set to demo
+          updates account_type to live
+    when free_periods are enabled
+      remains non-billable
+      sets the fapd free period expiry date to the first of next month
+    for a non-live account
+      marks the subscription as non-billable
+      clears cancelled_at and free_trial_expires_on
+    for a demo account_type
+      marks the subscription as non-billable
+    for an active licence in its free period
+      retains the fapd free period expiry date
+      remains non-billable
+    for an active licence whose free period expires today
+      retains the fapd free period expiry date
+      remains non-billable
+    for an inactive licence in its free period
+      sets the correct status
+      retains the fapd free period expiry date
+      remains non-billable
+    for an inactive licence with an expired free period
+      marks the subscription as billable
+      retains the fapd free period expiry date
+    when making a direct billable company active practice managed
+      expires the fapd free period
+      remains billable
+  #force_closed
+    for a non-closed subscription
+      marks the subscription as non-billable
+      sets the status to closed
+    for a closed subscription
+      remains closed
+  #inactivate!
+    for an Active licence
+      revokes access
+      does not change account_type when already live
+      cancels outgoing and disables bank feeds
+      sets the status to closed
+      does not mark client as non-billable this month
+      sets the inactivated_at timestamp
+      retains the fapd free period expiry date
+      when previously set to test
+        does not change account_type
+      when previously set to demo
+        updates account_type to live
+      with notifications
+        deletes the notifications
+        deletes the notifications when implicitly inactivating the subscription
+      which is in its free period
+        remains non-billable
+        retains the fapd free period expiry date
+        doesn't set the inactivated_at date
+      whose free period expires today
+        retains the fapd free period expiry date
+        remains non-billable
+        sets the inactivated_at date
+    for a demo account_type
+      marks the subscription as non-billable
+    when already inactive
+      remains inactive
+      doesn't set the fapd free period expiry date
+      retains the existing fapd free period expiry date
+    when already closed
+      remains closed
+      doesn't set the fapd free period expiry date
+      retains the existing fapd free period expiry date
+    for a practice with a TRIAL sale status
+      revokes access
+      does not change account_type when already live
+      cancels outgoing and disables bank feeds
+      sets the status to 'Closed'
+      does not mark client as billable this month
+      does not set the inactivated_at timestamp
+      retains the fapd free period expiry date
+      when previously set to test
+        does not change account_type
+      when previously set to demo
+        updates account_type to live
+  #force_inactivate!
+    on an active subscription
+      revokes access
+      does not change account_type when already live
+      cancels outgoing and disables bank feeds
+      sets the correct status
+      does not mark FAPD clients as non-billable this month
+      sets the inactivated_at timestamp
+      retains the fapd free period expiry date
+      when previously set to test
+        does not change account_type
+      when previously set to demo
+        updates account_type to live
+      for a demo account_type
+        marks the subscription as non-billable
+    on a closed subscription
+      does not change account_type when already live
+      sets the correct status
+      retains the access level
+      retains the fapd free period expiry date
+      when previously set to test
+        does not change account_type
+      when previously set to demo
+        updates account_type to live
+      for a demo account_type
+        marks the subscription as non-billable
+    when making a cancelled company practice managed
+      marks the subscription as non-billable
+      expires the fapd free period
+    when already inactive
+      remains inactive
+      doesn't set the fapd free period expiry date
+      retains the existing fapd free period expiry date
+    when making a cancelled company practice managed
+      marks the subscription as non-billable
+      sets the correct status
+      expires the fapd free period
+    when making a direct billable company inactive practice managed
+      marks the subscription as non-billable
+      sets the correct status
+      expires the fapd free period
+    for an active licence in its free period
+      remains non-billable
+      retains the fapd free period expiry date
+      doesn't set the inactivated_at date
+    for an active licence whose free period expires today
+      retains the fapd free period expiry date
+      remains non-billable
+      sets the inactivated_at date
+    with notifications
+      deletes the notifications
+      deletes the notifications when implicitly inactivating the subscription
+  #make_demo!
+    marks the subscription as non-billable
+    marks the subscription with a demo account_type
+    for an inactive licence
+      gives the subscription full access
+    for a licence it its free period
+      retains the fapd free period expiry date
+  #make_live!
+    for a non-live account
+      marks the subscription with a live account_type
+    for a live account
+      does not change the account type
+  #eligible_for_free_period?
+    for a inactive_free_period_expired subscription
+      returns false
+    for a practice_managed_active subscription
+      returns false
+    for a inactive subscription
+      returns false
+    for a free_period subscription
+      returns true
+    for a new licence
+      returns false
+    when free_periods are enabled
+      for a new licence
+        returns true
+      for a new licence on a trial practice
+        returns false
+      for a inactive_free_period_expired subscription
+        returns false
+      for a practice_managed_active subscription
+        returns false
+      for a free_period subscription
+        returns true
+      for a inactive subscription
+        returns true
+
+Api::ConsentsController
+  #create
+    when connecting
+      creates a consent
+      tracks the event in Sqreen
+      assign the authorisation url
+      partial bank account details
+        a bank account with partial data
+          confirms details
+        a bank account with full data
+          does not confirm details
+    when connecting without an integration in place
+      creates a consent
+      creates or uses an existing integration for the requested service
+      creates a url which includes the flag to trigger account provisioning
+      adds a provision accounts flag to the URL when the user comes from an individual bank account
+      does not add a provision accounts flag to the URL when the user comes from the banking overview page
+      tracks the event in Sqreen
+      assign the authorisation url
+      responds bad_request for an bank service unavailable to the company
+      responds bad_request for a non-open-banking bank service
+      for missing bank integration
+        responds with not_found
+      for missing bank service
+        responds with not_found
+    when reconnecting
+      creates a consent
+      assigns the bank integration redirect url
+      does not confirm account details
+      90 Day TPP Reconsent process
+        has a API version header < 2022-06-20
+          behaves like standard reconsent journey
+            redirect_to_bank is true
+            contains a redirect url
+            does not modify consent expiry dates
+            does not schedule any jobs
+            does not publish any events
+        the API Version header is >= 2022-06-20
+          with no authorised consents
+            behaves like standard reconsent journey
+              redirect_to_bank is true
+              contains a redirect url
+              does not modify consent expiry dates
+              does not schedule any jobs
+              does not publish any events
+          with a consent with tpp_consent_enabled set to false for the provider
+            behaves like standard reconsent journey
+              redirect_to_bank is true
+              contains a redirect url
+              does not modify consent expiry dates
+              does not schedule any jobs
+              does not publish any events
+          with bank_expires_at less than 90 days in the future on any consent
+            behaves like standard reconsent journey
+              redirect_to_bank is true
+              contains a redirect url
+              does not modify consent expiry dates
+              does not schedule any jobs
+              does not publish any events
+          with an account integration last imported more than 90 days ago
+            behaves like standard reconsent journey
+              redirect_to_bank is true
+              contains a redirect url
+              does not modify consent expiry dates
+              does not schedule any jobs
+              does not publish any events
+          with the bank feed in connection issue
+            behaves like standard reconsent journey
+              redirect_to_bank is true
+              contains a redirect url
+              does not modify consent expiry dates
+              does not schedule any jobs
+              does not publish any events
+          with an account integration that hasn't imported yet
+            behaves like standard reconsent journey
+              redirect_to_bank is true
+              contains a redirect url
+              does not modify consent expiry dates
+              does not schedule any jobs
+              does not publish any events
+          with a eligible consent
+            redirect_to_bank is false
+            contains a redirect url
+            updates the expiry date of the consents to be 90 days in the future
+            schedules an import job
+            publishes a `ENABLE_BANK_FEED_UPDATED_WITHOUT_SCA` event
+    when consent fails
+      logs the error
+#<OpenBanking::Integration::RestApi::ResponseError: OpenBanking::Integration::RestApi::ResponseError>
+      assigns an error
+
+Api::ConsentsCallbackController
+  POST #create
+    rejects the consent when there is an error param
+    successful response with authorised accounts
+      returns a 200 response
+      records an app metric for successful consent auth
+      doesn't record a failure app metric
+      sets the access token, token expiry and refresh token on the consent
+      sets the consent to be authorised
+      creates authorised accounts
+      schedules a job to set the opening_balance for authorised accounts
+      schedules a pre assessed limit job
+      returns success
+      when the consent is NWG
+        schedules an NWG addition fields import job
+        if the callback URL is fired a second time
+          should not schedule any jobs
+          should not schedule any PAL related jobs
+          should not change change the consent at all (access token, refresh token or expires_at value)
+          should not change the authorised accounts on the consent
+          should not increment any metric counters
+          should not call the account provisioner
+          should not fire any bank feed events
+      if the callback URL is fired a second time
+        should not schedule any jobs
+        should not schedule any PAL related jobs
+        should not change change the consent at all (access token, refresh token or expires_at value)
+        should not change the authorised accounts on the consent
+        should not increment any metric counters
+        should not call the account provisioner
+        should not fire any bank feed events
+    successful reponse with no authorised accounts
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      returns a 200 response
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      does not records an app metric for successful consent auth
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      records a failure app metric
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      sets the access token, token expiry and refresh token on the consent
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      sets the consent to be authorised
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      does not create authorised accounts
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      does not schedule a job to set the opening_balance for authorised accounts
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      schedules a pre assessed limit job
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+      returns success
+      when the consent is NWG
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+        schedules an NWG additional fields import job
+        if the callback URL is fired a second time
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+          should not schedule any jobs
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+          should not schedule any PAL related jobs
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+          should not change change the consent at all (access token, refresh token or expires_at value)
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+          should not change the authorised accounts on the consent
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+          should not increment any metric counters
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+          should not call the account provisioner
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: Consent has no authorised accounts>
+          should not fire any bank feed events
+    when we want to provision bank accounts
+      calls the account provisioner
+      knows the results of bank account provisioning
+      does not provision bank accounts when the consent is not authorised
+      sends an OPEN_BANKING_BANK_FEED_SETUP_COMPLETED event if a bank feed was created
+      marks the :link_bank_account Flying Start task as completed
+      does not send an event if a bank feed was not created
+      returns 200
+      if the callback URL is fired a second time
+        should not schedule any jobs
+        should not schedule any PAL related jobs
+        should not change change the consent at all (access token, refresh token or expires_at value)
+        should not change the authorised accounts on the consent
+        should not increment any metric counters
+        should not call the account provisioner
+        should not fire any bank feed events
+    when we want to link an existing bank account to an authorised account
+      links the bank account to an authorised account
+      does not link the bank account if the consent is not authorised
+      has the error responses when we are unable to link
+      if the callback URL is fired a second time
+        should not schedule any jobs
+        should not schedule any PAL related jobs
+        should not change change the consent at all (access token, refresh token or expires_at value)
+        should not change the authorised accounts on the consent
+        should not increment any metric counters
+        should not call the account provisioner
+        should not fire any bank feed events
+    consenting
+      when all authorised accounts are linked already
+        assigns consent status all_linked
+      when some bank accounts are linked
+        assigns consent status connected
+      if the callback URL is fired a second time
+        should not schedule any jobs
+        should not schedule any PAL related jobs
+        should not change change the consent at all (access token, refresh token or expires_at value)
+        should not change the authorised accounts on the consent
+        should not increment any metric counters
+        should not call the account provisioner
+        should not fire any bank feed events
+        still assigns consent status connected
+    when the consent is invalid
+      sets the consent to be rejected
+      records an app metric for failed consent auth
+      assigns status failed
+      with error params
+        assigns status failed
+        with access denied error
+          assigns consent_status rejected
+          records an app metric for rejected consent auth
+    when a consent is not awaiting_authorisation
+      should not schedule any jobs
+      should not schedule any PAL related jobs
+      should not change change the consent at all (access token, refresh token or expires_at value)
+      should not change the authorised accounts on the consent
+      should not increment any metric counters
+      should not call the account provisioner
+      should not fire any bank feed events
+    when fetch token times out
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<Faraday::TimeoutError #<Faraday::TimeoutError: timeout>>
+      assigns consent_status accounts_fetch_failed
+      sends an error to the Rails logger
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<Faraday::TimeoutError #<Faraday::TimeoutError: timeout>>
+      does not notify the error service
+    when an OAuth error occurs
+      records an app metric for failed consent auth
+      assigns consent_status oauth_failed
+      sends an error to the Rails logger
+      does not notify the error service
+    when an OAuth connection error occurs
+      records an app metric for failed consent auth
+      assigns consent_status oauth_failed
+      sends an error to the Rails logger
+      does not notify the error service
+    when an error is raised getting the accounts
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: OpenBanking::Integration::RestApi::ResponseError>
+      records an app metric
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: OpenBanking::Integration::RestApi::ResponseError>
+      assign consent_status accounts_fetch_failed
+      sends an error to the Rails logger
+Api::ConsentsCallbackController#create: failed to fetch accounts, provider: OpenBanking Test Bank) - #<OpenBanking::Integration::RestApi::ResponseError: OpenBanking::Integration::RestApi::ResponseError>
+      does not notify the error service
+    when the state parameter is invalid
+Redirected to OpenBanking callback without state parameter
+      responds with a 200 if the state parameter is omitted
+      responds with a 401 Unauthorized if the state parameter doesn't match
+    when the consent cannot be found in the database
+Api::ConsentsCallbackController#create: Failed to find record, provider: UNKNOWN) - #<ActiveRecord::RecordNotFound: Couldn't find OpenBanking::Consent with 'id'=503>
+      should not schedule any jobs
+Api::ConsentsCallbackController#create: Failed to find record, provider: UNKNOWN) - #<ActiveRecord::RecordNotFound: Couldn't find OpenBanking::Consent with 'id'=505>
+      should not schedule any PAL related jobs
+Api::ConsentsCallbackController#create: Failed to find record, provider: UNKNOWN) - #<ActiveRecord::RecordNotFound: Couldn't find OpenBanking::Consent with 'id'=507>
+      should not change the authorised accounts on the consent
+Api::ConsentsCallbackController#create: Failed to find record, provider: UNKNOWN) - #<ActiveRecord::RecordNotFound: Couldn't find OpenBanking::Consent with 'id'=509>
+      should not increment any metric counters
+Api::ConsentsCallbackController#create: Failed to find record, provider: UNKNOWN) - #<ActiveRecord::RecordNotFound: Couldn't find OpenBanking::Consent with 'id'=511>
+      should not call the account provisioner
+Api::ConsentsCallbackController#create: Failed to find record, provider: UNKNOWN) - #<ActiveRecord::RecordNotFound: Couldn't find OpenBanking::Consent with 'id'=513>
+      should not fire any bank feed events
+Api::ConsentsCallbackController#create: Failed to find record, provider: UNKNOWN) - #<ActiveRecord::RecordNotFound: Couldn't find OpenBanking::Consent with 'id'=515>
+      redirects with an error
+      sends an error to the Rails logger
+    reconsenting
+      when the bank account matches one of the authorised accounts reconsented
+        assigns consent_status connected
+        schedules a job for each reconsented authorised account
+      when the bank account does not match any of the authorised accounts reconsented
+        assigns consent status reconnect_account_not_selected
+      when the bank bank feed is in a connection_issue state
+        resets the bank feed state back to pending
+    building the flow context
+      knows if this is a new consent
+      knows if the user is reconsenting
+      knows if there is a bank account present
+      knows if there is not a bank account present
+
+I, [2022-12-15T10:00:36.858544 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:00:36.858614 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/models/fapd_subscription_spec.rb" "spec/controllers/api/consents_controller_spec.rb" "spec/controllers/api/consents_callback_controller_spec.rb"
+Run options:
+  include {:ids=>{"./spec/features/getting_started_spec.rb"=>["1:5:2:4:2:2:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Getting Started
+  for an RBSG agent signup
+    with Universal company type
+      with the personalise_setup_stage feature flag enabled
+        and the personalisation_interests_setup_stage flag enabled
+          for NatWest
+Capybara starting Puma...
+* Version 6.0.0 , codename: Sunflower
+* Min threads: 0, max threads: 4
+* Listening on http://0.0.0.0:9890
+            can complete setup
+
+SessionsController
+  GET :new
+    renders the login form
+    renders the login Google Analytics tracking events
+    renders the login Google Analytics tracking event for the Google SSO
+    when the host is an IP address
+      is expected to respond with numeric status code 200
+      is expected to render template new
+    when the host is the login subdomain of a whitelabel domain
+      renders a whitelabelled login page
+    when the host is a company subdomain for whitelabel domain
+      renders a whitelabelled login page
+    when the host is the login subdomain of a whitelabel domain with 2 TLDs
+      renders a whitelabelled login page
+    when the host is a company subdomain for whitelabel domain with 2 TLDs
+      renders a whitelabelled login page
+    when the host is login and the brand param is royal_bank_of_scotland
+      renders the hybrid login page
+    when the host is login and the brand param is natwest
+      renders the hybrid login page
+    when the host is login and the brand param is ulster_bank
+      renders the hybrid login page
+    when the host is login and the brand param is not a valid NWG brand
+      renders the normal login page
+    apple smart banner
+      when practice should not have it shown
+        is not shown
+      when direct or practice should have it shown
+        is shown
+    login with bank
+      feature flag enabled
+        when viewing the generic login page
+          does not display 'Login with Brand'
+        when viewing the subdomain login page for an accountancy practice
+          does not display 'Login with Brand'
+        when viewing the subdomain login page for an ineligible company
+          does not display 'Login with Brand'
+        when viewing the subdomain login page for an eligible company
+          displays 'Log in with Brand' showing the NWG reseller of the company
+          contains GA event tracking
+  POST :create
+    logs the user in if the email and password are correct
+    redirects to the 2FA controller if 2FA is enabled for a user and the login is successful
+    shows error message if 2FA is enabled for a user and the login is successful, however user does not have access
+    shows an error message if the email and password are incorrect
+    shows an error message if email & password are correct but access level is 0
+    can set the remember me option
+    can set the remember me option to false
+    selects the right credentials if a credentials gid is provided
+    logs an account manager in if the email and password are correct
+    doesn't log a user in if the subdomain doesn't match
+    shows the account selector screen if different accounts match the email and password
+    selects the right credentials if a credentials gid is provided
+    displays a flash message if parameters are missing
+    redirects to a provided url after login
+    for a provisioned company
+      transitions the subscription to subscribed
+    when from_backbook_provisioning session variable is true
+      and the user is not on a mobile web browser
+        when the company has an eligible bank feed
+          redirects to the bank accounts show page
+          sets the show_tcf_eligible_notice session variable
+        when the company has a possibly eligible bank feed
+          redirects to the bank accounts show page
+          sets the show_tcf_eligible_notice session variable
+    with the natwest brand present in the request
+      with an incorrect password
+        renders the NWG hybrid login
+      different accounts match the username and password
+        shows the account selector screen without the NWG hybrid login
+    when the user is on a mobile browser
+      and the company reseller is not one of NWG’s brands
+        and the company is not white-labelled
+          redirects to the mobile promo screen
+          and there is a deep link cookie set
+            follows the deep link instead of going to the promo
+        and the company is white-labelled
+          when the freestyle_responsive_layout flag is enabled
+            redirects to the responsive overview
+          when the freestyle_responsive_layout flag is disabled
+            redirects to the mobile overview
+        and has seen the mobile app promo
+          redirects to the mobile promo screen
+      and the company reseller is one of NWG's brands
+        and has not seen the mobile app promo
+          and the company is not white-labelled
+            always redirects to the mobile promo screen whether or not it has been seen
+            and there is a deep link cookie set
+              follows the deep link instead of going to the promo
+          and the company is white-labelled
+            when the freestyle_responsive_layout flag is enabled
+              redirects to the responsive overview
+            when the freestyle_responsive_layout flag is disabled
+              redirects to the mobile overview
+        and has seen the mobile app promo
+          always redirects to the nwg mobile promo screen whether or not it has been seen
+          and there is a deep link cookie set
+            follows the deep link instead of going to the promo
+    with :record_known_devices feature enabled
+      logging in with a new device
+        creates a new known device record
+        sets a cookie with the local device id
+        creates only one device when logging in multiple times even without cookie and fingerprint
+        still generates a fingerprint even if empty string is sent
+        if it's not the user's first login
+          sends an email if setting enabled
+          doesn't send an email if setting disabled
+        and the user has 2FA enabled with remember me enabled
+          challenges for 2FA
+        and the user has 2FA enabled with remember me disabled
+          challenges for 2FA
+      logging in with a known device
+        does not create a new record
+        updates the fingerprint if same ip and local id are detected
+        updates the ip if fingerprint and local id are detected
+        sets the local id cookie if it has been deleted
+        and the user has 2FA enabled with remember me enabled
+          skips the challenge for 2FA
+        and the user has 2FA enabled with remember me disabled
+          challenges for 2FA
+  DELETE :destroy
+    logs the current user out
+    can log out a user from an expired trial
+  GET javascript_required
+    renders the javascript required page
+    Custom practice domain hitting the javascript required page
+      renders the javascript required page
+  GET touch
+    resets the current session's expires_at timestamp
+    is a no-op when there is no user session
+
+TaxTimeline
+  .for_company
+    sorts the list of items
+    includes only company tax items
+  .for_user
+    sorts the list of items
+    includes personal tax items
+    includes company tax items
+    only includes items after date >= company current date in their timezone
+    returns [] if the company doesn't support personal tax
+  .active_sa_returns
+    returns the filtered self assessment returns
+  .fingerprint
+    is same for different instances with same timeline_items
+    changes when a timeline_item changes
+
+CustomerBilling::AnnualSubscriptionRefund
+  #process
+    when Stripe is behaving
+      at the start of the billing period
+        not on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398248, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-3480 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+        on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398253, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-3480 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+      1 day after the start of the billing period
+        not on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398258, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-3190 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+        on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398263, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-3132 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+      in month 3 of the billing period
+        not on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398268, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-2610 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+        on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398273, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-2436 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+      in month 8 of the billing period
+        not on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398278, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-1160 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+        on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398283, name: ...on_number => nil, :status => "sent", :total_value => #<Money fractional:-696 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+      in month 11 of the billing period
+        not on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398288, name: ...on_number => nil, :status => "sent", :total_value => #<Money fractional:-290 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+        on the monthly basis
+          is expected to be nil
+          does not create a SubscriptionInvoice
+      in month 12 of the billing period
+        is expected to be nil
+        does not create a SubscriptionInvoice
+      in month 17 of the billing period
+        is expected to be nil
+        does not create a SubscriptionInvoice
+      before the start of the billing period
+        not on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398299, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-3480 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+        on the monthly basis
+          is expected to be a kind of SubscriptionInvoice(id: integer, company_id: integer, dated_on: date, status: integer, currency: stri...ated_at: datetime, updated_at: datetime, refunded_invoice_id: integer, subscription_channel: string)
+          is expected to have attributes {:address1 => "House", :address2 => "", :address3 => "", :company => #<UkLimitedCompany id: 895398304, name: ...n_number => nil, :status => "sent", :total_value => #<Money fractional:-3480 currency:GBP>, :town => "Town"}
+          creates a SubscriptionInvoice
+          records a SubscriptionPayment referencing the refund
+          sets the description of the SubscriptionPayment
+    when the Stripe request fails
+      because of generic StripeErrors
+        reports the error and raises CustomerBilling::Failure
+  #total_amount
+    when the invoice only has the core service on it
+      is expected to eq #<Money fractional:34800 currency:GBP>
+    when the invoice has the core service and an add-on on it
+      is expected to eq #<Money fractional:34800 currency:GBP>
+    when the invoice has the core service and a discount on it
+      is expected to eq #<Money fractional:31200 currency:GBP>
+    when the invoice has the core_service, an add-on and a discount on it
+      is expected to eq #<Money fractional:31200 currency:GBP>
+
+I, [2022-12-15T10:01:08.556212 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:08.556278 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/features/getting_started_spec.rb[1:5:2:4:2:2:1]" "spec/controllers/sessions_controller_spec.rb" "spec/models/tax_timeline_spec.rb" "spec/models/customer_billing/annual_subscription_refund_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Practice Dashboard Modal Interactions
+  an existing Account Manager
+    sees the current feature modal but not the onboarding modal
+  a new Account Manager
+    that hasn't seen the onboarding modal
+      sees the onboarding modal but not the current feature modal
+    that has closed the onboarding modal
+      sees the current feature modal
+    has just completed a task on the onboarding modal
+      sees the onboarding modal but not the current feature modal
+
+OpenBanking::PreAssessedLimitProductInformationJob
+  .schedule
+    schedules the job
+    does not schedule the job when the consent is not eligible for Pre-Assessed Limit
+  #perform
+    fetches the product information for each authorised account
+    schedules a job to sync the Pre-Assessed Limit value
+    when we already know the product information for an authorised account
+      does not fetch data for that account
+    when there are no authorised accounts
+      does nothing
+    when the consent is not eligible for Pre-Assessed Limit
+      logs the error
+    when the consent no longer exists
+      does nothing
+    when there is a OAuth2 error
+      rescues a ResponseError and re-raises a Jobs::FailAndRetry
+      logs the error
+    when there is a `OpenBanking::Integration::RestApi::ResponseError` error
+      rescues a ResponseError and re-raises a Jobs::FailAndRetry
+      logs the error
+  #error
+    logs the error
+
+Late Paying Customers
+  with a late paying customers insight
+[ActiveJob] [EmailMark…] [48dff7d0-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 48dff7d0-2fee-4190-be1b-bad8d834bc03) from staged jobs, not found
+[ActiveJob] [Recurring…] [8b892c83-…] Failed to delete RecurringInvoiceProfile::UpdateIndexJob (Job ID: 8b892c83-4c07-4590-b9b5-5a3da3d2d5e1) from staged jobs, not found
+[ActiveJob] [Recalcula…] [259148df-…] Failed to delete RecalculateContactAccountBalanceJob (Job ID: 259148df-67f0-4e8b-b5b9-89b94a158afb) from staged jobs, not found
+[ActiveJob] [SourceIte…] [cf4807bd-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: cf4807bd-db44-4762-ab53-5b33b01edbf9) from staged jobs, not found
+[ActiveJob] [SourceIte…] [b72a3a84-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: b72a3a84-3833-43ef-8882-9531f1a66c29) from staged jobs, not found
+[ActiveJob] [SourceIte…] [80c0228b-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 80c0228b-9b11-4e40-b11a-d585fa60ae3d) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [d37f6ced-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: d37f6ced-ece2-4986-bfb9-41ace1eb71a0) from staged jobs, not found
+    renders the Late Paying Customer copy
+[ActiveJob] [EmailMark…] [58e3288d-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 58e3288d-af69-4502-92f5-f76753ba983e) from staged jobs, not found
+[ActiveJob] [Recurring…] [9e28bef7-…] Failed to delete RecurringInvoiceProfile::UpdateIndexJob (Job ID: 9e28bef7-e237-4256-b0cb-0f28f6074bad) from staged jobs, not found
+[ActiveJob] [Recalcula…] [61190993-…] Failed to delete RecalculateContactAccountBalanceJob (Job ID: 61190993-b55b-49b1-9ac6-7a41809cfe88) from staged jobs, not found
+[ActiveJob] [SourceIte…] [a2b02011-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: a2b02011-02ac-40e9-b211-e1ef1a98a175) from staged jobs, not found
+[ActiveJob] [SourceIte…] [708a8144-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 708a8144-6e4e-439d-af29-ec1236f2b6bf) from staged jobs, not found
+[ActiveJob] [SourceIte…] [5f1b5ff8-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 5f1b5ff8-5211-4d3d-af67-d6b3b028c894) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [fd667bdc-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: fd667bdc-6c39-4296-ad5a-0627ede82ca8) from staged jobs, not found
+    handles unexpected state of LatePayingCustomers rule
+
+Bank Account Currency Flucuations
+  Recalculating from different dates
+[ActiveJob] [SourceIte…] [632c7134-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 632c7134-7f66-4957-9ba7-6fe594e9d2eb) from staged jobs, not found
+[ActiveJob] [SourceIte…] [604a2931-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 604a2931-7618-41dd-ba50-a05309cd332d) from staged jobs, not found
+[ActiveJob] [SourceIte…] [5a44383c-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 5a44383c-8d53-4c31-b2e9-23bb0c1d0e53) from staged jobs, not found
+[ActiveJob] [SourceIte…] [dc301867-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: dc301867-ec6a-42c2-ba10-74a1e4212351) from staged jobs, not found
+[ActiveJob] [SourceIte…] [9ad8fbf1-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 9ad8fbf1-c43a-40bc-aaad-694bb6d8c244) from staged jobs, not found
+[ActiveJob] [SourceIte…] [6e81eccd-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 6e81eccd-b0f9-40cc-87a4-4eb2181d2fa5) from staged jobs, not found
+    Given the pre-generated 2021 company, not VAT registered -> And exchange rates of -> Given a USD bank account named "Yankee Bank" with an opening balance of $1000.00 -> And a transaction dated on 2016-01-01 for $200.00 -> And a transaction dated on 2016-01-02 for $-50.00 -> And a transaction dated on 2016-01-02 for $75.00 -> And a transaction dated on 2016-01-04 for $350.00 -> And the bank account currency revaluations are deleted and recalculated from 2016-01-01 -> And the bank account should have ledger entries
+  Recalculating from different dates
+[ActiveJob] [SourceIte…] [1e10a3f2-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 1e10a3f2-21d4-4420-bc53-4168308d7a48) from staged jobs, not found
+[ActiveJob] [SourceIte…] [2acb3176-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 2acb3176-f59e-489f-9be6-c5f10fcc177e) from staged jobs, not found
+[ActiveJob] [SourceIte…] [ed7cd594-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: ed7cd594-d28e-461a-956f-498b8b8361c3) from staged jobs, not found
+[ActiveJob] [SourceIte…] [7fd8f680-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 7fd8f680-ca3d-45c8-b874-fc94d39ec3f5) from staged jobs, not found
+[ActiveJob] [SourceIte…] [5d17f29a-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 5d17f29a-75c1-4d1d-9292-2d3e8b1aa2bd) from staged jobs, not found
+[ActiveJob] [SourceIte…] [f064d771-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: f064d771-4d44-40e7-84eb-469a983c2714) from staged jobs, not found
+    Given the pre-generated 2021 company, not VAT registered -> And exchange rates of -> Given a USD bank account named "Yankee Bank" with an opening balance of $1000.00 -> And a transaction dated on 2016-01-01 for $200.00 -> And a transaction dated on 2016-01-02 for $-50.00 -> And a transaction dated on 2016-01-02 for $75.00 -> And a transaction dated on 2016-01-04 for $350.00 -> And the bank account currency revaluations are deleted and recalculated from 2016-01-03 -> And the bank account should have ledger entries
+  Recalculating from different dates
+[ActiveJob] [SourceIte…] [c4480be9-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: c4480be9-6342-449a-9685-3ba09bc2f0f1) from staged jobs, not found
+[ActiveJob] [SourceIte…] [8d6079cb-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 8d6079cb-5046-418a-8c25-720e8f0ed382) from staged jobs, not found
+[ActiveJob] [SourceIte…] [69b83286-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 69b83286-0394-4edf-83f1-80390978fc34) from staged jobs, not found
+[ActiveJob] [SourceIte…] [2fe88216-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 2fe88216-5915-485f-8f55-998d218c5df6) from staged jobs, not found
+[ActiveJob] [SourceIte…] [000bc561-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 000bc561-337d-4437-be57-2b351f76b3dd) from staged jobs, not found
+[ActiveJob] [SourceIte…] [4082c262-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 4082c262-78c2-420e-b866-6aa4de78ec0a) from staged jobs, not found
+    Given the pre-generated 2021 company, not VAT registered -> And exchange rates of -> Given a USD bank account named "Yankee Bank" with an opening balance of $1000.00 -> And a transaction dated on 2016-01-01 for $200.00 -> And a transaction dated on 2016-01-02 for $-50.00 -> And a transaction dated on 2016-01-02 for $75.00 -> And a transaction dated on 2016-01-04 for $350.00 -> And the bank account currency revaluations are not deleted and recalculated from 2016-01-04 -> And the bank account should have ledger entries
+  Recalculating from different dates
+[ActiveJob] [SourceIte…] [85cb17df-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 85cb17df-639a-4117-af21-f0cf004f7bce) from staged jobs, not found
+[ActiveJob] [SourceIte…] [c0c61d58-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: c0c61d58-df1c-4ec1-a018-b95d47ac9d15) from staged jobs, not found
+[ActiveJob] [SourceIte…] [5815889b-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 5815889b-ef9c-4a71-be1f-fd745127402a) from staged jobs, not found
+[ActiveJob] [SourceIte…] [fe494585-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: fe494585-bee5-41b9-9e17-25f32a5423a5) from staged jobs, not found
+[ActiveJob] [SourceIte…] [7ef77c4a-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 7ef77c4a-3ba0-45f4-bb7e-7db2b8ecf5e9) from staged jobs, not found
+[ActiveJob] [SourceIte…] [b2b324be-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: b2b324be-559f-4d49-a222-9f3ae656f2d3) from staged jobs, not found
+    Given the pre-generated 2021 company, not VAT registered -> And exchange rates of -> Given a USD bank account named "Yankee Bank" with an opening balance of $1000.00 -> And a transaction dated on 2016-01-01 for $200.00 -> And a transaction dated on 2016-01-02 for $-50.00 -> And a transaction dated on 2016-01-02 for $75.00 -> And a transaction dated on 2016-01-04 for $350.00 -> And the bank account currency revaluations are not deleted and recalculated from 2020-01-08 -> And the bank account should have ledger entries
+
+Disengaged Deletion
+[ActiveJob] [EmailMark…] [c4d792ea-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: c4d792ea-2991-4aca-8c9c-4a72e3f32258) from staged jobs, not found
+  a company that is not disengaged
+[ActiveJob] [EmailMark…] [205020a6-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 205020a6-f424-4f05-8d90-0a9edb4897e5) from staged jobs, not found
+[ActiveJob] [EmailMark…] [759ed806-…] Failed to delete EmailMarketing::CompanyUpdateSyncJob (Job ID: 759ed806-a465-4de3-90e9-245035ac8f6a) from staged jobs, not found
+[ActiveJob] [EmailMark…] [4dbf548c-…] Failed to delete EmailMarketing::UserSyncJob (Job ID: 4dbf548c-811c-47ba-8ac0-5006886fc618) from staged jobs, not found
+[ActiveJob] [EmailMark…] [a442e6b1-…] Failed to delete EmailMarketing::SoftDeleteDisengagedCompaniesJob (Job ID: a442e6b1-0a7d-4abb-8621-9c9bcee0ebd2) from staged jobs, not found
+[ActiveJob] [Disengage…] [abe721b7-…] Unable to cancel gocardless mandates for company: 895398329 (Oauth not enabled)
+[ActiveJob] [Disengage…] [abe721b7-…] Failed to delete Disengagement::CompanyDeleterJob (Job ID: abe721b7-cec4-49b5-9b60-5b1d3fc72adc) from staged jobs, not found
+[ActiveJob] [EmailMark…] [73216369-…] Failed to delete EmailMarketing::DeleteDisengagedCompaniesJob (Job ID: 73216369-b3b5-46ab-a027-829014f500bf) from staged jobs, not found
+  a company that doesn't request to re-engage
+[ActiveJob] [EmailMark…] [f6ae7ef5-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: f6ae7ef5-f754-47ef-a290-4e91e6240b9d) from staged jobs, not found
+[ActiveJob] [EmailMark…] [92634202-…] Failed to delete EmailMarketing::CompanyUpdateSyncJob (Job ID: 92634202-c9ca-4fbc-b138-8175e04f0376) from staged jobs, not found
+[ActiveJob] [EmailMark…] [aa700a91-…] Failed to delete EmailMarketing::UserSyncJob (Job ID: aa700a91-eec4-4681-9157-7511e0dbf382) from staged jobs, not found
+[ActiveJob] [EmailMark…] [3f73a1da-…] Failed to delete EmailMarketing::SoftDeleteDisengagedCompaniesJob (Job ID: 3f73a1da-6020-4421-b239-31ce97210d5a) from staged jobs, not found
+[ActiveJob] [EmailMark…] [63db6d4b-…] Failed to delete EmailMarketing::CompanyUpdateSyncJob (Job ID: 63db6d4b-e9fa-4c59-a6cc-cd3825287ddf) from staged jobs, not found
+[ActiveJob] [EmailMark…] [1ccacbbe-…] Failed to delete EmailMarketing::UserSyncJob (Job ID: 1ccacbbe-6ec8-4c29-9477-d7e920142615) from staged jobs, not found
+[ActiveJob] [EmailMark…] [00ce603c-…] Failed to delete EmailMarketing::CompanyUpdateSyncJob (Job ID: 00ce603c-9a1f-4143-bc02-6d0712d6997f) from staged jobs, not found
+[ActiveJob] [EmailMark…] [9fd965ce-…] Failed to delete EmailMarketing::UserSyncJob (Job ID: 9fd965ce-0385-4a39-bc0f-2f82372d78ba) from staged jobs, not found
+[ActiveJob] [EmailMark…] [0f85a611-…] Failed to delete EmailMarketing::SoftDeleteDisengagedCompaniesJob (Job ID: 0f85a611-6272-4f35-8ae7-4a6afce01c28) from staged jobs, not found
+  a company that requests to re-engage, but then doesn't
+[ActiveJob] [EmailMark…] [3c883c67-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 3c883c67-d8d3-40a2-b4fd-6de7bd17d348) from staged jobs, not found
+[ActiveJob] [EmailMark…] [7825d20b-…] Failed to delete EmailMarketing::CompanyUpdateSyncJob (Job ID: 7825d20b-c8c0-4917-9bd7-e90b6eadfa0f) from staged jobs, not found
+[ActiveJob] [EmailMark…] [4c25161b-…] Failed to delete EmailMarketing::UserSyncJob (Job ID: 4c25161b-42cd-4ec4-adea-ee0af34b82b0) from staged jobs, not found
+[ActiveJob] [EmailMark…] [2081b1bc-…] Failed to delete EmailMarketing::SoftDeleteDisengagedCompaniesJob (Job ID: 2081b1bc-3084-4209-9b66-7f3cdb779f3c) from staged jobs, not found
+[ActiveJob] [EmailMark…] [2ea86bc1-…] Failed to delete EmailMarketing::CompanyUpdateSyncJob (Job ID: 2ea86bc1-102d-4463-b404-a40a429b1dc2) from staged jobs, not found
+[ActiveJob] [EmailMark…] [94e7be09-…] Failed to delete EmailMarketing::UserSyncJob (Job ID: 94e7be09-852b-4b1b-a7b2-98174798d215) from staged jobs, not found
+  a company that requests to re-engage, and does so
+
+I, [2022-12-15T10:01:23.167439 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:23.167504 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/features/practice_dashboard_modal_interaction_spec.rb" "spec/jobs/open_banking/pre_assessed_limit_product_information_job_spec.rb" "spec/requests/radar/insights/late_paying_customers_spec.rb" "spec/acceptance/accounting_engine/accruals_accounting/currency_revaluations/bank_accounts.feature" "spec/features/disengaged_deletion_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/company/forget_company_data_spec.rb"=>["1:1:1:41"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+TimeTracking::TimeslipPresenter
+  checks the presenter is considered equal to its wrapped object
+  formatted date
+    should be a string representation of dated_on if it is present
+    should be an empty string if dated_on is not present
+
+Company::ForgetCompanyData
+  Deleting all data
+    for a VAT registered UK company
+Scoped order is ignored, it's forced to be batch order.
+      cancels and delete any GoCardless mandates
+
+Switch to RBSG funding
+[ActiveJob] [EmailMark…] [a16dc633-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: a16dc633-d72d-40c7-9fa9-6982b1b07261) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [c8bd1ab4-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: c8bd1ab4-6444-4102-b9b4-d567d360da53) from staged jobs, not found
+  handles unexpected state of SwitchToRbsgFunding rule
+  the user is eligible for a free subscription
+[ActiveJob] [EmailMark…] [acedd9ee-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: acedd9ee-c785-4430-aef8-bea68b922cd2) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [6b53a462-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 6b53a462-e7d3-447b-89cf-e0cb6520f908) from staged jobs, not found
+    renders the appropriate subscription copy
+  with a linked company
+[ActiveJob] [EmailMark…] [0284329f-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 0284329f-0b26-4824-861a-7e290f7c12b0) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [6754855e-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 6754855e-c5c0-412d-8601-5610d5cae165) from staged jobs, not found
+    renders the appropriate subscription copy
+
+Radar
+  .email_notifications_enabled?
+    defaults to false
+    is true if the company is enrolled in the feature
+  .push_notifications_enabled?
+    defaults to false
+    is true if the company is enrolled in the feature
+  .realtime_notifications_enabled?
+    defaults to false
+    is true if the company is enrolled in the feature
+  .can_email_user?
+    requires a 'Full Access' subscription
+    is false for users of whitelabelled companies
+    is false for users of unconfirmed companies
+    is false for users of companies that haven't completed setup
+    is false for users of companies with a trial subscription
+    is false for RBSG companies unless they're active after their trial period (first 60 days)
+  .can_send_push_notifications_to?
+    requires a 'Full Access' subscription
+    is false for users of whitelabelled companies
+    is false for users of unconfirmed companies
+    is false for users of companies that haven't completed setup
+    is false for account_managers
+    is false for underprivileged users
+    is true for users of companies with a trial subscription
+    is true for RBSG companies if they have completed setup
+
+PracticeDashboardHelper
+  #notification_partial_for_alert_rule
+    generates correct partials for alert rules
+  #alert_rule_table_partial
+    generates correct partials for alert rules in table
+  #alert_threshold_label_text
+    displays the number of days grace in the up to date alert rule title
+    displays the amount in the alert rule title
+  #display_alert_title
+    displays the number of days grace in the up to date alert rule title
+  #dashboard_company_statuses
+    labels the active state as a normal Active Licence
+    Company subscription is Inactive
+      Company is a new record
+        returns 'Active' and 'Inactive'
+      Company is persisted
+        returns 'Active' and 'Inactive'
+        returns 'Active' and 'Inactive' when status is changed to 'Active' but not persisted
+    Company subscription is Active
+      Company is a new record
+        returns 'Active' and 'Inactive'
+      Company was inactive
+        returns 'Active' and 'Inactive'
+      Company is persisted
+        returns 'Active' and 'Closed'
+        returns 'Active' and 'Closed' when status is changed to 'Closed' but not persisted
+    Company subscription is Closed
+      returns 'Closed' only
+    for a subscription with an expired free period
+      labels the active state as a normal Active Licence
+    for a non-billable practice
+      labels the active state as a normal Active Licence
+    when the fapd_subscription feature is enabled
+      labels the active state as a 'Free Period'
+  #can_add_fapdrbsg_company?
+    practice is NOT whitelabelled
+      returns true
+    practice is whitelabelled
+      returns false
+  #practice_dashboard_return_url
+    without a cookie set
+      returns the dashboard's index url
+    with the cookie set
+      returns the url with the path from the cookie
+  #practice_dashboard_landing_path
+    redirects to the account manager companies path
+  #switch_to_link
+    when a company is missing an account owner
+      is expected to eq ""
+  #switch_to_link_text
+    for a level 8 company
+#<RuntimeError: User with id 975572720 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to eq "Switch to"
+    for a setup complete level 7 company
+#<RuntimeError: User with id 975572721 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to eq "Switch to"
+    for a setup incomplete level 7 company
+#<RuntimeError: User with id 975572722 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to eq "Finish client setup"
+    for a permission level < 7 company
+#<RuntimeError: User with id 975572723 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to eq "Finish client setup"
+    for a CoPilot company
+      is expected to eq "Switch to"
+    for a linked company
+      is expected to eq "Switch to"
+    when a company is missing an account owner
+      is expected to eq ""
+
+I, [2022-12-15T10:01:30.110094 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:30.110162 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/models/presenters/time_tracking/timeslip_presenter_spec.rb" "spec/models/company/forget_company_data_spec.rb[1:1:1:41]" "spec/requests/radar/insights/switch_to_rbsg_funding_spec.rb" "spec/models/radar_spec.rb" "spec/helpers/practice_dashboard_helper_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Part Paid Foreign Currency Bills
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Deferred VAT on VAT bill item, paid on payment
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Deferred VAT on VAT bill item, undeferred on payment
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Deferred VAT on VAT bill item, reclaimed on payment and de-registration
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Deferred VAT on VAT bill item, reclaimed on payment and 6 months after switching to the invoice basis
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Deferred VAT on VAT bill item, reclaimed on payment and 6 months after switching to the invoice basis
+    Given a uk sole trader -> And a foreign currency bill: part paid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+settings/property_ownerships/_row
+  renders the id field with the owner id
+  for new objects
+    renders the id field with the temp id
+  with users marked as hidden
+    on a new row
+      does not render hidden users
+    when user was selected but now hidden
+      shows the hidden user
+
+Part prepaid Foreign Currency Bills, payment in a foreign currency
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, FRS, then Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, FRS, then Invoice basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment and de-registration
+    Given a uk sole trader -> And a foreign currency bill: part foreign prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+OverrideFRSTypeJob
+  the company is still rebuilding
+    fails the job and retries later
+  the company has finished rebuilding
+    updates the FRS type index of any VAT Returns
+
+Api::Invoices::DefaultAdditionalTextController
+  GET :default_additional_text
+    a valid request - default additional text not set
+      returns 200 and empty response is returned
+    a valid request - default additional text exists
+      returns 200 and company default invoice additional text is returned
+    invalid request - user does not have permissions
+      returns 403 forbidden error
+  PUT :default_additional_text
+    a valid request
+      returns 200 and company default invoice additional text is updated
+    invalid request - no payload
+      returns 400 and an error
+    invalid request - user does not have permissions
+      returns 403 forbidden error
+  DELETE :default_additional_text
+    a valid request
+      returns 200 and company default invoice additional text is nil
+    invalid request - user does not have permissions
+      returns 403 forbidden error
+
+I, [2022-12-15T10:01:36.443727 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:36.443792 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_part_paid.feature" "spec/views/settings/property_ownerships/_row.html.erb_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_part_foreign_prepaid.feature" "spec/jobs/override_frs_type_job_spec.rb" "spec/controllers/api/invoices/default_additional_text_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:100"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+ProfitAndLoss::UiState
+  #store
+    returns true if everything was successful
+    stores type of report that someone was looking at in the rails cache
+    stores the parameters for the report that someone was looking at in the rails cache
+  #restore_or_default
+    when there are params in the cache
+      returns the yearly profit and loss url with the remembered parameters from the cache
+    when there are additional UI state params
+      returns the comparative profit and loss url with the remembered quarterly periods from the cache
+    when there are no params in the cache
+      returns the yearly profit and loss url with the default parameters, current year to date
+  #default_period?
+    passes on the default_period? method and extra params on to the correct underlying report class
+
+DataIntegrity::ForeignCurrencyDataExporter
+  #export
+    extracts correct data attributes
+    does not include unexplained transactions in the foreign currency bank balance
+
+credit_notes/new
+  shows PO Reference for non landlord companies
+  show the correct fields
+  as a UK landlord
+    does not show the PO reference
+    shows the correct fields
+    with properties
+      with existing contact
+        shows the property and contact dropdowns
+      with no existing contacts
+        shows the property dropdown and create contact form
+
+Invoice
+  knows if it has multiple vat rates
+
+I, [2022-12-15T10:01:39.413350 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:39.413415 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/freeagent/profit_and_loss/ui_state_spec.rb" "spec/tools/data_integrity/foreign_currency_data_exporter_spec.rb" "spec/views/credit_notes/new.html.erb_spec.rb" "spec/models/invoice_spec.rb[1:100]"
+Run options:
+  include {:ids=>{"./spec/controllers/invoices_controller_spec.rb"=>["4:5", "23:3:2", "13:21:1:2"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+practice_dashboard/hmrc_authorizations/index
+  with the feature switch off
+    does not mention ITSA
+    connection errors
+      shows a refresh connection error when the flash is set
+  with the feature switch on
+    with an existing VAT connection
+      only shows an connect button for ITSA
+    with an existing ITSA connection
+      only shows a connect button for VAT
+    with both connections existing
+      does not render any connect buttons
+    connection errors
+      shows a connection error when the flash is set
+
+InvoicesController GET :show for uk company
+  does not show change theme button in more dropdown for sent invoice
+
+InvoicesController POST create
+  include_payment_button parameter
+    when the email_payment_button feature switch is enabled
+      sets include_payment_button to true on the invoice if true in parameters
+
+InvoicesController A sent foreign currency invoice
+  when viewing the invoices
+    sets cookies from params
+
+Exporter::ExportableData::AllCompanyData::RecurringInvoiceProfiles
+  returns the correct exportable type
+  has nested estimate items
+  operates on company's invoices
+  sorts invoices by next recurs on
+
+admin/companies/apple_subscriptions/show
+  renders the 'Sync subscription with Apple' button
+  renders the app_store_purchase_details partial
+
+I, [2022-12-15T10:01:43.010208 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:43.010288 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/views/practice_dashboard/hmrc_authorizations/index.html.erb_spec.rb" "spec/controllers/invoices_controller_spec.rb[4:5]" "spec/models/integrations/exporter/exportable_data/all_company_data/recurring_invoice_profiles_spec.rb" "spec/controllers/invoices_controller_spec.rb[23:3:2]" "spec/controllers/invoices_controller_spec.rb[13:21:1:2]" "spec/views/admin/companies/apple_subscriptions/show.html.erb_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:2:1:1", "1:121:2", "1:14:4:2", "1:97:3:2:1", "1:101:1:1", "1:3:1", "1:77:5:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Mobile::BillPolicy
+  a user with permission level below BILLS
+    is expected to equal false
+  a user with permission level BILLS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Invoice
+  behaves like a todo dependency group target
+    #dependency_attrs
+      includes the group name
+  #radar_track_change
+    calls TodoDependencyTracker#track_change
+  with send_new_invoice_emails checked
+    contact has only email address and doesn't have billing address
+      is valid if invoice email address uses both contact and billing email macros
+  #email_attributes
+    when the contact has a billing email set
+      sends emails to the contacts billing email
+  .with_active_reminders scope
+    when false is passed
+      when an invoice has reminder emails turned off
+        is expected to include #<Invoice id: 18, project_id: nil, reference: "REF 0001", dated_on: "2022-12-16", status: "Draft", co...l, recurring_invoice_profile_id: nil, property_id: nil, is_paid: nil, include_payment_button: false>
+  behaves like auditable entity
+    .audit_entries
+      is expected to have the audit_entries scope with the correct parameters
+  #needs_currency_revaluation?
+    is true when invoice currency is non-native
+
+Api::RecurringInvoicePolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::EcMossSalesTaxRatePolicy
+  a user with permission level below MY_MONEY
+    is expected to equal false
+  a user with permission level MY_MONEY
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::TaskPolicy
+  a user with permission level below TIME
+    is expected to equal false
+  a user with permission level TIME
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+GettingStarted::OpenBankingBankingDetailPolicy
+  a user with permission level below FULL_ACCESS
+    is expected to equal false
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+GettingStarted::BusinessDetailPolicy
+  a user with permission level below FULL_ACCESS
+    is expected to equal false
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Settings::UkVatRegistrationPolicy
+  a user with permission level below FULL_ACCESS
+    is expected to equal false
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+EstimatePolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+PricePolicy
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::MyDetailsPolicy
+  a user with permission level below TIME
+    is expected to equal false
+  a user with permission level TIME
+    is expected to equal true
+  an account manager
+    is expected to equal false
+
+Api::SalesTaxSettingPolicy
+  a user with permission level below MY_MONEY
+    is expected to equal false
+  a user with permission level MY_MONEY
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Prices::StockItemPolicy
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Company::SetupStage::AccountingDates
+  should be completed if the dates are supplied
+  should not be completed if the company_start_date is missing
+  should not be completed if the freeagent_start_date is missing
+  should not be completed if the first_accounting_year_end_date is missing
+  should not be completed if the company_start_date is invalid
+  should not be completed if the freeagent_start_date is too old
+  should not be completed if the freeagent_start_date is too new
+
+Part Paid Written Off Invoice
+  No VAT
+    Given a uk sole trader -> And an invoice: part paid then written off -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And an invoice: part paid then written off -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And an invoice: part paid then written off -> Given VAT settings: Not registered, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+Projects::TaskPolicy
+  a user with permission level below CONTACTS_AND_PROJECTS
+    is expected to equal false
+  a user with permission level CONTACTS_AND_PROJECTS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Payroll::SettingPolicy
+  a user with permission level below FULL_ACCESS
+    is expected to equal false
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Invoices::AdditionalTextPolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::Estimates::SendEmailPolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Payroll::ProfilePolicy
+  a user with permission level below FULL_ACCESS
+    is expected to equal false
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+SubscriptionPolicy
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  an account manager
+    is expected to equal false
+
+Search::FrontendFilteredQuery
+  disables fetching the source document
+  #query_body
+    a general query
+      includes query_string boolean condition
+      includes prefix boolean condition
+      does not include any range boolean condition
+    with specified fields
+      has the correct query body for simple_query_string
+    a numeric query
+      includes query_string boolean condition
+      includes prefix boolean condition
+      includes range boolean condition
+    a numeric query with specified fields
+      specified fields to search on
+  #sort_body
+    orders by date desc
+    should ignore unmapped types
+  #filter_body
+    with no additional filters
+      adds company_id filter
+    with additional filters
+      adds company_id filter
+      adds the additional filters
+    with must not filters
+      adds the must not filters to the query
+
+Accounting::CustomerSalePolicy
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+LegacyOauthToken
+  is able to generate state
+  Token disabled
+    is not pending
+    is not enabled
+  Token pending
+    is pending
+    is not enabled
+  Token enabled
+    is not pending
+    is enabled
+
+Banking::UploadPolicy
+  a user with permission level below BANKING
+    is expected to equal false
+  a user with permission level BANKING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::Mobile::CategoryPolicy
+  a user with permission level below MY_MONEY
+    is expected to equal false
+  a user with permission level MY_MONEY
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+EmailAddressVerificationPolicy
+  a user with permission level below TIME
+    is expected to equal false
+  a user with permission level TIME
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+RecurringInvoices::ThemePolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+CreditNotes::ProjectPolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::Banking::BulkApprovalPolicy
+  a user with permission level below BANKING
+    is expected to equal false
+  a user with permission level BANKING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+I, [2022-12-15T10:01:46.432651 #247]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:46.432767 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/policies/mobile/bill_policy_spec.rb" "spec/models/invoice_spec.rb[1:2:1:1]" "spec/policies/api/recurring_invoice_policy_spec.rb" "spec/policies/api/ec_moss_sales_tax_rate_policy_spec.rb" "spec/policies/api/task_policy_spec.rb" "spec/policies/getting_started/open_banking_banking_detail_policy_spec.rb" "spec/policies/getting_started/business_detail_policy_spec.rb" "spec/policies/settings/uk_vat_registration_policy_spec.rb" "spec/policies/estimate_policy_spec.rb" "spec/policies/price_policy_spec.rb" "spec/policies/api/my_details_policy_spec.rb" "spec/policies/api/sales_tax_setting_policy_spec.rb" "spec/models/invoice_spec.rb[1:121:2]" "spec/policies/prices/stock_item_policy_spec.rb" "spec/models/company/setup_stage/accounting_dates_spec.rb" "spec/models/invoice_spec.rb[1:14:4:2]" "spec/accounting_and_sales_tax/uk_vat/invoices/part_paid_then_written_off.feature" "spec/models/invoice_spec.rb[1:97:3:2:1]" "spec/policies/projects/task_policy_spec.rb" "spec/policies/payroll/setting_policy_spec.rb" "spec/policies/invoices/additional_text_policy_spec.rb" "spec/policies/api/estimates/send_email_policy_spec.rb" "spec/policies/payroll/profile_policy_spec.rb" "spec/policies/subscription_policy_spec.rb" "spec/models/invoice_spec.rb[1:101:1:1]" "spec/models/invoice_spec.rb[1:3:1]" "spec/models/search/frontend_filtered_query_spec.rb" "spec/policies/accounting/customer_sale_policy_spec.rb" "spec/models/legacy_oauth_token_spec.rb" "spec/policies/banking/upload_policy_spec.rb" "spec/policies/api/mobile/category_policy_spec.rb" "spec/policies/email_address_verification_policy_spec.rb" "spec/models/invoice_spec.rb[1:77:5:1]" "spec/policies/recurring_invoices/theme_policy_spec.rb" "spec/policies/credit_notes/project_policy_spec.rb" "spec/policies/api/banking/bulk_approval_policy_spec.rb"
+Knapsack Pro Queue finished!
+
+
+Finished in 2 minutes 22.6 seconds
+774 examples, 0 failures
+I, [2022-12-15T10:01:46.453459 #247]  INFO -- : [knapsack_pro] To retry all the tests assigned to this CI node, please run the following command on your machine:
+I, [2022-12-15T10:01:46.453576 #247]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_34.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_34.xml --default-path spec "spec/models/fapd_subscription_spec.rb" "spec/controllers/api/consents_controller_spec.rb" "spec/controllers/api/consents_callback_controller_spec.rb" "spec/features/getting_started_spec.rb[1:5:2:4:2:2:1]" "spec/controllers/sessions_controller_spec.rb" "spec/models/tax_timeline_spec.rb" "spec/models/customer_billing/annual_subscription_refund_spec.rb" "spec/features/practice_dashboard_modal_interaction_spec.rb" "spec/jobs/open_banking/pre_assessed_limit_product_information_job_spec.rb" "spec/requests/radar/insights/late_paying_customers_spec.rb" "spec/acceptance/accounting_engine/accruals_accounting/currency_revaluations/bank_accounts.feature" "spec/features/disengaged_deletion_spec.rb" "spec/models/presenters/time_tracking/timeslip_presenter_spec.rb" "spec/models/company/forget_company_data_spec.rb[1:1:1:41]" "spec/requests/radar/insights/switch_to_rbsg_funding_spec.rb" "spec/models/radar_spec.rb" "spec/helpers/practice_dashboard_helper_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_part_paid.feature" "spec/views/settings/property_ownerships/_row.html.erb_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_part_foreign_prepaid.feature" "spec/jobs/override_frs_type_job_spec.rb" "spec/controllers/api/invoices/default_additional_text_spec.rb" "spec/freeagent/profit_and_loss/ui_state_spec.rb" "spec/tools/data_integrity/foreign_currency_data_exporter_spec.rb" "spec/views/credit_notes/new.html.erb_spec.rb" "spec/models/invoice_spec.rb[1:100]" "spec/views/practice_dashboard/hmrc_authorizations/index.html.erb_spec.rb" "spec/controllers/invoices_controller_spec.rb[4:5]" "spec/models/integrations/exporter/exportable_data/all_company_data/recurring_invoice_profiles_spec.rb" "spec/controllers/invoices_controller_spec.rb[23:3:2]" "spec/controllers/invoices_controller_spec.rb[13:21:1:2]" "spec/views/admin/companies/apple_subscriptions/show.html.erb_spec.rb" "spec/policies/mobile/bill_policy_spec.rb" "spec/models/invoice_spec.rb[1:2:1:1]" "spec/policies/api/recurring_invoice_policy_spec.rb" "spec/policies/api/ec_moss_sales_tax_rate_policy_spec.rb" "spec/policies/api/task_policy_spec.rb" "spec/policies/getting_started/open_banking_banking_detail_policy_spec.rb" "spec/policies/getting_started/business_detail_policy_spec.rb" "spec/policies/settings/uk_vat_registration_policy_spec.rb" "spec/policies/estimate_policy_spec.rb" "spec/policies/price_policy_spec.rb" "spec/policies/api/my_details_policy_spec.rb" "spec/policies/api/sales_tax_setting_policy_spec.rb" "spec/models/invoice_spec.rb[1:121:2]" "spec/policies/prices/stock_item_policy_spec.rb" "spec/models/company/setup_stage/accounting_dates_spec.rb" "spec/models/invoice_spec.rb[1:14:4:2]" "spec/accounting_and_sales_tax/uk_vat/invoices/part_paid_then_written_off.feature" "spec/models/invoice_spec.rb[1:97:3:2:1]" "spec/policies/projects/task_policy_spec.rb" "spec/policies/payroll/setting_policy_spec.rb" "spec/policies/invoices/additional_text_policy_spec.rb" "spec/policies/api/estimates/send_email_policy_spec.rb" "spec/policies/payroll/profile_policy_spec.rb" "spec/policies/subscription_policy_spec.rb" "spec/models/invoice_spec.rb[1:101:1:1]" "spec/models/invoice_spec.rb[1:3:1]" "spec/models/search/frontend_filtered_query_spec.rb" "spec/policies/accounting/customer_sale_policy_spec.rb" "spec/models/legacy_oauth_token_spec.rb" "spec/policies/banking/upload_policy_spec.rb" "spec/policies/api/mobile/category_policy_spec.rb" "spec/policies/email_address_verification_policy_spec.rb" "spec/models/invoice_spec.rb[1:77:5:1]" "spec/policies/recurring_invoices/theme_policy_spec.rb" "spec/policies/credit_notes/project_policy_spec.rb" "spec/policies/api/banking/bulk_approval_policy_spec.rb"
+2022-12-15T10:01:46.494Z pid=247 tid=9rz INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}

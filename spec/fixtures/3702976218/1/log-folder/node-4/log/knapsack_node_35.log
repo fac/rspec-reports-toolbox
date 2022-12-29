@@ -1,0 +1,1252 @@
+I, [2022-12-15T09:58:57.199493 #242]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual 'it's. Thanks to that a single slow test file can be split across parallel CI nodes). Analyzing 7 slow test files.
+2022-12-15T09:59:13.017Z pid=320 tid=9ng INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+Run options:
+  include {:ids=>{"./spec/features/vat/hmrc_mtd_filing_spec.rb"=>["1:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+BillItem
+  is expected to validate that :total_value cannot be empty/falsy
+  is expected to validate that :quantity looks like a number greater than or equal to 0 as long as it is not nil
+  is expected to validate that :total_value looks like a number as long as it is not nil
+  is expected to validate that :item_type is either ‹"-no unit-"›, ‹"Hours"›, ‹"Days"›, ‹"Weeks"›, ‹"Months"›, ‹"Years"›, ‹"Products"›, ‹"Services"›, ‹"Training"›, or ‹"Stock"›, producing a custom validation error on failure
+  when validating the primary sales tax rate
+    only allows the EXEMPT_RATE for vat registered companies
+    allows OUT_OF_SCOPE_RATE and SPECIFY_AMOUNT_RATE
+    is expected not to allow :sales_tax_rate to be ‹nil›
+    is valid when an allowed rate is supplied
+    is invalid when the rate is not a number
+    is invalid when the rate is not an allowed rate
+    is valid when the rate is greater than 100%
+  when validating the second sales tax rate
+    is expected to allow :second_sales_tax_rate to be ‹-5›
+    is expected not to allow :second_sales_tax_rate to be ‹-1› or ‹nil›
+    is valid when an allowed rate is supplied
+    is invalid when the rate is not a number
+    is invalid when the rate is not an allowed rate
+    is valid when the rate is greater than 100%
+  when validating the manual sales tax amount
+    fails to create bill with no manual sales tax rate
+    fails to create bill with total_value and invalid manual sales tax rate
+    fails to create bill with total_value_ex_tax and invalid manual sales tax rate
+  when validating sales tax for credits
+    with total_value
+      is expected to allow :manual_sales_tax_amount to be ‹-100›, ‹-50›, or ‹0›
+      does not allow positive sales tax
+      does not allow sales tax of more than the value of the item itself
+    with total_value_ex_tax
+      is expected to allow :manual_sales_tax_amount to be ‹-100›, ‹-50›, or ‹0›
+      does not allow positive sales tax
+      allows sales tax of more than the value of the item itself
+  when validating sales tax for bills
+    with total_value
+      is expected to allow :manual_sales_tax_amount to be ‹0›, ‹50›, or ‹100›
+      does not allow negative sales tax
+      does not allow sales tax of more than the value of the item itself
+    with total_value_ex_tax
+      is expected to allow :manual_sales_tax_amount to be ‹0›, ‹50›, or ‹100›
+      does not allow negative sales tax
+      allows sales tax of more than the value of the item itself
+  when validating sales tax for bills with total_value_ex_tax = 0
+    is expected to allow :manual_sales_tax_amount to be ‹5›, ‹0›, or ‹-5›
+  when validating stock item
+    is expected not to allow :stock_altering_quantity to be ‹nil›, producing a custom validation error on failure
+    is expected not to allow :stock_altering_quantity to be ‹0›, producing a custom validation error on failure
+    has the same company on the bill item as the stock item
+    must have a stock item
+  when validating credits
+    with total_value
+      for a stock purchase
+        does not allow the stock purchase category
+      for a capital asset purchase
+        does not allow a capital asset category
+    with total_value_ex_tax
+      for a stock purchase
+        does not allow the stock purchase category
+      for a capital asset purchase
+        does not allow a capital asset category
+  when validating general ledger entries
+    must have a recognised general ledger account
+    must have a valid general ledger account
+  when no description is provided
+    creates a non-capital-asset bill item without a description
+    when the bill item is a capital asset purchase
+      is expected to validate that :description cannot be empty/falsy
+  when validating the quantity
+    is not valid to have a quantity for a stock purchase
+    is not valid to have a quantity for a capital asset purchase
+    forces quantity to be nil when set to 0 or 1 for a stock purchase
+    forces quantity to be nil when set to 0 or 1 for a capital asset purchase
+    forces quantity to be nil when set and changing to a stock purchase
+    forces quantity to be nil when set and changing to a capital asset purchase
+  #native_value_on_bill_date
+    when there is no total value
+      is expected to be nil
+    when there is a total value
+      correctly uses the exchange rate to form the correctly rounded currency value
+  #native_net_value
+    when the total value is not set
+      is expected to be nil
+    when the is a total value is set
+      for a native currency bill
+        calculates the native net value of the bill item
+      for a foreign currency bill
+        calculates the native net value of the bill item
+  #net_value
+    with a new, unsaved bill item, with a total_value of 0 but lacking a bill
+      returns nil
+    with a native currency bill
+      with a single sales tax rate
+        calculates the net value of the bill item
+      with two sales tax rates
+        calculates the net value of the bill item
+    with a foreign currency bill
+      calculates the net value of the bill item
+  #total_value_ex_tax=
+    validations
+      is expected to validate that :total_value_ex_tax looks like a number as long as it is not nil
+    type casting
+      casts a string to decimal
+      casts an integer to decimal
+      casts a float to decimal
+      sets to zero if input can't be type cast
+    with a native currency bill
+      sets net, gross, total value with zero sales tax
+      sets net, gross, total value with single sales tax rate
+      sets net, gross, total value with single manual sales tax
+      sets net, gross, total value with single sales tax set to EXEMPT
+      sets net, gross, total value with single sales tax set to OUT_OF_SCOPE
+      fails to validate when total_value is also set
+    with a native currency bill and compound second sales tax
+      sets net, gross, total value with two sales tax rates
+      with particular values that used to lead to penny rounding errors
+        sets net, gross, total value with two sales tax rates
+    with a foreign currency bill
+      sets net, gross, total value with zero sales tax
+      sets net, gross, total value with single reclaimed sales tax
+    when `total_value` is locked
+      saves successfully when setting the same value
+      fails to save when setting a new value
+  #set_total_value_from_total_value_ex_tax
+    when total_value_ex_tax is 0 and sales_tax_rate is ALL_SALES_TAX_RATE
+      when manual_sales_tax_amount is positive
+        sets the total_value to the manual_sales_tax_amount
+      when manual_sales_tax_amount is negative
+        sets the total_value to the manual_sales_tax_amount
+    when total_value_ex_tax is positive and sales_tax_rate is 20%
+      sets the total_value to the sum of the total_value_ex_tax and 20% of that
+    when total_value_ex_tax is not present
+      returns early and doesn't change total_value
+  #total_value_ex_tax
+    with a new, unsaved bill item, with a total_value of 0 but lacking a bill
+      returns nil
+    for a bill
+      returns positive net value
+      returns new net total when set without saving
+    for a refund
+      returns negative net value
+    for a sales-tax only item
+      returns a positive zero
+  #allowed_accounts
+    contains the customisable spending accounts
+    contains the fixed asset purchase accounts
+    contains the stock item accounts
+  when changing category from purchase of stock
+    removes the stock item and resets item type to no unit
+    with a non-stock item type
+      removes the stock item and uses the new item type
+  when creating without item_type
+    defaults item_type to NO_UNIT
+  when category is purchase of stock
+    with an associated stock item
+      changes item_type to STOCK
+    without an associated stock item
+      only returns a validation error for the stock item missing
+  when category is a capital asset purchase
+    changes item_type to NO_UNIT
+  when the sales tax rate is a non standard vat rate
+    with a uk vat registered company
+      an AUTO_VAT bill item
+        added to an account with a standard VAT rate
+          applies the standard VAT rate at the date of the bill item
+        added to an account with a reduced VAT rate
+          applies the reduced VAT rate at the date of the bill item
+        added to an account with a zero VAT rate
+          applies a zero VAT rate
+        added to a category which is out of scope of VAT
+          applies an out of scope VAT rate
+        added to a category which is out of scope of VAT, default_auto_oos_vat_rate feature disabled
+          applies an out of scope VAT rate
+        and the bill is marked as EC Services
+          applies an out of scope VAT rate
+      and is VAT exempt
+        has no VAT amount
+      for a foreign currency bill
+        and the sales tax rate is manually specified
+          returns correct sales_tax_value
+    with a universal company
+      when the sales tax rate is set to AUTO_VAT
+        set the sales tax rate to zero
+  #uses_defined_sales_tax_rate?
+    when the sales tax rate matches a standard sales tax rate
+      is using a defined sales tax rate
+    when the sales tax rate does not matches a standard sales tax rate
+      is not using a defined sales tax rate
+  #can_depreciate?
+    with a non-depreciating nominal code
+      is false
+    with a capital asset purchase
+      is true
+  #notional_vat_value
+    is correct
+  #native_notional_vat_value_on_bill_date
+    is equal to notional_vat_value in the native currency
+  #is_vatable?
+    is true when the general ledger account is in scope of sales tax
+    is false when the general ledger account is out of scope of sales tax
+  #is_a_capital_asset_purchase?
+    is true for a capital asset purchase account
+    is false for a non-capital asset purchase account
+  #tax_effect_source_items
+    for a newly created capital asset bill
+      has two sales tax effects
+      has its effects annotated with id
+      is expected to have 1 item
+      populates the bill type with PURCHASE_OF_OTHER_CAPITAL_ASSET
+      returns the correct nominal code for PURCHASE_OF_OTHER_CAPITAL_ASSET
+  when creating a bill item
+    with a stock account
+      creates a valid bill item
+      sets the account_name to be the account name
+      does not create a bill item if the quantity is 0
+      does not create a bill item if the quantity is nil
+      does not create a bill item if the total value is not set
+      with a decimal quantity
+        deletes the stock transaction when deleted
+    with stock category but no stock item
+      is invalid
+    with a stock item from another company
+      is invalid
+  #sales_tax_rate_calculator
+    with a foreign currency bill using manual sales tax
+      returns the correct sales tax rate
+      when the sales tax is the entire value of the bill item
+        returns the correct sales tax rate
+  #sales_tax_rate
+    auto_vat
+    stores_high_precision_sales_tax_rate
+    calculates_non_standard_sales_tax_from_manual_amount
+    calculates_non_standard_sales_tax_from_manual_negative_amount
+    calculates_all_sales_tax_from_manual_amount
+    calculates_all_sales_tax_from_manual_negative_amount
+  when creating a bill item
+    that has sales tax
+      an AUTO_VAT bill item
+        added to an account with a standard VAT rate
+          applies the standard VAT rate at the date of the bill item
+        added to an account with a reduced VAT rate
+          applies the reduced VAT rate at the date of the bill item
+        added to an account with a zero VAT rate
+          applies a zero VAT rate
+        added to a category which is out of scope of VAT
+          applies an out of scope VAT rate
+        added to a category which is out of scope of VAT, default_auto_oos_vat_rate feature disabled
+          applies an out of scope VAT rate
+      a bill item that is VAT exempt
+        has no VAT amount
+  #manual_sales_tax_amount
+    is kept if the sales tax rate is not equal to SalesTaxCalculator::SPECIFY_AMOUNT_RATE
+    is saved when the sales tax rate is equal to SalesTaxCalculator::SPECIFY_AMOUNT_RATE
+  single capital asset validation
+    new bill item with no other capital purchases
+      is valid with a capital purchase category
+    with an existing capital purchase
+      new bill item
+        is invalid with a capital purchase category
+      existing bill item
+        is invalid when changing category to a capital purchase
+  #credit?
+    without total_value assigned
+      is expected to be nil
+    with positive total_value
+      is expected to equal false
+    with negative total_value
+      is expected to equal true
+    with positive total_value_ex_tax
+      is expected to equal false
+    with negative total_value_ex_tax
+      is expected to equal true
+    with persisted negative total_value, then positive total_value_ex_tax assigned
+      returns false from the new total_value_ex_tax sign
+    with persisted positive total_value, then negative total_value_ex_tax assigned
+      returns true from the new total_value_ex_tax sign
+  validating capital asset purchase depreciation schedule
+    without a depreciation schedule
+      throws an exception
+    with an invalid depreciation schedule
+      throws an exception
+  validation for capital asset bill linked to a project
+    when creating a capital asset bill with an associated project
+      fails validation
+    when updating a non-capital asset bill with an associated project to be capital asset
+      fails validation
+    when updating a capital asset bill to assign a project to it
+      fails validation
+  with parent bill locked
+    can't be destroyed
+  validation for maximum item count on a bill
+    fails validation when the item count reaches the maximum
+  when changing category
+    when the company is not registered for sales tax
+      detects the change and regenerates bill ledger entries
+  #sales_tax_effects
+    should only include effects with source item type of Bill
+    when destroying the item
+      destroys the effects
+  #payment_sales_tax_effects
+    should have tax effect for payments with source item type of BankAccountEntry
+
+Create credit note
+Capybara starting Puma...
+* Version 6.0.0 , codename: Sunflower
+* Min threads: 0, max threads: 4
+* Listening on http://0.0.0.0:9891
+  user visits page
+  user submits form with errors
+  user submits valid form
+  when company has CIS enabled
+    user visits page
+    user submits valid form with CIS Category
+  when company sees EC status options
+    user visits page
+  when company has multiple bank accounts
+    user visits page
+  when company has no contacts
+    user visits page
+  when company has contacts
+    user visits page
+    creating a new contact inline
+      user clicks to add a new contact
+  selecting projects
+    behaves like a form which you can assign to a project
+      when company has contacts with projects
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+[4] [174] Found unpermitted params: project
+        updates the form after a contact or project is selected
+  adding a project to a credit note with existing invoice items
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+[4] [175] Found unpermitted params: project
+    user creates credit note then adds a project
+[4] [176] Found unpermitted params: project
+[4] [176] Found unpermitted params: project
+[4] [176] Found unpermitted params: project
+[4] [176] Found unpermitted params: project
+[4] [176] Found unpermitted params: project
+[4] [176] Found unpermitted params: project
+[4] [176] Found unpermitted params: project
+    a credit note belonging to a project, with invoice items, and removing the project
+
+Filing VAT through HMRC MTD
+Scoped order is ignored, it's forced to be batch order.
+[4] [177] DevDashboardProxy error at authorised_apps_for_entity_id due to Errno::EADDRNOTAVAIL: Failed to open TCP connection to localhost:4000 (Cannot assign requested address - connect(2) for "localhost" port 4000)
+[4] [177] DevDashboardProxy error at authorised_apps_for_entity_id due to Errno::EADDRNOTAVAIL: Failed to open TCP connection to localhost:4000 (Cannot assign requested address - connect(2) for "localhost" port 4000)
+[ActiveJob] [EmailMark…] [fb837628-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: fb837628-061c-484f-b8a9-48ad7ca2ace0) from staged jobs, not found
+[ActiveJob] [AccountsR…] [4d9dee1d-…] Failed to delete AccountsRecalculationJob (Job ID: 4d9dee1d-c2b3-49ce-b7f3-a23f620fd41a) from staged jobs, not found
+[ActiveJob] [AccountsR…] [a36dd3e5-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [a36dd3e5-…] Failed to delete AccountsRecalculationJob (Job ID: a36dd3e5-bb30-47df-b966-f8a507249893) from staged jobs, not found
+[4] [177] Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [AccountsR…] [4f6e3d3a-…] Failed to delete AccountsRecalculationJob (Job ID: 4f6e3d3a-970d-466c-8733-3619df5fb3b0) from staged jobs, not found
+[ActiveJob] [MTDVatSub…] [143a2719-…] Failed to delete MTDVatSubmissionJob (Job ID: 143a2719-e371-4df0-8beb-836d52dcad12) from staged jobs, not found
+  Authorise HMRC MTD and file a VAT return
+
+I, [2022-12-15T10:00:28.965920 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:00:28.966018 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/models/bill_item_spec.rb" "spec/features/credit_notes/create_credit_note_spec.rb" "spec/features/vat/hmrc_mtd_filing_spec.rb[1:1]"
+Run options:
+  include {:ids=>{"./spec/features/getting_started_spec.rb"=>["1:5:1:4:2:3:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Banking::ExplainTransactionJob
+  behaves like ActiveJobWithCurrent
+    #perform
+2022-12-15T10:00:29.226Z pid=242 tid=9ru INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+      when the job is performed, it has access to the restored Current context
+  explaining unexplained transaction
+[ActiveJob] [Banking::…] [f81f3fbf-…] Failed to delete Banking::ExplainTransactionJob (Job ID: f81f3fbf-83d9-4888-88ce-9ee4f314c981) from staged jobs, not found
+    explains the transaction
+[ActiveJob] [Banking::…] [af562ab4-…] Failed to delete Banking::ExplainTransactionJob (Job ID: af562ab4-16b1-4954-816d-97f2ae4d50b7) from staged jobs, not found
+    marks the :explain_transaction Flying Start task as completed
+[ActiveJob] [Banking::…] [e9227fba-…] Failed to delete Banking::ExplainTransactionJob (Job ID: e9227fba-36ef-4438-a6ab-ef954b3b3f62) from staged jobs, not found
+    publishes a bank transaction explanation created event
+[ActiveJob] [Banking::…] [2873153e-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 2873153e-9d38-4798-9fc6-51563f7bdcf0) from staged jobs, not found
+    creates an audit entry
+    when a support admin user created the job
+[ActiveJob] [Banking::…] [8afcda4b-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 8afcda4b-44c4-4a42-8a64-0e29cc0fdc6d) from staged jobs, not found
+      creates an audit entry where the admin user is the actor
+  re-explaining transactions
+    when the explanation is successfully re-explained
+[ActiveJob] [Banking::…] [a4c8e0c6-…] Failed to delete Banking::ExplainTransactionJob (Job ID: a4c8e0c6-5cda-4361-863e-3eaff3cf00ed) from staged jobs, not found
+      maintains the same explained amount
+[ActiveJob] [Banking::…] [97ea2235-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 97ea2235-d5b2-4d4c-90b5-6c07e03bf5a0) from staged jobs, not found
+      updates the existing explanation with payload information
+[ActiveJob] [Banking::…] [fe097017-…] Failed to delete Banking::ExplainTransactionJob (Job ID: fe097017-da82-4363-a5c5-81a1962b41c9) from staged jobs, not found
+      doesn't publish a bank transaction explanation created event
+[ActiveJob] [Banking::…] [fe05b63b-…] Failed to delete Banking::ExplainTransactionJob (Job ID: fe05b63b-b1c8-4a53-af1a-48feea9b0342) from staged jobs, not found
+      publishes a bank transaction updated event
+[ActiveJob] [Banking::…] [1b1b30ba-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 1b1b30ba-8ae0-4429-8e74-9051e1068109) from staged jobs, not found
+      creates an audit entry
+      when a support admin user created the job
+[ActiveJob] [Banking::…] [8c233438-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 8c233438-7e8a-44bb-aa60-31a4b79ffcdf) from staged jobs, not found
+        creates an audit entry where the admin user is the actor
+    when the explanation is unsuccessfully re-explained
+[ActiveJob] [Banking::…] [295d0ace-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 295d0ace-60e1-4bef-afc8-a3fd685b9c96) from staged jobs, not found
+      maintains the same explained amount
+[ActiveJob] [Banking::…] [3f9a42be-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 3f9a42be-9dcb-4461-8069-68b14ccc6cd1) from staged jobs, not found
+      does not update the explanation
+[ActiveJob] [Banking::…] [38528806-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 38528806-29e5-47d2-8492-ced658fdab14) from staged jobs, not found
+      marks the item as failed
+[ActiveJob] [Banking::…] [662df612-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 662df612-6bfd-43a0-8c5d-7364682fd3d3) from staged jobs, not found
+      does not create an audit entry
+  explaining a transaction that doesn't belong to current company
+[ActiveJob] [Banking::…] [af0a8ac1-…] Failed to delete Banking::ExplainTransactionJob (Job ID: af0a8ac1-e337-4e69-83e7-a8cc9857b0c8) from staged jobs, not found
+    returns nil
+[ActiveJob] [Banking::…] [b60e5ec5-…] Failed to delete Banking::ExplainTransactionJob (Job ID: b60e5ec5-cb34-48dc-8655-ad7b9a19d149) from staged jobs, not found
+    does not explain transaction
+[ActiveJob] [Banking::…] [9b31f186-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 9b31f186-7957-4049-9f67-62b3bd354662) from staged jobs, not found
+    marks the associated items as failed
+[ActiveJob] [Banking::…] [e298d50f-…] Failed to delete Banking::ExplainTransactionJob (Job ID: e298d50f-7998-466b-ab96-26ccda819012) from staged jobs, not found
+    does not create an audit entry
+  explaining a transaction with no description
+[ActiveJob] [Banking::…] [2d2c4b90-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 2d2c4b90-7b89-4cab-b3db-6ccf0b5e6fc8) from staged jobs, not found
+    populates the description
+  explaining as a transfer
+[ActiveJob] [Banking::…] [c4a05dde-…] Failed to delete Banking::ExplainTransactionJob (Job ID: c4a05dde-1ec4-453d-abb3-a93711929275) from staged jobs, not found
+    sets the expected matching transfer on the explanation
+    with two matching transactions
+      when the first one is already explained
+[ActiveJob] [Banking::…] [53c58d61-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 53c58d61-9291-4dd4-937f-cfe892a0b447) from staged jobs, not found
+        finds the second transfer
+      when the first one is explained just after being matched
+[ActiveJob] [Banking::…] [21013a7e-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 21013a7e-d36b-43e6-b974-e23536749073) from staged jobs, not found
+        matches with the second transfer
+    error handling
+[ActiveJob] [Banking::…] [8ae2a90e-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 8ae2a90e-3279-4dc3-95c6-a91b54dbf15c) from staged jobs, not found
+      retries 3 times before raising an exception
+  re-explaining a transfer
+[ActiveJob] [Banking::…] [5e443417-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 5e443417-d4a6-4183-a0bf-802931cb3e2e) from staged jobs, not found
+    marks the bulk operation item as failed
+[ActiveJob] [Banking::…] [7d0b9324-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 7d0b9324-264e-4b76-9bc4-30447d4c706e) from staged jobs, not found
+    does not create an audit entry
+
+Getting Started
+  for an RBSG agent signup
+    with UK company type
+      with the personalise_setup_stage feature flag enabled
+        and the personalisation_interests_setup_stage flag enabled
+          for Ulster Bank
+[4] [205] Scoped order is ignored, it's forced to be batch order.
+            can complete setup
+
+Banking Sidebar - Latest statement
+  seeing without statement content
+  not seeing with bank feed enabled
+  with statement
+    seeing personal content
+    seeing completed content
+[4] [210] Found unpermitted params: form_type, bank_account_id, transaction_description, detail, has_pending_operation, has_attachment, matching, is_deletable, unexplained_part, is_money_in
+[4] [210] Found unpermitted params: is_money_in, form_type
+[ActiveJob] [Banking::…] [892090b0-…] Failed to delete Banking::ExplainTransactionJob (Job ID: 892090b0-8d1e-4b44-b689-28469e2b2a72) from staged jobs, not found
+    seeing in progress content
+
+Estimates::EmailsController
+  GET on :new with :document_ids set
+ActiveRecord::RecordNotFound (Couldn't find all Documents with 'id': (4, 6) [WHERE `documents`.`company_id` = ?] (found 1 results, but was looking for 2).)
+  GET on :new with :document_ids that do not belong to the company
+ActiveRecord::RecordNotFound (Couldn't find Document with 'id'=7 [WHERE `documents`.`company_id` = ?])
+  GET on :new with :document_ids that aren't attachable
+  POST #create for a marked-as-invoiced estimate for the first time
+  when logged in as a non-owner user
+    renders the email
+  GET #new with no prior estimate emails
+    renders the email with associated variables
+    does not show the invoice macros on the Send By Email page
+    displays 'PDF Quote Attachment' in the form
+    does not show edit buttons
+    uses the estimate type in the subject line
+    renders the WYSIWYG editor
+    HTMLify should return empty when the body is empty
+  GET #new with existing emails
+    renders the email with associated variables
+    assigns latest email
+    renders the WYSIWYG editor
+    HTMLifies the email body
+  GET :new for an estimate with a custom theme
+    with theme_customisation_circuit_breaker working
+      sets @theme to the custom theme
+      doesn't display a warning notice
+    with theme_customisation_circuit_breaker broken
+      sets @theme to the company's default
+      displays a warning notice
+  when sending an estimate email
+    sends the estimate email to the customer
+    flying start
+      marks the :send_estimate Flying Start task as completed
+  POST #create
+    shows an error in the flash when the email fails to send
+    for an invalid estimate
+      does not send an email
+      flying start
+        doesn't mark the :send_estimate Flying Start task as completed
+  A sent Estimate with a German locale
+    is rendered in German on the send by email page
+  resending email for an approved estimate
+    retains the approved state
+
+I, [2022-12-15T10:01:04.698146 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:04.698213 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/jobs/banking/explain_transaction_job_spec.rb" "spec/features/getting_started_spec.rb[1:5:1:4:2:3:1]" "spec/features/new_banking/sidebar/latest_statement_spec.rb" "spec/controllers/estimates/emails_controller_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+contact bank account behaviour via the API
+  GET /contacts
+    when the contact has a bank account
+      request made by the FreeAgent Mobile app
+        by a user who can manage PayIt payments
+          includes contact bank account details in the response
+        by a user who can't manage PayIt payments
+          doesn't include contact bank account details in the response
+      request made by an app other than FreeAgent Mobile
+        doesn't include contact bank account details in the response
+  GET /contacts/contact_id
+    when the contact has a bank account
+      request made by the FreeAgent Mobile app
+        by a user who can manage PayIt payments
+          includes contact bank account details in the response
+        by a user who can't manage PayIt payments
+          doesn't include contact bank account details in the response
+      request made by an app other than FreeAgent Mobile
+        doesn't include contact bank account details in the response
+  POST /contacts
+    request made by the FreeAgent Mobile app
+      by a user who can manage PayIt payments
+        allows creation of a contact with a bank account
+        publishes the correct events
+        with invalid attributes
+          responds with validation errors
+          doesn't publish contact events
+      by a user who can't manage PayIt payments
+[4] [248] Found unpermitted params: contact_bank_account
+        creates a contact without a bank account
+[4] [249] Found unpermitted params: contact_bank_account
+        publishes the correct events
+    request made by an app other than FreeAgent Mobile
+      creates a contact without a bank account
+      publishes the correct events
+  PUT /contacts/contact_id
+    request made by the FreeAgent Mobile app
+      by a user who can manage PayIt payments
+        when the contact doesn't have an exiting bank account
+          creates a contact bank account
+          notifies the account owner
+          publishes the correct event
+        when the contact has an existing bank account
+          updates only the bank account details specified in the request body
+          notifies the account owner
+          when blank bank account details are passed in
+            removes the bank account
+            is expected to have published "contact bank account removed"
+            notifies the account owner
+      by account owner with limited access
+        is expected to respond with status code :ok (200)
+        doesn't notify the account owner
+      by a user who can't manage PayIt payments
+[4] [262] Found unpermitted params: contact_bank_account
+        doesn't update the contact bank account
+[4] [263] Found unpermitted params: contact_bank_account
+        doesn't notify the account owner
+[4] [264] Found unpermitted params: contact_bank_account
+        doesn't publish bank account added event
+    request made by an app other than FreeAgent Mobile
+      doesn't update the contact bank account
+      doesn't notify the account owner
+      doesn't publish bank account added event
+
+Auto Enrolment 2018
+  Checking eligibility for an employee paid more than the earnings trigger
+[ActiveJob] [EmailMark…] [110ff95c-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 110ff95c-0c77-4438-bddf-3afba629a417) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a Employee payroll profile with NI letter A -> And they are paid £1000 monthly -> When they run payroll for a period -> Then the qualifying earnings on the payslip should be £510 -> And they could be eligible for auto-enrolment
+  Checking eligibility for an employee paid less than the earnings trigger
+[ActiveJob] [EmailMark…] [069835f7-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 069835f7-1bac-4c57-821f-3be5e0f6b0d5) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a Employee payroll profile with NI letter A -> And they are paid £832 monthly -> When they run payroll for a period -> Then they are not eligible for auto-enrolment
+  Checking eligibility for an employee earnings less than the lower limit
+[ActiveJob] [EmailMark…] [1a9a4e11-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 1a9a4e11-c0c8-4415-8256-355d4a19a0b8) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a Employee payroll profile with NI letter A -> And they are paid £489 monthly -> When they run payroll for a period -> Then they are not eligible for auto-enrolment
+  Checking eligibility for an employee paid more than the upper limit
+[ActiveJob] [EmailMark…] [07503aeb-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 07503aeb-bea9-4daf-8aea-1fa483d19475) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a Employee payroll profile with NI letter A -> And they are paid £4500 monthly -> When they run payroll for a period -> Then the qualifying earnings on the payslip should be £3260 -> And they could be eligible for auto-enrolment
+  Checking eligibility for an employee with additional pay
+[ActiveJob] [EmailMark…] [8d544977-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 8d544977-eaa4-4941-854d-50abce62cb69) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a Employee payroll profile with NI letter A -> And they are paid £700 monthly -> When they prepare payroll -> And they add a bonus of £200 to the payslip -> And they add commission of £100 to the payslip -> Then the qualifying earnings on the payslip should be £510 -> And they could be eligible for auto-enrolment
+  Checking eligibility for an employee with statutory pay
+[ActiveJob] [EmailMark…] [ddbe9c53-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: ddbe9c53-d42e-403a-a47c-8002e89608e5) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a Employee payroll profile with NI letter A -> And they are paid £400 monthly -> When they prepare payroll -> And they add statutory sick pay of £300 to the payslip -> And they add statutory adoption pay of £100 to the payslip -> And they add statutory maternity pay of £100 to the payslip -> Then the qualifying earnings on the payslip should be £410 -> And they could be eligible for auto-enrolment
+  Checking eligibility for an employee with other payments
+[ActiveJob] [EmailMark…] [ee40613e-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: ee40613e-29c0-47c9-ad71-8ad8d0efc9bc) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a Employee payroll profile with NI letter A -> And they are paid £500 monthly -> When they prepare payroll -> And they add a bonus of £150 to the payslip -> And they add an allowance of £50 to the payslip -> And they add other payments of £200 to the payslip -> And they add deduction free pay of £100 to the payslip -> Then they are not eligible for auto-enrolment
+  Checking eligibility for an employee under 22
+[ActiveJob] [EmailMark…] [9981b976-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 9981b976-ac76-4f5e-b169-23320c58f1ee) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a 21 year old Employee payroll profile with NI letter A -> And they are paid £1000 monthly -> When they run payroll for a period -> Then they are not eligible for auto-enrolment
+  Checking eligibility for a man over the state pension age
+[ActiveJob] [EmailMark…] [28d4cc95-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 28d4cc95-000f-44b8-a5e7-5c7b443af424) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a 68 year old male Employee payroll profile with NI letter C -> And they are paid £1000 monthly -> When they run payroll for a period -> Then they are not eligible for auto-enrolment
+  Checking eligibility for a woman over the state pension age
+[ActiveJob] [EmailMark…] [0a8c79c5-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 0a8c79c5-7045-4731-8e1b-f6be8723c05c) from staged jobs, not found
+    Given the current date is 2017-04-06 -> And a UK Limited Company which was started on 2014-01-01 -> And a staging date of 2017-04-06 -> And they are running payroll in the 2018 tax year on the 25th of each month -> Given a 68 year old female Employee payroll profile with NI letter C -> And they are paid £1000 monthly -> When they run payroll for a period -> Then they are not eligible for auto-enrolment
+
+CustomerBilling::StripePaymentProcessor
+  behaves like payment processor
+    is expected to respond to #record_payment!
+    is expected to respond to #update!
+    is expected to respond to #cancel! with 1 argument
+    is expected to respond to #remove_customer_data with 0 arguments
+  #record_payment!
+    for a successful payment
+      returns a response object
+      records metrics
+      for a different company
+#<RuntimeError: Unexpected PaymentIntent pi_123>
+app/freeagent/customer_billing/stripe_payment_processor.rb:23:in `record_payment!'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+        reports an error and raises a CustomerBilling::Failure
+      which has already been processed
+        raises a CustomerBilling::Failure
+        does not record metrics
+        does not record a payment failure
+    for a declined payment
+      raises CustomerBilling::PaymentDeclined
+      records metrics
+      records a payment failure
+    for a payment requiring authorisation
+      raises CustomerBilling::PaymentRequiresAuthorisation
+      records metrics
+      records a payment failure
+    for a payment requiring confirmation
+      when confirmation is successful
+        returns a response object
+        records metrics
+      when declined with a CardError
+        raises CustomerBilling::PaymentDeclined
+        records metrics
+        records a payment failure
+      when declined with an InvalidRequestError
+        raises CustomerBilling::PaymentDeclined
+        records metrics
+        records a payment failure
+      when declined with requires_payment_method
+        raises CustomerBilling::PaymentDeclined
+        records metrics
+        records a payment failure
+    when payment_intent is nil
+      raises CustomerBilling::Failure
+  #update!
+    with an existing customer
+      with a payment method
+        with valid card details
+          updates the customer if a payment method is given
+          records metrics
+        with invalid card details
+          raises CustomerBilling::PaymentDeclined
+          records a payment failure
+        that is already attached
+          updates the existing payment method
+      without a new payment method
+        when the PaymentMethod is legacy card created as a Source
+          updates the existing payment method without the phone and email
+        with a new style PaymentMethod
+          updates the existing payment method
+    with a payment method
+      creates a new customer
+    without a payment method
+      raises an error
+  #create_payment_intent
+    on-session
+      creates a PaymentIntent
+    off-session
+      creates a PaymentIntent
+
+CompanySeeder::BankAccountSeeder
+  #seed
+    for default FAPD demo companies
+      seeds the default current account
+      seeds four bank accounts
+      sets the current account as primary
+      seeds the default savings account
+      seeds the default petty cash account
+      seeds the default loan account
+    for UK Landlord companies
+      seeds three bank accounts
+    for NatWest resold companies
+      seeds four bank accounts
+      sets the business current account as primary
+      seeds bank NatWest bank accounts
+    for RBS resold companies
+      seeds four bank accounts
+      sets the business current account as primary
+      seeds Royal Bank of Scotland
+    for a reseller without custom bank accounts
+      seeds four bank accounts
+      seeds the default current account
+      sets the current account as primary
+      seeds the default savings account
+      seeds the default petty cash account
+      seeds the default loan account
+
+I, [2022-12-15T10:01:21.823361 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:21.823424 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/requests/api/contacts/contact_bank_account_integration_spec.rb" "spec/acceptance/payroll/2017_18/auto_enrolment.feature" "spec/models/customer_billing/stripe_payment_processor_spec.rb" "spec/tools/company_seeder/bank_account_seeder_spec.rb"
+Run options:
+  include {:ids=>{"./spec/features/ltd_company_year_ends_navigation_spec.rb"=>["1:2:1:5"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Limited company year end navigation
+  with a practice managed company
+    logged in as account owner
+      cannot access final accounts filing
+
+Search::BankTransactionsQuery
+  #query_body
+    returns the ES query for the given query term
+    with only currency search
+      returns nil if there is only a currency search
+    with a numeric only term
+      returns the ES query for the given query term
+  #filter_body
+    defines term filters
+    scopes to the bank accout
+    with uploaded at set
+      filters to latest statement
+    filtering by view
+      with the unexplained view
+        filters by unexplained
+      with the explained view
+        filters by explained
+      with the manual view
+        filters by manual
+      with the imported view
+        filters by imported
+      with the marked for review view
+        filters by marked for review
+    filtering by money direction
+      with the money in direction
+        filters by money in
+      with the money out direction
+        filters by money out
+    filtering by date range
+      with a from date filter
+        filters by from date
+      with a to date filter
+        filters by to date
+      with a date range filter
+        filters by date range
+    filtering by monetary value
+      with a monetary value
+        includes the correct filter
+      with a monetary value and numeric value
+        includes the correct filter when a monetary value and numeric value is detected
+      with no sterling monetary value
+        does not include a filter
+  #sort_body
+    sorts by dated
+    ignores unmapped when sorting by dated
+    sorting by descending date
+      sorts dated by the given direction
+  #monetary_values_array
+    for a GBP bank account
+      extracts values prefixed with the currency symbol of the bank
+      extracts values with two decimal points prefixed with a currency symbol
+      extracts values with two decimal points suffixed with a currency symbol
+      extracts values with two decimal points using a comma separator
+      extracts values with two decimal points using a comma separator
+      does not extract values with only one decimal point
+      does not extract values with more than 2 decimal points
+      does not extract values where there is a space between the currency symbol and the value
+      does not extract values when the currency symbol is not that of the bank account
+      does not extract values where there is a minus sign prepending the value
+      does not extract values when commas are used as thousand separators
+    for a USD bank account
+      extracts values with two decimal points prefixed with the currency symbol of the bank account
+      does not extract values when the currency symbol is not that of the bank account
+  #text_query_without_monetary_values
+    returns the text query correctly when monetary values are detected
+    returns the text query untouched, when no monetary values are detected
+  #monetary_value_filters
+    returns the correct filter when there are monetary values detected
+    does not return a filter when there are no monetary values detected
+  #sanitize_user_input
+    returns a correctly formatted float when
+      is given a monetary value as a string
+    when passed an invalid word
+      handles the error, and logs an error
+  .build
+    for a search term shorter than the minimum
+      is expected to be a kind of Search::NullQuery
+    for a search term length equal to the minimum
+      is expected to be a kind of Search::BankTransactionsQuery
+
+Radar::Insights::ProTipGenerator
+  .evaluate_pro_tips_for
+    when a new instance has been initialised
+      calls generate_pro_tips
+  #generate_pro_tip_notification!
+    when the user does not have insights enabled
+      does not initialise a new ProTip rule
+    when the user has already received the relevant ProTip
+      does not initialise a new ProTip rule
+    when the event name does not trigger a ProTip
+      does not initialise a new ProTip rule
+    when the event triggers a ProTip
+      and the rule is applicable in context
+        generates an insight
+        and the user has previously received a different ProTip
+          within the ProTip generation interval
+            doesn't create another ProTips ping
+          outside of the ProTip generation interval
+            creates another ProTip ping
+        when generating ProTips for account managers
+          and the user is a senior account manager
+            and the account manager is the company's account manager
+              sends the account manager a notification
+            and the account manager is not the company's account manager
+              does not send the user a notification
+      and the rule is not applicable in context
+        does not generate an insight
+      when the event has multiple consumers
+        when the last ProTip consumes the same event
+          generates the next applicable ProTip
+        and the consumers have different priority levels
+          only generates 1 ProTip
+        and the consumers have the same priority
+          only generates 1 ProTip
+          generates the first applicable ProTip
+
+Api::FilePolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+    is expected to equal true
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+    is expected to equal true
+    when the document is personal and belongs to the user
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+      is expected to equal true
+    when the document is personal and doesn't belong to the user
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+      is expected to equal false
+  an account manager
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+SHRINE WARNING: Error occurred when attempting to extract image dimensions: #<FastImage::UnknownImageType: FastImage::UnknownImageType>
+    is expected to equal false
+
+AppStoreBilling::SubscriptionSyncJob
+[ActiveJob] [AppStoreB…] [5cb12b1f-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: 5cb12b1f-738a-4884-b331-b47e80dda9cd) from staged jobs, not found
+  is skipped for a company not subscribed via the app store
+[ActiveJob] [AppStoreB…] [7bfed359-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: 7bfed359-17f6-4ef1-8cf4-dd035b294b82) from staged jobs, not found
+  is skipped for a company on Apple free trial
+  for an app store subscribed company
+[ActiveJob] [AppStoreB…] [0c401b56-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: 0c401b56-55c1-4a5b-be65-86a5ddcd7d83) from staged jobs, not found
+    moves company into grace period if payment has not been made and company is currently subscribed
+    when the company is not due payment
+[ActiveJob] [AppStoreB…] [259b4d24-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: 259b4d24-a741-49a8-a0da-5cee54d7018a) from staged jobs, not found
+      is skipped
+    if new payment has been made (for an active company)
+[ActiveJob] [AppStoreB…] [e9f5fccf-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: e9f5fccf-5153-4a21-8386-cee78c7ac062) from staged jobs, not found
+      bumps up the next payment date
+[ActiveJob] [AppStoreB…] [e7118c86-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: e7118c86-bceb-4a0f-968d-80efa9d9bc85) from staged jobs, not found
+      adds a new payment
+    if new payment has been made (for a grace company)
+[ActiveJob] [AppStoreB…] [a491cf49-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: a491cf49-5a9f-4212-a90e-e6609cc06ced) from staged jobs, not found
+      reactivates the subscription
+[ActiveJob] [AppStoreB…] [fadb46cc-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: fadb46cc-7c2c-45d5-aced-31c3b39b9e92) from staged jobs, not found
+      adds a new payment
+    for a suspended company
+      if new payment has been made
+[ActiveJob] [AppStoreB…] [cec79996-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: cec79996-59d1-445d-b984-c332362f90ec) from staged jobs, not found
+        adds a new payment
+[ActiveJob] [AppStoreB…] [4bcaf826-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: 4bcaf826-6e8d-4b67-b41e-36e68205f974) from staged jobs, not found
+        reactivates the subscription
+      without a new payment
+[ActiveJob] [AppStoreB…] [12a81c16-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: 12a81c16-9b8e-483c-947f-911d6dd333d2) from staged jobs, not found
+        should keep the subscription suspended
+    when the subscription is cancelled by requesting a refund via Apple support
+[ActiveJob] [AppStoreB…] [232116ac-…] Failed to delete AppStoreBilling::SubscriptionSyncJob (Job ID: 232116ac-7e9b-46f9-a067-b087fc979fc8) from staged jobs, not found
+      moves the company into grace period
+
+I, [2022-12-15T10:01:29.185502 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:29.185570 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/features/ltd_company_year_ends_navigation_spec.rb[1:2:1:5]" "spec/models/search/bank_transactions_query_spec.rb" "spec/freeagent/radar/insights/pro_tip_generator_spec.rb" "spec/policies/api/file_policy_spec.rb" "spec/models/app_store_billing/subscription_sync_job_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:69:4:1"], "./spec/models/company/forget_company_data_spec.rb"=>["1:1:1:43:1"], "./spec/models/uk_accounts_mapper_spec.rb"=>["1:3:2:1:4:2"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+payslips/_payslips
+  A payroll month
+    with no other pay or other deductions
+    with other pay
+    with other deductions
+
+Invoice
+  A VAT-registered UK company
+    with a sent invoice
+      is able to send the invoice
+
+Company::ForgetCompanyData
+  Deleting all data
+    for a VAT registered UK company
+      with imports
+Unable to cancel gocardless mandates for company: 314262342 (Oauth not enabled)
+        deletes the import for bank accounts and companies
+
+PracticeDashboard::PartnerResourcesController
+  #show when accessed as an FAPD account manager
+    publishes an event
+    from a practice that is not listed in the directory
+      shows the practice partners blank slate
+    from a practice that is listed in the accountants directory
+      shows links to the practice's cobranded webpages
+  #show when accessed as a white-labelled account manager
+    returns 404
+
+UkAccountsMapper
+  Accounts Mapper for UK companies who are VAT registered
+    on the invoice accounting basis
+      not on the Flat Rate Scheme
+        Bills
+Scoped order is ignored, it's forced to be batch order.
+          representing admin expenses
+
+I, [2022-12-15T10:01:34.205775 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:34.205850 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/views/payslips/_payslips.html.erb_spec.rb" "spec/models/invoice_spec.rb[1:69:4:1]" "spec/models/company/forget_company_data_spec.rb[1:1:1:43:1]" "spec/controllers/practice_dashboard/partner_resources_controller_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:3:2:1:4:2]"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+EnableBankFeed insight
+  with a UK Limited company
+[ActiveJob] [BulkOpera…] [239f2bcd-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 239f2bcd-fb77-4df7-919d-2d7236a1f89b) from staged jobs, not found
+    renders the Radar page copy
+[ActiveJob] [BulkOpera…] [c676ca66-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: c676ca66-1229-4a6f-a4c2-d0879f4b57ae) from staged jobs, not found
+    handles unexpected state - rule does not apply
+[ActiveJob] [BulkOpera…] [1bb5b772-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 1bb5b772-ba0c-4499-823f-9fc9bae1bb42) from staged jobs, not found
+    contains a link to enable bank feed
+
+layouts/signup
+  behaves like a page tracked with google tag manager
+    renders the google tag manager script when the feature is enabled
+    does not render the google tag manager script when the feature is disabeld
+
+admin/companies/subscriptions/_practice_transfer_details
+  with a pending transfer with an email sent
+    shows the correct details
+  with a canceled transfer
+    shows the correct details
+  with a complete transfer with an email sent
+#<RuntimeError: Unable to transfer FreeAgent Central (uklimitedcompany). It currently has a FAPD subscription. Trying to move to Partner practice. Transfer cancelled!>
+app/models/practice_transfer.rb:101:in `unable_to_transfer_error'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+    shows the correct details
+
+OpenBanking::StandingOrdersController
+  #index
+    with an associated bank account
+      shows the existing scheduled payments for the company
+    without an associated bank account
+      renders the page without raising an error
+
+I, [2022-12-15T10:01:37.619811 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:37.619875 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/requests/radar/insights/enable_bank_feed_spec.rb" "spec/views/layouts/signup.html.erb_spec.rb" "spec/views/admin/companies/subscriptions/_practice_transfer_details.html.erb_spec.rb" "spec/controllers/open_banking/standing_orders_controller_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:54:3:2:1"], "./spec/models/uk_accounts_mapper_spec.rb"=>["1:3:1:2:2:3"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Invoice
+  Given an outstanding invoice,
+    existing overpayments
+      and then removing it
+        marks the invoice as unpaid
+
+Signups::Factory::Blocked
+  For a signup blocked due to completion of a honeypot field
+    #save
+      increments the spambot metrics
+      does not send an email to the user
+      logs the blocked signup
+      notifies slack with a link to sudo
+      tracks the signup in Sqreen
+  For a signup blocked due to a banned email address
+    #save
+      increments the spambot metrics
+      does not send an email to the user
+      logs the blocked signup
+      does not notify Slack
+      tracks the signup in Sqreen
+  For a signup blocked due to a dodgy email address
+    #save
+      increments the spambot metrics
+      does not send an email to the user
+      logs the blocked signup
+      notifies slack with a link to sudo
+      tracks the signup in Sqreen
+  For a signup blocked only due to a failing IP score
+    sends an activation email to the user
+    does not notify Slack
+    tracks the signup in Sqreen
+  For a signup blocked due to missing fingerprint
+    does not send an activation email to the user
+    does not notify Slack
+    tracks the signup in Sqreen
+  For a signup blocked due to missing fingerprint and failing IP score
+    does not send an activation email to the user
+    does not notify Slack
+    tracks the signup in Sqreen
+
+Radar::Insights::Rules::MobilePayitProductUpdate
+  behaves like a product update rule
+    behaves like a ping rule
+      #category
+        returns a category defined on the Insight model
+      #send_notifications?
+        returns a boolean
+    #category is a product update
+      returns a category of product update
+  .launch_date
+    launch date is correct
+  #product_update_applies?
+    when there are users who existed before the launch date
+      for a full access, freeagent-branding-allowed company
+        is expected to equal true
+      for a UK Landlord
+        is expected to equal false
+      for a company without full access
+        is expected to equal false
+      for a company which does not allow freeagent branding
+        is expected to equal false
+      for a direct company with a natwest primary bank account
+        by default
+          is expected to equal true
+  #mobile?
+    returns true
+
+UkAccountsMapper
+  Accounts Mapper for UK companies who are VAT registered
+    on the cash accounting basis
+      on the Flat Rate Scheme (at 5%)
+        Bank Account Entries
+Scoped order is ignored, it's forced to be batch order.
+          representing admin expenses
+
+I, [2022-12-15T10:01:41.198921 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:41.198984 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/models/invoice_spec.rb[1:54:3:2:1]" "spec/freeagent/signups/factory/blocked_spec.rb" "spec/models/radar/insights/rules/mobile_payit_product_update_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:2:2:3]"
+Run options:
+  include {:ids=>{"./spec/models/uk_accounts_mapper_spec.rb"=>["1:4:2:1"], "./spec/controllers/invoices_controller_spec.rb"=>["20:2"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Cashflow::Components::LineItems::CreditNoteComponent
+  #title
+    returns the reference and link for the credit note
+  #meta
+    provides text in the format of Credit Note to <contact name>
+
+EC Goods Invoice
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, not FRS, then Cash basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at standard rates
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, not FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, FRS, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, FRS, then Cash basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Invoice basis, FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, FRS, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT at FRS rate
+    Given a uk sole trader -> And a credit note: EC goods -> Given VAT settings: Cash basis, FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+Seeds::BankServiceSeeder
+  .create
+    updates an existing BankService
+    yodlee
+      creates a BankService with the yodlee attributes
+      creates a BankService with Yodlee Name
+      creates a BankService not available for open banking
+    open banking
+      creates a OpenBanking Provider
+      creates a new OpenBanking Provider Configuration
+      creates a OpenBanking Provider Configuration with the given attributes
+      updates OpenBanking Provider with the log_name, BankService and Configuration
+      assigns the correct BankInstitution to the bank service
+    api
+      is expected to eq "Mettle"
+      is expected to eq "Mettle"
+      is expected to eq BankFeeds::ApiProvider
+    Bank Service with Balance at Bank
+      creates a new OpenBanking Provider Configuration
+      sets the balance at bank flag to true
+
+CompanyDigestInstallment
+  is expected to belong to subscription required: false
+  is expected to belong to user required: false
+  is expected to validate that :subscription cannot be empty/falsy
+  is expected to validate that :user cannot be empty/falsy
+  is expected to make subscription_id read-only
+  is expected to make user_id read-only
+  is expected to make dated_on read-only
+  prevents racing worker processes from creating duplicate installments
+  #sent?
+    returns false if sent_at is not assigned
+    returns true if sent_at is assigned
+  #mark_as_sent
+    assigns sent_at
+
+UkAccountsMapper
+  UK Accounts Mapper common functionality
+    Bank Account Entries
+      representing a balance transfer out
+
+FreeagentMailer
+  transport encoding
+    sets the mail transport encoding to base64
+  delivery method
+    sets delivery methood accoriding to EmailDeliveryMethods::Selector
+    invokes selector with correct data
+    allows delivery method forcing
+  error handling
+    handling InactiveRecipientError
+      with @email_model present
+{:event=>"MAILER_INACTIVE_RECIPIENT", :email_id=>42, :exception_class=>"EmailDeliveryMethods::InactiveRecipientError", :exception_message=>"Invalid recipient"}
+        rescues the exception
+{:event=>"MAILER_INACTIVE_RECIPIENT", :email_id=>42, :exception_class=>"EmailDeliveryMethods::InactiveRecipientError", :exception_message=>"Invalid recipient"}
+        marks email model as hard bounced
+        logs a MAILER_INACTIVE_RECIPIENT event with email_id and exception
+      without @email_model present
+{:event=>"MAILER_INACTIVE_RECIPIENT", :exception_class=>"EmailDeliveryMethods::InactiveRecipientError", :exception_message=>"Invalid recipient"}
+        rescues the exception
+        logs a MAILER_INACTIVE_RECIPIENT event with exception
+    handling UnverifiedDomainError
+      when sending failed for our branded domain
+        re-raises the exception
+      when sending from custom domain
+        when the domain is not verified in the system
+          aborts the delivery
+        when the domain is verified in the system
+FROM Email address for Custom Email Domain ##[InstanceDouble(CustomEmailDomain) (anonymous)] is not a verified Sender Signature at Postmark, automatically unverifying
+          retries delivery with unverified domain
+    handling DeliveryError
+{:event=>"MAILER_DELIVERY_ERROR", :email_id=>42, :exception_class=>"EmailDeliveryMethods::DeliveryError", :exception_message=>"API failed"}
+      re-raises exception
+      with @email_model present
+        logs a MAILER_DELIVERY_ERROR event with email_id and exception
+      without @email_model present
+        logs a MAILER_DELIVERY_ERROR event with exception
+
+InvoicesController A draft foreign currency invoice
+  does not show the totals when viewing all invoices
+
+Part Paid Foreign Currency VAT Invoice
+  VAT due
+    Given a uk sole trader -> And exchange rates are setup -> And a foreign currency invoice: part paid, with VAT -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on payment
+    Given a uk sole trader -> And exchange rates are setup -> And a foreign currency invoice: part paid, with VAT -> Given VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due at 11.5% FRS rate
+    Given a uk sole trader -> And exchange rates are setup -> And a foreign currency invoice: part paid, with VAT -> Given VAT settings: Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  FRS VAT on payment
+    Given a uk sole trader -> And exchange rates are setup -> And a foreign currency invoice: part paid, with VAT -> Given VAT settings: Cash basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+Api::Banking::AccountsController
+  GET /banking/accounts
+    responds with the company's accounts when a user has the right permission level
+    rejects the request when the user has a lower permission level
+
+I, [2022-12-15T10:01:44.235105 #242]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:44.235171 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/freeagent/cashflow/components/line_items/credit_note_component_spec.rb" "spec/accounting_and_sales_tax/uk_vat/credit_notes/ec_goods.feature" "spec/tools/company_seeder/bank_service_seeder_spec.rb" "spec/models/company_digest_installment_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:4:2:1]" "spec/mailers/freeagent_mailer_spec.rb" "spec/controllers/invoices_controller_spec.rb[20:2]" "spec/accounting_and_sales_tax/uk_vat/invoices/foreign_currency_vat_part_paid.feature" "spec/requests/api/banking/accounts_integration_spec.rb"
+Knapsack Pro Queue finished!
+
+
+Finished in 2 minutes 20 seconds
+534 examples, 0 failures
+I, [2022-12-15T10:01:44.254269 #242]  INFO -- : [knapsack_pro] To retry all the tests assigned to this CI node, please run the following command on your machine:
+I, [2022-12-15T10:01:44.254373 #242]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_35.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_35.xml --default-path spec "spec/models/bill_item_spec.rb" "spec/features/credit_notes/create_credit_note_spec.rb" "spec/features/vat/hmrc_mtd_filing_spec.rb[1:1]" "spec/jobs/banking/explain_transaction_job_spec.rb" "spec/features/getting_started_spec.rb[1:5:1:4:2:3:1]" "spec/features/new_banking/sidebar/latest_statement_spec.rb" "spec/controllers/estimates/emails_controller_spec.rb" "spec/requests/api/contacts/contact_bank_account_integration_spec.rb" "spec/acceptance/payroll/2017_18/auto_enrolment.feature" "spec/models/customer_billing/stripe_payment_processor_spec.rb" "spec/tools/company_seeder/bank_account_seeder_spec.rb" "spec/features/ltd_company_year_ends_navigation_spec.rb[1:2:1:5]" "spec/models/search/bank_transactions_query_spec.rb" "spec/freeagent/radar/insights/pro_tip_generator_spec.rb" "spec/policies/api/file_policy_spec.rb" "spec/models/app_store_billing/subscription_sync_job_spec.rb" "spec/views/payslips/_payslips.html.erb_spec.rb" "spec/models/invoice_spec.rb[1:69:4:1]" "spec/models/company/forget_company_data_spec.rb[1:1:1:43:1]" "spec/controllers/practice_dashboard/partner_resources_controller_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:3:2:1:4:2]" "spec/requests/radar/insights/enable_bank_feed_spec.rb" "spec/views/layouts/signup.html.erb_spec.rb" "spec/views/admin/companies/subscriptions/_practice_transfer_details.html.erb_spec.rb" "spec/controllers/open_banking/standing_orders_controller_spec.rb" "spec/models/invoice_spec.rb[1:54:3:2:1]" "spec/freeagent/signups/factory/blocked_spec.rb" "spec/models/radar/insights/rules/mobile_payit_product_update_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:2:2:3]" "spec/freeagent/cashflow/components/line_items/credit_note_component_spec.rb" "spec/accounting_and_sales_tax/uk_vat/credit_notes/ec_goods.feature" "spec/tools/company_seeder/bank_service_seeder_spec.rb" "spec/models/company_digest_installment_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:4:2:1]" "spec/mailers/freeagent_mailer_spec.rb" "spec/controllers/invoices_controller_spec.rb[20:2]" "spec/accounting_and_sales_tax/uk_vat/invoices/foreign_currency_vat_part_paid.feature" "spec/requests/api/banking/accounts_integration_spec.rb"

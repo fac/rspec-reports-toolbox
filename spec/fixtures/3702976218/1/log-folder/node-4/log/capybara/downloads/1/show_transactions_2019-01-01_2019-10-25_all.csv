@@ -1,0 +1,21 @@
+"FreeAgent Central - 01 Jan 19 - 25 Oct 19"
+
+"001 Sales",,,
+Date,Description,Debit,Credit
+"22 Oct 19","Invoice REF 0001",,100.00
+Total,,,100.00
+
+"283 Motor Expenses",,,
+Date,Description,Debit,Credit
+"25 Oct 19","My Expense Ed Molyneux: Motor Expenses",100.00,
+Total,,100.00,
+
+"681 Trade Debtors",,,
+Date,Description,Debit,Credit
+"22 Oct 19","Invoice REF 0001",100.00,
+Total,,100.00,
+
+"905-1 Expense Account: Ed Molyneux",,,
+Date,Description,Debit,Credit
+"25 Oct 19","My Expense Ed Molyneux: Motor Expenses",,100.00
+Total,,,100.00

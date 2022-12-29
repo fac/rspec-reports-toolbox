@@ -1,0 +1,1526 @@
+I, [2022-12-15T09:58:57.210053 #239]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual 'it's. Thanks to that a single slow test file can be split across parallel CI nodes). Analyzing 7 slow test files.
+2022-12-15T09:59:13.002Z pid=322 tid=9ni INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Expense
+  is expected to validate that :description cannot be empty/falsy
+  is expected to validate that the length of :description is at most 255
+  is expected to validate that :user cannot be empty/falsy
+  is Rebillable
+  an expense with a gross_value containing a comma is not valid
+  sets net value and gross value
+  does not use UK advisory mileage rates for universal company
+  auto_vat
+  calculates non-standard sales tax from manual amount
+  calculates all sales tax from manual amount
+  duplicate_for_recurring
+  validates #rebill_to_project_id
+  allows VAT receipt for car mileages
+  allows VAT receipt for motorcycle mileages
+  does not allow VAT receipt for bicycle mileages
+  is able to relate to project without being rebilled to project
+  defines valid rebill type values
+  is not valid if rebill type specified with no associated project
+  returns project as rebill_to_project if rebill type is not nil
+  sets project and rebill type as cost if setting rebill to project
+  does not validate if rebill factor specified with no associated project
+  validates rebill_type against REBILL_TYPES
+  considers nil a valid REBILL_TYPE
+  validates rebill_factor against rebill_type
+  provides a tailored rebill_type_options list for Mileage
+  an expense with a rebill type of price and a blank rebill factor should not validate
+  an expense with a rebill type of markup and a blank rebill factor should not validate
+  an expense with a rebill type of cost and a blank rebill factor should validate
+  A non-rebillable mileage
+  an expense with a rebill_mileage_rate to 3dp should be used correctly in calculations
+  behaves like auditable entity
+    .audit_entries
+      is expected to have the audit_entries scope with the correct parameters
+      orders the audit_entries latest first, newest to oldest
+      does not remove audit_entries when destroyed, instead it leaves the auditable_(type|id|name) untouched
+    .linked_audit_entries
+      is expected to have the audit_entries scope with the correct parameters
+      orders the linked_audit_entries latest first, newest to oldest
+    #auditable_name
+      defines its own auditable_name that is suitable for the included class
+      does not raise any errors
+    #auditable_entity
+      returns self
+    #auditable_capture_enabled?
+      defines its own auditable_capture_enabled? that returns a boolean
+      does not raise any errors
+  .order_by
+    when sorting on dated_on
+      is expected to be ordered by field "dated_on"
+    when sorting on the property_address
+      is expected to be ordered by field "address1" from table "properties"
+      joins across onto the properties table
+    when an an attribute not specified by SORT_FIELDS is passed in
+      is expected to be empty
+    when sorting on a valid attribute in descending order
+      is expected to be ordered by field "dated_on" in direction Arel::Nodes::Descending
+    when sorting on a valid attribute in an invalid order
+      throws an error
+  #auditable_capture_enabled?
+    is expected to eq true
+  #auditable_display_type
+    is expected to eq "Expense"
+    when the expense is a mileage claim
+      is expected to eq "Mileage"
+  #auditable_name
+    returns the description
+  #linked_item_requires_property?
+    for a capital asset purchase
+      is expected to equal false
+    for a non-capital asset purchase
+      is expected to equal true
+  An expense with a 3 decimal place gross value
+    saves ledgers to 2 decimal places
+  An expense with a 3 decimal place foreign gross value
+    saves ledgers to 2 decimal places
+  Creating a expense with a capital asset nominal code
+    populates the account_name with PURCHASE_OF_OTHER_CAPITAL_ASSET
+    includes sales tax in the capital asset ledger entries
+    has an asset depreciation schedule
+    without a depreciation schedule
+      throws an exception
+    with an invalid depreciation schedule
+      throws an exception
+  Creating an expense with a stock item
+    creates an expense
+    has a nicely formatted stock quantity
+    is vatable
+    deletes the stock transaction when deleted
+    with a decimal quantity
+      still has a nicely formatted stock quantity
+  Creating an expense with a stock item
+    does not create an expense if the quantity is 0
+    does not create an expense if the total value is not set
+  Creating an expense with stock category but no stock item
+    is invalid
+  A stock expense refund
+    is not valid
+  Creating an expense with a stock item from another company
+    is invalid
+  Creating an expense with cost_of_sales category
+    sets the account_name to be the category description
+    sets the correct general_ledger_account
+  An expense filed into an account from another company
+    is not valid
+    has an error on the general_ledger_account
+  An SalesTaxCalculator::AUTO_RATE bill added to a category with a standard VAT rate
+    applies the standard VAT rate at the date of the expense
+  An SalesTaxCalculator::AUTO_RATE expense added to a category with a reduced VAT rate
+    applies the reduced VAT rate at the date of the expense
+  An SalesTaxCalculator::AUTO_RATE expense added to a category with a zero VAT rate
+    applies a zero VAT rate
+  An SalesTaxCalculator::AUTO_RATE expense added to a category which is out of scope of VAT
+    applies an out of scope VAT rate
+  An SalesTaxCalculator::AUTO_RATE expense added to a category which is out of scope of VAT, default_auto_oos_vat_rate feature disabled
+    applies an out of scope VAT rate
+  a VAT exempt expense
+    has no VAT amount
+  creating a new expense
+    is not recurring
+    is valid and possible to save
+    has the assigned description
+    calculates the type
+    calculates the net value
+    calculates the sales tax value
+    is not a mileage claim
+  Creating a new mileage claim
+    is a mileage claim
+    has the given reclaim rate until saved
+    uses the UK mileage rate for the given date
+    has the correct description for rebilling
+    is in the default currency once saved
+    calculates the gross value when saved
+    calculates the foreign gross value when saved
+  Rebilling a mileage claim
+    only accepts numerical rebill rates
+    does not fail when given nil values for vehicle details for universal company
+  creating an expense
+    validates mileage
+    validates manual sales tax amount
+    validates dated_on
+    validates recurring period
+    validates currency
+  bicycle mileage claims
+    does not explode when engine-related attributes are not set
+    for UK sole traders
+      does not let the owner reclaim
+      lets the owner rebill
+      lets employees reclaim
+    for UK partnerships
+      does not let partners reclaim
+      lets the partner rebill
+      lets employees reclaim
+    for UK limited companies
+      lets directors reclaim
+      lets employees reclaim
+  #recalc_claimed_mileage
+    total mileage doesn't exceed the limit
+      marks all mileage as initial rate mileage
+    total mileage in a tax year exceeds the limit
+      marks all mileage as subsequent rate mileage
+    mileage claim is partially within the limit
+      breaks down mileage
+  Mileage advisory rates
+    gets mileage advisory rate based on a date, engine type and engine size
+    sets sales_tax_value to 0 if no vat receipt
+    is invalid if the given engine type or size doesn't exist on the given date
+  Calculating the gross value for a mileage claim
+    for short journeys (under 10,000 miles)
+      uses the correct rate for cars
+      uses the correct rate for motorcycles
+      uses the correct rate for bicycles
+    for long journeys (over 10,000 miles)
+      uses the correct rate for cars
+      uses the correct rate for motorcycles
+      uses the correct rate for bicycles
+  Recurring expenses
+    creates new expense from the original
+    creates an audit entry of type expense with description indicating it was from a recurring invoice
+    creates new expense with the same sales tax rate if sales tax rates hasn't change
+    creates new expense with the new sales tax rate if sales tax rates has changed
+    recalculates the gross value of foreign currency expenses using the appropriate exchange rate
+    returns next recurring date from #next_recurs_on
+    returns false from #ready_to_recur if recurring date is in the future
+    returns true from #ready_to_recur if recurring date is in the past
+    does not allow to create a recurring expense with end date < next recurring date
+    when the bill has a manual sales tax rate
+      preserves the sales tax amounts
+    when created by a UK landlord
+      retains the property ID from the original expense
+  validating a capital asset purchase associated with a project
+    is not valid
+  An expense
+    is valid
+    which is a refund with wrong-signed gross_value
+      normalises its gross value when asked
+      normalises its gross value when saved
+    which is a payment with wrong-signed gross_value
+      normalises its gross value when asked
+      normalises its gross value when saved
+  A mileage expense for 301.5 miles
+    saves ledgers to 2 decimal places
+  A project mileage expense
+    is valid
+    provides a tailored set of valid_rebill_types
+    allows a rebill_type of nil
+    allows a rebill_type of COST
+    does not allow a rebill_type of PRICE
+    does not allow a rebill_type of MARKUP
+    is valid with fractional mileage
+    with a mileage rate
+      calculates the rebilled_net_value
+      calculates the rebilled_gross_value
+      and a rebilled_project
+        does not change project
+        has a default rebill_type of COST
+        calculates the rebilled_net_value
+        calculates the rebilled_gross_value
+  Generating recurring expenses for a company with access to their account
+    does not raise an exception when the initial date is invalid
+    when there is a single recurring expense
+      that recurs weekly and is dated one week ago
+        sets the original expense to be no longer recurring
+        generates a new weekly recurring expense dated today
+    when there are multiple mileage claims and the generated mileages go over the threshold
+[ActiveJob] [EmailMark…] [a15e389a-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: a15e389a-4bdf-49a8-b18d-6bdbb6287759) from staged jobs, not found
+[ActiveJob] [RescanMil…] [c80d2737-…] Failed to delete RescanMileageJob (Job ID: c80d2737-9772-44c9-b809-1b17b403994e) from staged jobs, not found
+      sets correct initial and subsequent mileages for the first generated expense
+[ActiveJob] [EmailMark…] [c825fae1-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: c825fae1-e964-41a6-a9a9-0c502001518a) from staged jobs, not found
+[ActiveJob] [RescanMil…] [2bfec716-…] Failed to delete RescanMileageJob (Job ID: 2bfec716-42dc-4b00-8e7b-f2f2f8fca697) from staged jobs, not found
+      sets correct initial and subsequent mileages for the second generated expense
+    in a foreign currency
+      uses the correct exchange rates
+  Generating recurring expenses for an expired free trial company
+    does not generate new recurring expenses
+  Generating recurring expenses for a suspended company
+    does not generate new recurring expenses
+  Generating recurring expenses for a cancelled company
+[ActiveJob] [EmailMark…] [5992f757-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 5992f757-669f-485e-8436-9289ef8da678) from staged jobs, not found
+    does not generate new recurring expenses
+  A small, unreclaimed mileage
+    has a zero gross value
+  A recurring mileage expense on the subsequent rate in a previous year
+[ActiveJob] [EmailMark…] [dfb9bd30-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: dfb9bd30-f995-4e71-8f76-aafb0eebc371) from staged jobs, not found
+[ActiveJob] [RescanMil…] [fd3a2041-…] Failed to delete RescanMileageJob (Job ID: fd3a2041-4384-4135-a894-6c6f3086bc79) from staged jobs, not found
+[ActiveJob] [RescanMil…] [52eca4bc-…] Failed to delete RescanMileageJob (Job ID: 52eca4bc-34ab-40ec-999c-85509dfe8b57) from staged jobs, not found
+    still is on the subsequent rate when the expense is recurred
+  A mileage expense on the subsequent rate which is rebilled to a project
+[ActiveJob] [EmailMark…] [fe896361-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: fe896361-0ac3-4b8e-8fb3-d796d1fae688) from staged jobs, not found
+[ActiveJob] [Recurring…] [a63c62d2-…] Failed to delete RecurringInvoiceProfile::UpdateIndexJob (Job ID: a63c62d2-1871-4733-8946-825e64eadade) from staged jobs, not found
+[ActiveJob] [SourceIte…] [59bbbe24-…] Failed to delete SourceItemCurrencyRevaluationJob (Job ID: 59bbbe24-c89c-4054-96c3-9aed6742c551) from staged jobs, not found
+[ActiveJob] [RescanMil…] [a8d9aa8b-…] Failed to delete RescanMileageJob (Job ID: a8d9aa8b-4ad3-4340-897f-99834d4339db) from staged jobs, not found
+    is rescanned correctly and still be on the subsequent rate mileage
+  when expense rebill_type is 'cost'
+    and the expense doesn't include VAT
+      assigns rebilled_net_value to gross_value
+      assigns rebilled_gross_value to gross_value
+    and expense includes VAT
+      assigns rebilled_net_value to net_value
+      assigns rebilled_gross_value to gross_value
+  when expense rebill_type is 'markup'
+    and the expense doesn't include VAT
+      assigns rebilled_net_value to gross_value * (1 + (rebill_factor/100))
+      assigns rebilled_gross_value to net_value * (1 + (rebill_factor/100))
+    and the expense includes VAT
+      assigns rebilled_net_value to net_value * (1 + (rebill_factor/100))
+      assigns rebilled_gross_value to net_value * (1 + (rebill_factor/100))
+  if expense.rebill_type is 'price'
+    and expense doesn't include VAT
+      assigns rebilled_net_value to -rebill_factor
+      assigns rebilled_gross_value to -rebill_factor
+      and expense is a refund
+        assigns rebilled_net_value to rebill_factor
+        assigns rebilled_gross_value to rebill_factor
+    and expense includes VAT
+      assigns rebilled_net_value to -rebill_factor
+      assigns rebilled_gross_value to -rebill_factor
+      and expense is a refund
+        assigns rebilled_net_value to rebill_factor
+        assigns rebilled_gross_value to rebill_factor
+  A recurring expense dated in 2009 on a 2-yearly frequency with a 15% VAT rate
+    recurs and create a new expense dated in 2011 with a 20% VAT rate
+  An expense with an awkward gross value
+    has the expected gross value
+    has the expected NET value
+    has the expected Sales Tax value
+    has a gross value that is the sum of the net value plus the sales tax value
+  locked reason
+    is empty when not locked
+    is one item when only rebill locked
+  .locking_checks
+    is rebill checked
+  #reclaim_mileage?
+    returns false if expense is not a mileage claim, even if reclaim_mileage_rate is != 0
+  unreclaimed mileage expenses with VAT reclaims
+    is invalid if a new instance
+    is valid for universal companies
+    is valid if a saved instance
+    is not valid if we've just changed the VAT setting
+    is not valid if a changing the reclaim setting
+  #nominal_code
+    assigns the correct general ledger account when set
+    returns the nominal code for the associated general ledger account when not set
+  #sales_tax_rate
+    is valid when an allowed rate is supplied
+    is invalid when the rate is not a number
+    is invalid when the rate is not an allowed rate
+    is valid when the rate is greater than 100%
+  #second_sales_tax_rate
+    is valid when an allowed rate is supplied
+    is invalid when the rate is not a number
+    is invalid when the rate is not an allowed rate
+    is valid when the rate is greater than 100%
+  manual sales tax amount
+    is kept if the sales tax rate is not equal to SalesTaxCalculator::SPECIFY_AMOUNT_RATE
+    is saved when the sales tax rate is equal to SalesTaxCalculator::SPECIFY_AMOUNT_RATE
+  #is_a_capital_asset_purchase?
+    is true for a capital asset purchase account
+    is false for a non-capital asset purchase account
+  Saving an Expense
+    which is linked to a project
+      generates ledger entries with a valid contact_id and project_id
+    which is not linked to a project
+      generates ledger entries with a nil project and contact id
+  ledger entry property tagging of expenses
+    tags all P&L ledger entries with the property id
+    for a capital asset purchase
+      does not tag capital asset purchase ledgers with the property_id
+  #short_summary
+    for a regular expense
+      returns the expense amount and description
+      truncates long descriptions
+    for a mileage expense
+      returns the mileage amount and description
+      truncates long descriptions
+  #user validation
+    user has a staff role
+      is valid
+    user has an advisor role
+      is invalid
+
+Payroll NI Calculations 2016
+  Calculating NIC for an existing Director turning 21
+[ActiveJob] [EmailMark…] [5f320f25-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 5f320f25-ced8-4998-b1fc-a13805eb0467) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 20 year old Director payroll profile calculated on the annual basis with NI letter M -> And they are paid £4000 monthly -> When after running month 9 payroll they turn 21 so change to letter A -> And they run payroll in month 12 -> Then total employee NIC should be £4231.30 -> And total employer NIC should be £1656.00
+  Calculating NIC for an existing Director turning 21 who applies for NI deferment
+[ActiveJob] [EmailMark…] [3cd52588-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 3cd52588-c792-47a4-9336-dcc991695cee) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 20 year old Director payroll profile calculated on the annual basis with NI letter M -> And they are paid £4000 monthly -> When in month 7 they turn 21 so change to letter A -> And in month 10 they applied for letter J and HMRC confirmed in writing -> And the full year is recalculated using J -> And they run payroll in month 12 -> Then total employee NIC should be £798.80 -> And total employer NIC should be £5504.54
+  Calculating NIC for an existing Director who applies for NI deferment
+[ActiveJob] [EmailMark…] [fd269883-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: fd269883-8a1b-451c-a16c-f736f535743d) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a Director payroll profile calculated on the annual basis with NI letter A -> And they are paid £4000 monthly -> When in month 10 they applied for letter J and HMRC confirmed in writing -> And the full year is recalculated using J -> And they run payroll in month 12 -> Then total employee NIC should be £798.80 -> And total employer NIC should be £5504.54
+  Calculating NIC for an existing Director who is under 21 and applies for NI deferment
+[ActiveJob] [EmailMark…] [70bb590c-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 70bb590c-e979-4b37-b406-5dc200b13867) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 20 year old Director payroll profile calculated on the annual basis with NI letter M -> And they are paid £4000 monthly -> When in month 10 they applied for letter Z and HMRC confirmed in writing -> And the full year is recalculated using Z -> And they run payroll in month 12 -> Then total employee NIC should be £798.80 -> And total employer NIC should be £774.87
+  Calculating NIC for an existing Director turning 65
+[ActiveJob] [EmailMark…] [d5314665-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: d5314665-9945-40c7-8f59-d8c78d34b2c0) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 64 year old Director payroll profile calculated on the annual basis with NI letter A -> And they are paid £4000 monthly -> When in month 10 they turn 65 so change to letter C -> And they run payroll in month 12 -> Then total employee NIC should be £3352.80 -> And total employer NIC should be £5504.54
+  Calculating NIC for an existing Director with widows allowance who turns 65
+[ActiveJob] [EmailMark…] [43e8bb8d-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 43e8bb8d-2cf5-4b08-82b1-0fe05831a730) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 64 year old Director payroll profile calculated on the annual basis with NI letter B -> And they are paid £4000 monthly -> When in month 10 they turn 65 so change to letter C -> And they run payroll in month 12 -> Then total employee NIC should be £1634.49 -> And total employer NIC should be £5504.54
+  Calculating NIC for an existing Director who opts out of widows allowance
+[ActiveJob] [EmailMark…] [d570c88a-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: d570c88a-6c07-4f0b-b1a8-f72f5ae71009) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a Director payroll profile calculated on the annual basis with NI letter B -> And they are paid £4000 monthly -> When in month 10 they opt out of widows allowance and change to letter A -> And they run payroll in month 12 -> Then total employee NIC should be £2512.99 -> And total employer NIC should be £5504.54
+  Calculating NIC for an existing Director with widows allowance who opts out and then applies for NI deferment
+[ActiveJob] [EmailMark…] [bf896d9f-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: bf896d9f-cb8c-4d81-b681-9d84e11d27d4) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a Director payroll profile calculated on the annual basis with NI letter B -> And they are paid £4000 monthly -> When in month 7 they opt out of widows allowance and change to letter A -> And in month 10 they applied for letter J and HMRC confirmed in writing -> And the full year is recalculated using J -> And they run payroll in month 12 -> Then total employee NIC should be £798.80 -> And total employer NIC should be £5504.54
+  Calculating NIC for an existing Director with widows allowance who opts out and turns 65
+[ActiveJob] [EmailMark…] [d71302b1-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: d71302b1-9a94-4fc3-969e-7c14548c0616) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 64 year old Director payroll profile calculated on the annual basis with NI letter B -> And they are paid £4000 monthly -> When in month 7 they opt out of widows allowance and change to letter A -> And in month 10 they turn 65 so change to letter C -> And they run payroll in month 12 -> Then total employee NIC should be £2372.49 -> And total employer NIC should be £5504.54
+  Calculating NIC for an existing Alternate Director turning 21
+[ActiveJob] [EmailMark…] [21b20e42-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 21b20e42-41c4-453f-be6a-58fa4f6c3e1b) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 20 year old Alternate Arrangements payroll profile with NI letter M -> And they are paid £4000 monthly -> When in month 10 they turn 21 so change to letter A -> And they run payroll in month 12 -> Then total employee NIC should be £4231.30 -> And total employer NIC should be £1656.00 -> And the monthly NI payments should look like
+  Calculating NIC for an existing Alternate Director who turns 65
+[ActiveJob] [EmailMark…] [8e42495e-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 8e42495e-e8f4-4dc4-aa54-addc95ffde4b) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 64 year old Alternate Arrangements payroll profile with NI letter A -> And they are paid £4000 monthly -> When in month 10 they turn 65 so change to letter C -> And they run payroll in month 12 -> Then total employee NIC should be £3352.80 -> And total employer NIC should be £5504.54 -> And the monthly NI payments should look like
+  Calculating NIC for an existing Alternate Director who turns 65
+[ActiveJob] [EmailMark…] [eca6b3fa-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: eca6b3fa-e692-453c-a7e9-3093f88f1e64) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 64 year old Alternate Arrangements payroll profile with NI letter A -> And they are paid £4000 monthly -> And they were first paid in month 5 -> And they started employment on 2015-08-01 -> When in month 10 they turn 65 so change to letter C -> And they run payroll in month 12 -> And total employer NIC should be £3640.99 -> And the monthly NI payments should look like
+  Calculating NIC for an existing Alternate Director turning 21
+[ActiveJob] [EmailMark…] [b0b52c97-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: b0b52c97-1c70-46ef-ae1f-f1491a962265) from staged jobs, not found
+    Given a UK Limited Company which was started on 2014-01-01 -> And they are running payroll in the 2016 tax year on the 25th of each month -> Given a 20 year old Alternate Arrangements payroll profile with NI letter M -> And they are paid £4000 monthly -> And they were first paid in month 5 -> And they started employment on 2015-08-01 -> When in month 10 they turn 21 so change to letter A -> And they run payroll in month 12 -> Then total employee NIC should be £2904.80 -> And total employer NIC should be £1656.00 -> And the monthly NI payments should look like
+
+CompanyDigestMailer
+  #digest
+    for a uk_limited_company company
+      is expected to be a multipart email
+      is expected to have click tracking
+      is expected to show radar section
+      is expected to link to http://subdomain000001.fac-test.host/radar?_auth_via=saml
+      is expected to have content in the text part: include "View 1 new update on your Radar"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/radar?_auth_via=saml"
+      is expected to link to http://subdomain000001.fac-test.host/invoices?_auth_via=saml&view=overdue
+      is expected to link to http://subdomain000001.fac-test.host/invoices?_auth_via=saml&view=open
+      is expected to have content in the text part: include "Chase your 3 Overdue Invoices worth £5,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/invoices?_auth_via=saml&view=overdue"
+      is expected to have content in the text part: include "View your 2 Open Invoices worth £2,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/invoices?_auth_via=saml&view=open"
+      is expected to link to http://subdomain000001.fac-test.host/bills?_auth_via=saml&view=overdue
+      is expected to have content in the text part: include "Pay your 3 Overdue Bills worth £3,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/bills?_auth_via=saml&view=overdue"
+      is expected to link to http://subdomain000001.fac-test.host/bills?_auth_via=saml&view=open
+      is expected to have content in the text part: include "View and pay your 2 Open Bills worth £1,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/bills?_auth_via=saml&view=open"
+      is expected not to contain payit text
+      is expected to link to http://subdomain000001.fac-test.host/tax/corporation_tax_returns/31-Mar-21?_auth_via=saml
+      is expected to have content in the text part: include "Electronic Submission and Payment Due for Corporation Tax, year ending 31 Dec 19"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/tax/corporation_tax_returns/31-Mar-21?_auth_via=saml"
+      is expected to link to http://subdomain000001.fac-test.host/tax/corporation_tax_returns/31-Mar-21?_auth_via=saml
+      is expected to link to http://subdomain000001.fac-test.host/timeslips?_auth_via=saml&status=unbilled
+      is expected to have content in the text part: include "Invoice for your 4:30 Unbilled hours worth £4,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/timeslips?_auth_via=saml&status=unbilled"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/settings/communication_preferences?_auth_via=saml"
+      is expected to link to http://subdomain000001.fac-test.host/settings/communication_preferences?_auth_via=saml
+      is expected to link to http://subdomain000001.fac-test.host/estimates?_auth_via=saml&status=sent
+      is expected to have content in the text part: include "Approve your 5 Open Estimates worth £5,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.fac-test.host/estimates?_auth_via=saml&status=sent"
+      is expected to have headers {:from=>"FreeAgent <noreply@remailer.freeagentcentral.com>", :reply_to=>"support@freeagent.com", :subject=>"FreeAgent - The Monday Motivator - 01 Jan 13", :to=>"user_1@example.com"}
+      tracks clicks from html using Google Analytics
+      with insights from both categories
+        contains a tracked link to recent insights in html
+      with no pings
+        is expected not to show radar section
+      with an admin to-do item
+        is expected to have content in the html part: have text "Complete 1 Task on your Admin To-Do List"
+        is expected to link to http://subdomain000001.fac-test.host/radar?_auth_via=saml
+        is expected to have content in the text part: include "Complete 1 Task on your Admin To-Do List"
+        is expected to have content in the text part: have text "http://subdomain000001.fac-test.host/radar?_auth_via=saml"
+      when the company's primary bank account is an NWG account
+        is expected to contain payit text
+      with an empty tax timeline
+        is expected not to have content in the text part satisfying match /tax/i
+        is expected not to have content in the html part: have visible css "#tax_timeline"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no open/overdue invoices
+        is expected not to have content in the text part satisfying match /open invoice/i
+        is expected not to have content in the text part satisfying match /overdue invoice/i
+        is expected not to have content in the html part: have visible css "#invoices"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no open/overdue bills
+        is expected not to have content in the text part satisfying match /open bills/i
+        is expected not to have content in the text part satisfying match /overdue bills/i
+        is expected not to have content in the html part: have visible css "#bills"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no unbilled timeslips
+        is expected not to have content in the text part satisfying match /timeslip/i
+        is expected not to have content in the html part: have visible css "#timeslips"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no sent estimates
+        is expected not to have content in the text part satisfying match /estimate/i
+        is expected not to have content in the html part: have visible css "#estimates"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+    for a bcsg_uk_limited_company company
+      is expected to be a multipart email
+      is expected to have click tracking
+      is expected to show radar section
+      is expected to link to http://subdomain000001.freeagentcentral.com/radar?_auth_via=saml
+      is expected to have content in the text part: include "View 1 new update on your Radar"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/radar?_auth_via=saml"
+      is expected to link to http://subdomain000001.freeagentcentral.com/invoices?_auth_via=saml&view=overdue
+      is expected to link to http://subdomain000001.freeagentcentral.com/invoices?_auth_via=saml&view=open
+      is expected to have content in the text part: include "Chase your 3 Overdue Invoices worth £5,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/invoices?_auth_via=saml&view=overdue"
+      is expected to have content in the text part: include "View your 2 Open Invoices worth £2,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/invoices?_auth_via=saml&view=open"
+      is expected to link to http://subdomain000001.freeagentcentral.com/bills?_auth_via=saml&view=overdue
+      is expected to have content in the text part: include "Pay your 3 Overdue Bills worth £3,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/bills?_auth_via=saml&view=overdue"
+      is expected to link to http://subdomain000001.freeagentcentral.com/bills?_auth_via=saml&view=open
+      is expected to have content in the text part: include "View and pay your 2 Open Bills worth £1,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/bills?_auth_via=saml&view=open"
+      is expected not to contain payit text
+      is expected to link to http://subdomain000001.freeagentcentral.com/tax/corporation_tax_returns/31-Mar-21?_auth_via=saml
+      is expected to have content in the text part: include "Electronic Submission and Payment Due for Corporation Tax, year ending 31 Dec 19"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/tax/corporation_tax_returns/31-Mar-21?_auth_via=saml"
+      is expected to link to http://subdomain000001.freeagentcentral.com/tax/corporation_tax_returns/31-Mar-21?_auth_via=saml
+      is expected to link to http://subdomain000001.freeagentcentral.com/timeslips?_auth_via=saml&status=unbilled
+      is expected to have content in the text part: include "Invoice for your 4:30 Unbilled hours worth £4,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/timeslips?_auth_via=saml&status=unbilled"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/settings/communication_preferences?_auth_via=saml"
+      is expected to link to http://subdomain000001.freeagentcentral.com/settings/communication_preferences?_auth_via=saml
+      is expected to link to http://subdomain000001.freeagentcentral.com/estimates?_auth_via=saml&status=sent
+      is expected to have content in the text part: include "Approve your 5 Open Estimates worth £5,000.00"
+      is expected to have content in the text part: include "http://subdomain000001.freeagentcentral.com/estimates?_auth_via=saml&status=sent"
+      is expected to have headers {:from=>"FreeAgent <noreply@remailer.freeagentcentral.com>", :reply_to=>"support@freeagent.com", :subject=>"FreeAgent - The Monday Motivator - 01 Jan 13", :to=>"user_1@example.com"}
+      tracks clicks from html using Google Analytics
+      with insights from both categories
+        contains a tracked link to recent insights in html
+      with no pings
+        is expected not to show radar section
+      with an admin to-do item
+        is expected to have content in the html part: have text "Complete 1 Task on your Admin To-Do List"
+        is expected to link to http://subdomain000001.freeagentcentral.com/radar?_auth_via=saml
+        is expected to have content in the text part: include "Complete 1 Task on your Admin To-Do List"
+        is expected to have content in the text part: have text "http://subdomain000001.freeagentcentral.com/radar?_auth_via=saml"
+      when the company's primary bank account is an NWG account
+        is expected to contain payit text
+      with an empty tax timeline
+        is expected not to have content in the text part satisfying match /tax/i
+        is expected not to have content in the html part: have visible css "#tax_timeline"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no open/overdue invoices
+        is expected not to have content in the text part satisfying match /open invoice/i
+        is expected not to have content in the text part satisfying match /overdue invoice/i
+        is expected not to have content in the html part: have visible css "#invoices"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no open/overdue bills
+        is expected not to have content in the text part satisfying match /open bills/i
+        is expected not to have content in the text part satisfying match /overdue bills/i
+        is expected not to have content in the html part: have visible css "#bills"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no unbilled timeslips
+        is expected not to have content in the text part satisfying match /timeslip/i
+        is expected not to have content in the html part: have visible css "#timeslips"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+      with no sent estimates
+        is expected not to have content in the text part satisfying match /estimate/i
+        is expected not to have content in the html part: have visible css "#estimates"
+Note: It appears you may be passing a CSS selector or XPath expression rather than a locator. Please see the documentation for acceptable locator values.
+    for a white-labelled company
+      is expected to be a plaintext email
+    for a BCSG company
+      uses FreeAgent headers for now
+      is expected to have click tracking
+    with a user with radar pings
+#<RuntimeError: User with id 975572480 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to create a radar notification
+    with a user without pings
+#<RuntimeError: User with id 975572482 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected not to create a radar notification
+    with the feature disabled
+#<RuntimeError: User with id 975572483 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected not to create a radar notification
+    with a todo
+#<RuntimeError: User with id 975572484 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected to create a radar notification
+#<RuntimeError: User with id 975572485 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      marks the todo status as notified
+    with no todos
+#<RuntimeError: User with id 975572486 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected not to create a radar notification
+    with the feature disabled
+#<RuntimeError: User with id 975572487 has no company!>
+app/models/concerns/freeagent/user.rb:258:in `has_syncable_company_and_is_account_owner?'
+app/models/concerns/freeagent/user.rb:706:in `create_salesforce_company_and_user'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+      is expected not to create a radar notification
+
+I, [2022-12-15T10:00:33.355964 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:00:33.356034 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/models/expense_spec.rb" "spec/acceptance/payroll/2014_16/ni_category_changes.feature" "spec/mailers/company_digest_mailer_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Invoicing::UnbilledItems::CreateFromTimeslips
+  when grouping timeslips by task
+    creates one line item per task
+    when the company is not sales tax registered
+      sets the sales tax rates on all items to be zero
+    when the company is vat registered
+      sets the sales tax rates to the default value
+    when the company is registerd for second sales tax
+      sets the second sales tax rates to the default value
+    when the quantity is under half a minute
+      rounds down the quantity to zero
+    when the quantity is just over half a minute
+      rounds up the quantity
+    when the quantity is zero
+      has zero price
+  when grouping timeslips by date
+    creates one line item per task
+    when the company is not sales tax registered
+      sets the sales tax rates on all items to be zero
+    when the company is vat registered
+      sets the sales tax rates to the default value
+    when the company is registerd for second sales tax
+      sets the second sales tax rates to the default value
+    when the quantity is under half a minute
+      doesn't round the quantity
+    when the quantity is just over half a minute
+      doesn't round the quantity
+    when the quantity is zero
+      has zero price
+  when grouping timeslips by one item with the same periods and rates
+    creates one line item
+    when the company is not sales tax registered
+      sets the sales tax rates on all items to be zero
+    when the company is vat registered
+      sets the sales tax rates to the default value
+    when the company is registerd for second sales tax
+      sets the second sales tax rates to the default value
+    when the quantity is under half a minute
+      rounds the quantity down to zero
+    when the quantity is just over half a minute
+      rounds up the quantity
+    when the quantity is zero
+      has zero price
+  when grouping timeslips by one item with mixed periods and rates
+    creates one line item
+    when the company is not sales tax registered
+      sets the sales tax rates on all items to be zero
+    when the company is vat registered
+      sets the sales tax rates to the default value
+    when the company is registerd for second sales tax
+      sets the second sales tax rates to the default value
+    when the quantity is under half a minute
+      rounds the quantity down to zero
+    when the quantity is slightly over half a minute
+      rounds up the quantity
+    when the quantity is zero
+      has zero price
+  when adding a line item per timeslip
+    creates two line items
+    and there are to many unbilled line items
+      raises an exception for reaching the limit
+    when the quantity is under half a minute
+      rounds the quantity down to zero
+    when the quantity is slightly over half a minute
+      rounds up the quantity
+    when the quantity is zero
+      has zero price
+
+Banking::Guess with matching payit bill
+  #guess
+    when the bill matches
+      behaves like a payit bill explained transaction
+        explains the transaction with the bill
+        adds an entry to guessed_explanations when the bill matcher finds a match
+        adds an audit entry
+    when the bill doesn't match a transaction
+      behaves like an unexplained transaction
+        does not explain the transaction
+        does not add an audit entry
+    when the bill matches multiple transactions
+      explains only one transaction with the bill
+      behaves like a payit bill explained transaction
+        explains the transaction with the bill
+        adds an entry to guessed_explanations when the bill matcher finds a match
+        adds an audit entry
+    when the transaction matches a paid bill
+      behaves like an unexplained transaction
+        does not explain the transaction
+        does not add an audit entry
+    when the transaction and bill with a different value
+      behaves like an unexplained transaction
+        does not explain the transaction
+        does not add an audit entry
+
+mobile/invoices
+  the mobile invoices index
+Capybara starting Puma...
+* Version 6.0.0 , codename: Sunflower
+* Min threads: 0, max threads: 4
+* Listening on http://0.0.0.0:9893
+    paginates invoices and credit notes
+[6] [392] Found unpermitted params: _, format
+[6] [392] Found unpermitted params: _, format
+[6] [392] Found unpermitted params: _, format
+    paginates search results for invoices and credit notes
+
+Admin::FeaturesController
+  #index
+    shows the features and labels those that are broken
+  #show
+    user has admin permission to read features
+      returns the show page for a feature
+    user has all admin permissions for features
+      for a globally enabled feature
+        shows the feature is enabled and a button to disable
+      for a disabled feature
+        shows the feature is disabled and a button to enable
+      for a nonexistent feature
+ActiveRecord::RecordNotFound (Couldn't find Feature with [WHERE `features`.`name` = ?])
+        renders a 404 page and a button to go to Sudo home
+      for a company enabled feature
+        with no companies attached
+          shows the feature is company enabled, the no companies notice and no disable/enable buttons
+        with a company attached
+          shows the feature is company enabled, the company in the table and no disable/enable buttons
+          when searching for a company
+            returns the companies with matching name and the feature turned on
+            returns the companies with matching subdomains and the feature turned on
+            does not return any results if no companies with that name or subdomain could be found
+        with a distribution_factor
+          shows the feature is distributed to 50% of companies
+      for a practice enabled feature
+        with no practices attached
+          shows the feature is practice enabled, the no practices notice and no disable/enable buttons
+        with practices attached
+          shows the feature is practice enabled, the practices in the table and no disable/enable buttons
+          when searching for a practice
+            returns the practices with matching name and the feature turned on
+            returns the practices with matching subdomain and the feature turned on
+            does not return any results if no practices with that name or subdomain could be found
+        with a distribution_factor
+          shows the feature is distributed to 50% of practices
+      for an admin user enabled feature
+        with no admin users attached
+          shows the feature is admin user enabled, the no admin users notice and no disable/enable buttons
+        with admin users attached
+          shows the feature is admin user enabled, the admin users in the table and no disable/enable buttons
+          when searching for an admin user
+            returns the admin users with matching first name and the feature turned on
+            returns the admin users with matching last name and the feature turned on
+            returns the admin users with matching first and last name and the feature turned on
+            does not return any results if no admin users with first name or last name could be found
+  #update
+    can make features distributed
+    using a unique name
+      updates the feature and redirects to the feature's show page
+    using a taken name
+      shows a notice about the name being taken and renders the feature edit page
+    changing circuit breaker status
+      sets a feature to broken
+      sets a broken feature to working
+      marks a temporarily broken feature as indefinitely broken
+      marks a temporarily broken feature as working
+      leaves a temporarily broken feature unchanged
+      marks a recovery feature as indefinitely broken
+      marks a recovery feature as working
+      leaves a recovery feature unchanged
+  #enable
+    enables a disabled feature, redirects to the feature's show page and shows a flash
+  #disable
+    disables an enabled feature, redirects to the feature's show page and shows a flash
+  #destroy
+    destroys a feature and redirects to the Features index page
+  #enabled
+    shows a count of 2 features and lists them in the table
+  #company_enabled
+    shows a count of 2 features and lists them in the table
+  #practice_enabled
+    shows a count of 2 features and lists them in the table
+  #admin_user_enabled
+    is successful and assigns the correct features
+  #disabled
+    shows a count of 1 feature and lists it in the table
+  #broken
+    shows a count of 1 feature and lists it in the table
+
+I, [2022-12-15T10:01:05.832037 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:05.832108 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/freeagent/invoicing/unbilled_items/create_from_timeslips_spec.rb" "spec/models/banking/guess/payit_rule_spec.rb" "spec/features/mobile/invoices_spec.rb" "spec/controllers/admin/features_controller_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Ping events
+[6] [436] Found unpermitted params: id, user_insight_notification
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+[6] [436] Found unpermitted params: radar
+  following a ping from the overview page
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: id, user_insight_notification
+[6] [437] Found unpermitted params: id, user_insight_notification
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: id, user_insight_notification
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: id, user_insight_notification
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+[6] [437] Found unpermitted params: radar
+  interacting with a ping on the Radar page
+
+PracticeAlerts::Rules::DistributableReserves
+  with a company that has distributable reserves ABOVE the threshold
+  with a company that has not completed setup
+  with a company that has distributable reserves BELOW the threshold
+  when a notification already exists for a company BELOW the threshold
+  when notifications are no longer valid
+
+Projects
+  creating a new project
+  add tasks to a project
+
+Overview::InvoiceTimeline
+  when generating a stacked invoice timeline
+    with no invoices
+      should have an empty invoice timeline
+    with invoices
+      should calculate correct overdue totals
+      should show the correct due series
+      should show the correct paid series
+    with invoice receipts in foreign currency accounts
+      should use the native currency values in the timeline
+
+I, [2022-12-15T10:01:22.072968 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:22.073035 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/features/radar/ping_events_spec.rb" "spec/models/practice_alerts/rules/distributable_reserves_spec.rb" "spec/features/projects_spec.rb" "spec/models/overview/invoice_timeline_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+VatReturn::FullReport::Xlsx::VatPurchasesSheet
+  #display?
+    when the vat return has purchases entries
+      is expected to eq true
+    when the vat return does not have purchases entries
+      is expected to eq false
+  #name
+    is expected to eq "Purchases"
+  #headers
+    when the vat return sales entries do not have additional descriptions
+      returns the headers
+    when the vat return sales entries have additional descriptions
+      returns the headers and includes the extra Category column header
+  #rows
+    when the vat return sales entries do not have additional descriptions
+      returns the rows for display in the report
+      returns manual adjustments in another row
+    when the vat return sales entries have additional descriptions
+      returns the rows for display in the report including the additional descriptions
+      returns manual adjustments in another row
+  #footer
+    when the vat return sales entries do not have additional descriptions
+      returns the footer row which has a total for each column
+    when the vat return sales entries have additional descriptions
+      returns the footer row which has a total for each column including an extra blank category column
+
+ProfitAndLoss::UiState::Quarterly
+  #store
+    returns true if everything was successful
+    stores the accounting period as a parameter in the rails cache
+    when the rails cache is unavailable
+      returns false, as it couldn't be cached
+    when storing current year to date
+      stores current year to date as a special symbol
+  #restore_or_default
+    when there is an accounting period stored in the cache
+      returns the cached params
+    when current year to date is stored in the cache
+      retrieves the same period if visited on the same day as it is stored
+      retrieves an up-to-date current year if visited a few days later
+      retrieves an up-to-date current year if visited in a later accounting year
+    when there is nothing stored in the cache
+      returns the current year to date period as a default
+    when the cache is unavailable
+      returns the current year to date period as a default
+  #default_period?
+    when the accounting_period matches the default accounting period for this report type
+      is expected to equal true
+    when the accounting_period does not match the default accounting period for this report type
+      is expected to equal false
+
+Cashflow::Components::LineItems::BaseComponent
+  non-manual events
+    #status
+      returns the correct status
+      if the payment is overdue
+        returns the correct status
+      if the payment is excluded
+        returns the correct status
+    show_contact_average_payment_duration?
+      returns false by default
+    #average_payment_duration
+      given a count of nil
+        returns nil
+      given a zero count
+        returns the styled tag for early paying customers
+      given a positive count
+        returns the styled tag for early paying customers
+      given a negative count
+        returns the styled tag for early paying customers
+    #show_bill_action?
+      returns false
+    #show_send_reminder_action?
+      returns false
+    #show_custom_event_actions?
+      returns false
+    if the payment has a date override
+      returns the time icon
+  manual event
+    returns the 'manually added' icon
+
+billing_profiles/edit
+  expired subscription
+    in process of reactivating
+      shows a notice that they need to authorise a subscription payment, including an export data link
+    not in process of reactivating
+      shows a notice including an export data link
+  in grace period
+    shows a notice including remaining grace period days
+  needs payment authorisation
+    shows a notice that access has been restricted
+  in the RBSG channel
+    shows the card and billing details
+    shows the subscription type
+  in the BCSG channel
+    shows the card and billing details
+    shows the subscription type
+
+mobile/mileage
+[6] [494] Found unpermitted params: type, selected_user_id, user_id
+[6] [494] Found unpermitted params: document_id
+[6] [494] Found unpermitted params: document_id
+[6] [494] Found unpermitted params: document_id
+[6] [494] Found unpermitted params: document_id
+[6] [494] Found unpermitted params: document_id
+[6] [494] Found unpermitted params: document_id
+[6] [494] Found unpermitted params: document_id
+  shows and hides form fields correctly
+
+I, [2022-12-15T10:01:30.511471 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:30.511559 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/models/vat_return/full_report/xlsx/vat_purchases_sheet_spec.rb" "spec/freeagent/profit_and_loss/ui_state/quarterly_spec.rb" "spec/freeagent/cashflow/components/line_items/base_component_spec.rb" "spec/views/billing_profiles/edit.html.erb_spec.rb" "spec/features/mobile/mileage_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Task
+  A task
+    is valid
+    is expected to validate that :name cannot be empty/falsy
+    is expected to validate that :status cannot be empty/falsy
+    is expected to validate that :name is case-sensitively unique within the scope of :project_id
+    inherits billing rate from project
+    inherits billing period from project
+    is billable by default
+    is active by default
+    is deletable
+    is able to become hidden
+    is able to become completed
+    is not allowed an invalid status
+  A billable task
+    includes (billable) in its display name
+    with billable timeslips
+      is not deletable
+      where none has been billed
+        reports that billability_can_be_changed?
+      where at least one has been billed
+        denies that billability_can_be_changed
+  An unbillable task
+    includes (unbillable) in its display name
+    with unbillable timeslips
+      where none has been billed
+        reports that billability_can_be_changed?
+    a Time permission user
+      is able to create a new task
+      is able to update an existing task
+      is not able to set billing_rate on a new task
+      is not able to change billing_rate on an existing task
+    a user with Project & Contact permissions
+      is able to create a new task with a billing rate
+      is able to change billing_rate on an existing task
+
+Timeslips::TimerComponent
+  when the timer is running
+    behaves like a running timer
+      allows the user to pause the running timer
+      displays the current elapsed time
+      updates the elapsed time of the timer
+  when the timer is not running
+    behaves like a stopped timer that can be edited
+      allows the user to start the running timer
+      displays the current elapsed time
+  when the timer is a new record
+    behaves like a timer that cannot be started
+      does not allow the user to start the running timer
+      displays the current time as empty
+
+Paid Foreign Currency Bills
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed VAT on VAT bill item
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on payment
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on payment
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on payment
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on payment
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT deferred then undeferred
+    Given a uk sole trader -> And a foreign currency bill: paid -> And exchange rates are setup -> Given a uk sole trader -> And VAT settings: Cash basis, not FRS, then Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+Accounting::YearEndPolicy
+  an unmanaged company
+    a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+      has no access
+    an ordinary user with permission level TAX_AND_LIMITED_ACCOUNTING
+      can view, but not approve or prepare
+    a director with permission level TAX_AND_LIMITED_ACCOUNTING
+      can view and approve, but not prepare
+    a support user
+      can view and approve, but not prepare
+  a practice managed company
+    a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+      has no access
+    an ordinary user with permission level TAX_AND_LIMITED_ACCOUNTING
+      can view, but not approve or prepare
+    a director with permission level TAX_AND_LIMITED_ACCOUNTING
+      can view and approve, but not prepare
+    an account manager
+      can view, approve and prepare
+    a support user
+      can view, approve and prepare
+
+I, [2022-12-15T10:01:34.842878 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:34.842942 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/models/task_spec.rb" "spec/components/timeslips/timer_component_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_paid.feature" "spec/policies/accounting/year_end_policy_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Accounting::FinalAccountPolicy
+  an unmanaged company
+    a user with permission level below FULL_ACCESS
+      has no access
+    a user with permission level FULL_ACCESS
+      can view and file
+    a support user
+      can view and file
+  a practice managed company
+    a user with permission level below FULL_ACCESS
+      has no access
+    a user with permission level FULL_ACCESS
+      can only view, but not file
+    an account manager
+      can view and file
+    a support user
+      can view and file
+
+EmailSender
+  sends the email
+  can convert the emailable to pdf and attach it to the email
+  can convert the Fapd::Billing::Invoice to pdf and attach it to the email
+  sends emails with documents attached
+  sends emails with other attachments
+  notification_source
+    assigns notification source to email
+  #pdf_renderer_transaction_id
+    defaults to a random string
+    reads the job id from a thread-local variable
+
+admin/inline/ledger_entries/_show
+  render the ledger entry view
+  with a project
+    has a project column
+  with properties
+    has a property column
+    with a project
+      has a project column
+
+session expiry
+  extends the session for two weeks if the user checked the remember_me option
+  when logged in
+    is able to browse immediately
+    is not able to browse after the session expiry (30 minutes)
+    extends the session after each successful request
+    rescues from an invalid session cookie
+
+I, [2022-12-15T10:01:39.596318 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:39.596391 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/policies/accounting/final_account_policy_spec.rb" "spec/models/email_sender_spec.rb" "spec/views/admin/inline/ledger_entries/show.html.erb_spec.rb" "spec/requests/session_expiry_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/uk_accounts_mapper_spec.rb"=>["1:2:1:1:2:3"], "./spec/models/invoice_spec.rb"=>["1:59:2:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Exporter::ExportableData::AllCompanyData::SenderEmailAddresses
+  has no nested data
+  returns the correct exportable type
+  operates on company's sender email addresses
+  sorts sender email addresses by email address
+
+Rbsg::BackbookOnboarding::CibaAuthorisation
+  #ephemeral_consent_from
+    with a good response for the first attempt
+      doesn't sleep after the initial sleep but succeeds
+      returns a BackbookConsent
+    with a bad response for the first attempt
+      sleeps once then succeeds
+      returns a BackbookConsent
+    with a bad response for the first two attempts
+      sleeps twice then succeeds
+      returns a BackbookConsent
+    with a bad response for all attempts
+      with an interval of 2
+        raises a CIBAReturnedNoAccessToken error
+      with an interval of 3
+        raises a CIBAReturnedNoAccessToken error
+      with an interval greater than the permitted range
+        raises a CIBAReturnedNoAccessToken error
+      with no interval returned
+        raises a CIBAReturnedNoAccessToken error
+
+Exporter::ExportableData::AllCompanyData::Users
+  has no nested data
+  returns the correct exportable type
+  operates on company's users
+  sorts users by first name
+
+UkAccountsMapper
+  Accounts Mapper for UK companies who have applied for VAT registration
+    before their registration effective date
+      Invoices
+        Given a foreign currency invoice (exchange rate 2:1) with 3 line items in 2 categories
+          which has been cancelled
+
+Invoice
+  An invoice created in a 15% VAT period
+    and then updated to be dated in a 17.5% VAT period
+      has the VAT rate of the invoice items adjusted automatically
+
+Stock Bills
+  No VAT
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Any basis, FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Any basis, FRS, then Any basis, not FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Any basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Pre-registration, pay VAT on registration
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Not registered, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on bill
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Cash basis, not FRS, then Invoice basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reclaimed on VAT bill item on payment
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Deferred then undeferred
+    Given a uk sole trader -> And a bill: stock purchase -> Given VAT settings: Cash basis, not FRS, then Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+I, [2022-12-15T10:01:42.660198 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:42.660287 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/models/integrations/exporter/exportable_data/all_company_data/sender_email_addresses_spec.rb" "spec/freeagent/rbsg/backbook_onboarding/ciba_authorisation_spec.rb" "spec/models/integrations/exporter/exportable_data/all_company_data/users_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:2:1:1:2:3]" "spec/models/invoice_spec.rb[1:59:2:1]" "spec/accounting_and_sales_tax/uk_vat/bills/stock_purchase.feature"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:141:2:2:2:1", "1:99:4", "1:78:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+mtd_itsa/error_types
+  contains a partial for every top-level error type
+  contains a partial for every response error type
+
+Fapd::Billing::Mailer
+  #send_email with an email that has an emailable object
+    is expected to have tracking data {:category=>"Fapd::Billing::Invoice", :metadata=>{:fapd_bill_email_id=>2}}
+  #send_mail with plaintext email
+    is expected not to be a multipart email
+    is expected to have correct text part header
+    is expected to have attributes {:body => (have attributes {:raw_source => (match "Here is your invoice.")})}
+
+Invoice
+  #email_attributes when a new invoice email template exists
+    returns the template's email attributes
+  raising credit notes
+    is possible for an invoice with multiple VAT rates
+  #theme
+    with theme_customisation_circuit_breaker broken
+      with a custom theme configured
+        when the company has the custom theme as default
+          returns the app-wide default theme (bauhaus)
+
+CapitalAssetPolicy
+  a user with permission level below BANKING
+    is expected to equal false
+  a user with permission level BANKING
+    is expected to equal false
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+CalendarFeeds::Tax::UsTemplate
+  #build
+    has expected events
+
+Timeslips::TaskModalComponent
+  renders the form for creating a task
+  has a hidden field with the target for replacing the task selection
+  when the user can not manage billing rates
+    does not render the bill rates fields
+  and the company charges sales tax
+    renders the billing label for the sales tax
+  when the task has a errors
+    renders the error for the user
+
+RecalculateContactAccountBalanceJob
+  recalculates a single contact
+  recalculates a multiple contacts
+  ignores non-existent contacts
+
+CompanyPolicy
+  a user with permission level below TIME
+    is expected to equal false
+  a user with permission level TIME
+    is expected to equal true
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal true
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  a user with permission level below FULL_ACCESS
+    is expected to equal true
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+TimeTracking::TimeslipsListPresenter
+  should show all days with timeslips in descending order
+
+ClientValidations::Builder
+  building the data type validation
+    with a string
+      should contain data validation type attribue of string
+    with a decimal
+      should contain data validation type attribue of decimal
+    with a date
+      should contain data validation type attribue of date
+    with a boolean
+      should contain data validation type attribue of boolean
+    with an integer
+      should contain data validation type attribue of integer
+  building the required validation
+    when a field is mandatory
+      should contain data validation require attribute of true
+    when a field is not mandatory
+      should contain data validation require attribute of false
+  building the length validations
+    when there is maximum length
+      should contain a data validation maximum length attribute of five
+    when there is no maximum length
+      should not contain a data validation maximum length attribute
+  building the numerical validations
+    when there is less_than
+      should contain a data validation maximum exclusive
+    when there is no less_than
+      should not contain a data validation maximum exclusive
+    when there is less_than_or_equal_to
+      should contain a data validation maximum inclusive
+    when there is no less_than_or_equal_to
+      should not contain a data validation maximum inclusive
+    when there is greater_than
+      should contain a data validation minimum exclusive
+    when there is no greater_than
+      should not contain a data validation minimum exclusive
+    when there is greater_than_or_equal_to
+      should contain a data validation minimum inclusive
+    when there is no greater_than_or_equal_to
+      should not contain a data validation minimum inclusive
+    for multiple validations
+      should use both validations
+  building the format validations
+    when there are format validations
+      should contain a data validation format
+    when there are no format validations
+      should not contain a data validation format
+    when the format validations are in a hash with :with
+      should be true
+  #numeric_validations?
+    when there are no numerical validations
+      should be false
+    when the numerical validations are not in a hash
+      should be false
+    when the numerical validations are in a hash
+      should be true
+    when the validations have an :if condition
+      should be false
+  #format_validations?
+    when there are no format validations
+      should be false
+    when the format validations are in a hash
+      should be true
+    when the format validations are in a hash with :with
+      should be true
+    when the validations have an :if condition
+      should be false
+  #length_validations?
+    when there are no length validations
+      should be false
+    when the length validations are not in a hash
+      should be false
+    when the length validations are in a hash
+      should be true
+    when the validations have an :if condition
+      should be false
+
+Payit::ErrorHandler
+  .handle
+    raises a PayitError
+    when inside of a bad request context
+      raises a ClientError
+      when company id is longer than 15 characters or empty
+        raises invalid format or missing error
+      when brand id is longer than 15 characters or empty
+        raises invalid format or missing error
+      when amount is not numeric or its empty
+        raises invalid format
+      when currency is valid but its not GBP
+        raises only GBP supported
+      when currency is invalid or empty
+        raises currency invalid format
+      when country is other than UK
+        raises country invalid format
+      when reason has more than 500 characters
+        raises reason invalid format
+      when redirect URL is not sent to payit
+        raises redirect URL invalid format
+      when destination account sort code is invalid or empty
+        raises missing account details
+      when destination account bank name is invalid or empty
+        raises invalid destination bank name
+      when source accrount sort code is invalid or empty
+        raises missing account details
+      when the same account is used as source and destination
+        raises account details can not be the same
+      when source account bank name is invalid or empty
+        raises invalid source bank name
+      when payment service user is invalid or empty
+        raises missing destination user details
+      when authentication token is missing
+        raises JWT not present
+      when using an expired token
+        rases lifetime validation failed
+    when a server error happens
+      raises a ServerError
+    when the response does not contain correct data
+      raises InvalidResponseError
+    when handling OAuth2 client error
+      raises a PayitError
+      raises a ClientError
+
+AccountingCategories::CurrentAssetsCategoryPolicy
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Exporter::ExportableData::EstimateItems
+  has no nested data
+  returns the correct exportable type
+  operates on the estimate's items
+
+Api::JournalSetPolicy
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::StockItemPolicy
+  a user with permission level below MY_MONEY
+    is expected to equal false
+  a user with permission level MY_MONEY
+    is expected to equal true
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+MTDITSA::TaxYearValuePolicy
+  a user with permission level below TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+EmailTemplatePolicy
+  a user with permission level below ESTIMATES_AND_INVOICES
+    is expected to equal false
+  a user with permission level ESTIMATES_AND_INVOICES
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+Api::AttachmentsHelper
+  GET the attachment
+    responds with the correct url expiry time
+    responds with nil for missing date and duration fields
+    responds with nil for present date but missing duration fields
+    responds with nil for missing date but present duration fields
+    responds with nil for invalid date but valid duration fields
+    responds with nil for valid date but invalid duration fields
+    responds with nil for missing parameter values
+
+WistiaHelper
+  #wistia_video_tag
+    is expected to be html safe
+    is expected to include "<iframe"
+    is expected to match /src="https:\/\/fast\.wistia\.net\/embed\/iframe\/12345.*"/
+    is expected to include "title=\"video title\""
+    called with a single argument
+      is expected to be html safe
+      is expected to include "<iframe"
+      is expected to match /src="https:\/\/fast\.wistia\.net\/embed\/iframe\/12345.*"/
+      is expected to include "title=\"\""
+    with malicious arguments
+      is expected to be html safe
+      is expected to include "<iframe"
+      is expected not to match /src="https:\/\/fast\.wistia\.net\/embed\/iframe\/"><\/iframe><script>alert("boom");<\/script>.*"\//
+      is expected not to include "title=\"\"></iframe><script>alert(\"boom\");</script>\""
+      is expected not to include "<script>"
+      is expected to include "&lt;script&gt;"
+  #standard_wistia_video_tag
+    is expected to be html safe
+    is expected to include "<div class=\"wistia_responsive_padding"
+    is expected to match /src="https:\/\/fast\.wistia\.com\/embed\/medias\/12345.*"/
+    is expected to include "alt=\"video title\""
+    called with a single argument
+      is expected to be html safe
+      is expected to include "<div class=\"wistia_responsive_padding"
+      is expected to match /src="https:\/\/fast\.wistia\.com\/embed\/medias\/12345.*"/
+      is expected to include "alt=\"\""
+    with malicious arguments
+      is expected to be html safe
+      is expected to include "<div class=\"wistia_responsive_padding"
+      is expected not to match /src="https:\/\/fast\.wistia\.com\/embed\/medias\/"><\/iframe><script>alert("boom");<\/script>.*"\//
+      is expected not to include "alt=\"\"></iframe><script>alert(\"boom\");</script>\""
+      is expected not to include "<script>alert("
+      is expected to include "&lt;script&gt;"
+
+Cashflow::Payment::ScheduledPayment
+  #amount
+    returns a negative amount
+  .type
+    is expected to eq "Scheduled Payment"
+
+Admin::NavigationHelper
+  #admin_user_has_access?
+    when a user has any action for one subject in an array of subjects
+      returns true
+    when a user has the 'all' action for one subject in an array of subjects
+      returns true
+    when a user has any action for a single subject
+      returns true
+    when a user does not have a permission for a subject
+      returns false
+    when a user has the role of superhero
+      returns true
+
+Settings::SupportAccessPolicy
+  a user with permission level below TIME
+    is expected to equal false
+  a user with permission level TIME
+    is expected to equal false
+  a user with permission level TAX_AND_LIMITED_ACCOUNTING
+    is expected to equal true
+  a user with permission level FULL_ACCESS
+    is expected to equal true
+  an account manager
+    is expected to equal true
+
+I, [2022-12-15T10:01:45.720007 #239]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:45.720082 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/views/mtd_itsa/error_types_spec.rb" "spec/mailers/fapd/billing/mailer_spec.rb" "spec/models/invoice_spec.rb[1:141:2:2:2:1]" "spec/policies/capital_asset_policy_spec.rb" "spec/models/calendar_feeds/tax/us_template_spec.rb" "spec/components/timeslips/task_modal_component_spec.rb" "spec/jobs/recalculate_contact_account_balance_job_spec.rb" "spec/policies/company_policy_spec.rb" "spec/models/presenters/time_tracking/timeslips_list_presenter_spec.rb" "spec/models/client_validations/builder_spec.rb" "spec/integrations/payit/error_handler_spec.rb" "spec/policies/accounting_categories/current_assets_category_policy_spec.rb" "spec/models/integrations/exporter/exportable_data/estimate_items_spec.rb" "spec/policies/api/journal_set_policy_spec.rb" "spec/policies/api/stock_item_policy_spec.rb" "spec/policies/mtd_itsa/tax_year_value_policy_spec.rb" "spec/policies/email_template_policy_spec.rb" "spec/helpers/api/attachments_helper_spec.rb" "spec/helpers/wistia_helper_spec.rb" "spec/freeagent/cashflow/payment/scheduled_payment_spec.rb" "spec/models/invoice_spec.rb[1:99:4]" "spec/helpers/admin/navigation_helper_spec.rb" "spec/models/invoice_spec.rb[1:78:1]" "spec/policies/settings/support_access_policy_spec.rb"
+Knapsack Pro Queue finished!
+
+
+Finished in 2 minutes 21.4 seconds
+765 examples, 0 failures
+I, [2022-12-15T10:01:45.742275 #239]  INFO -- : [knapsack_pro] To retry all the tests assigned to this CI node, please run the following command on your machine:
+I, [2022-12-15T10:01:45.742382 #239]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_37.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_37.xml --default-path spec "spec/models/expense_spec.rb" "spec/acceptance/payroll/2014_16/ni_category_changes.feature" "spec/mailers/company_digest_mailer_spec.rb" "spec/freeagent/invoicing/unbilled_items/create_from_timeslips_spec.rb" "spec/models/banking/guess/payit_rule_spec.rb" "spec/features/mobile/invoices_spec.rb" "spec/controllers/admin/features_controller_spec.rb" "spec/features/radar/ping_events_spec.rb" "spec/models/practice_alerts/rules/distributable_reserves_spec.rb" "spec/features/projects_spec.rb" "spec/models/overview/invoice_timeline_spec.rb" "spec/models/vat_return/full_report/xlsx/vat_purchases_sheet_spec.rb" "spec/freeagent/profit_and_loss/ui_state/quarterly_spec.rb" "spec/freeagent/cashflow/components/line_items/base_component_spec.rb" "spec/views/billing_profiles/edit.html.erb_spec.rb" "spec/features/mobile/mileage_spec.rb" "spec/models/task_spec.rb" "spec/components/timeslips/timer_component_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_paid.feature" "spec/policies/accounting/year_end_policy_spec.rb" "spec/policies/accounting/final_account_policy_spec.rb" "spec/models/email_sender_spec.rb" "spec/views/admin/inline/ledger_entries/show.html.erb_spec.rb" "spec/requests/session_expiry_spec.rb" "spec/models/integrations/exporter/exportable_data/all_company_data/sender_email_addresses_spec.rb" "spec/freeagent/rbsg/backbook_onboarding/ciba_authorisation_spec.rb" "spec/models/integrations/exporter/exportable_data/all_company_data/users_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:2:1:1:2:3]" "spec/models/invoice_spec.rb[1:59:2:1]" "spec/accounting_and_sales_tax/uk_vat/bills/stock_purchase.feature" "spec/views/mtd_itsa/error_types_spec.rb" "spec/mailers/fapd/billing/mailer_spec.rb" "spec/models/invoice_spec.rb[1:141:2:2:2:1]" "spec/policies/capital_asset_policy_spec.rb" "spec/models/calendar_feeds/tax/us_template_spec.rb" "spec/components/timeslips/task_modal_component_spec.rb" "spec/jobs/recalculate_contact_account_balance_job_spec.rb" "spec/policies/company_policy_spec.rb" "spec/models/presenters/time_tracking/timeslips_list_presenter_spec.rb" "spec/models/client_validations/builder_spec.rb" "spec/integrations/payit/error_handler_spec.rb" "spec/policies/accounting_categories/current_assets_category_policy_spec.rb" "spec/models/integrations/exporter/exportable_data/estimate_items_spec.rb" "spec/policies/api/journal_set_policy_spec.rb" "spec/policies/api/stock_item_policy_spec.rb" "spec/policies/mtd_itsa/tax_year_value_policy_spec.rb" "spec/policies/email_template_policy_spec.rb" "spec/helpers/api/attachments_helper_spec.rb" "spec/helpers/wistia_helper_spec.rb" "spec/freeagent/cashflow/payment/scheduled_payment_spec.rb" "spec/models/invoice_spec.rb[1:99:4]" "spec/helpers/admin/navigation_helper_spec.rb" "spec/models/invoice_spec.rb[1:78:1]" "spec/policies/settings/support_access_policy_spec.rb"
+2022-12-15T10:01:45.782Z pid=239 tid=9rb INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}

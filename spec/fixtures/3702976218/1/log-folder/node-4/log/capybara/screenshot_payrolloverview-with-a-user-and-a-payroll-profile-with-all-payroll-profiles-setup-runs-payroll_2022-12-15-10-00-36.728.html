@@ -1,0 +1,886 @@
+<html lang="en"><head><style type="text/css">.turbo-progress-bar {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #0076ff;
+  z-index: 2147483647;
+  transition:
+    width 300ms ease-out,
+    opacity 150ms 150ms ease-in;
+  transform: translate3d(0, 0, 0);
+}
+</style>
+  
+  
+
+
+
+  <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5Z2HTS7"></script><script id="rollbar-element" src="/assets/packs/vendor/rollbar-d2cb8d2ac17def4a99a17df28a34f708ed08823435a4aedf6b8ff03cb922e0f6.js" data-config="{}"></script>
+
+<script src="/assets/packs/client_side_logger-10b59e4b7eb75f30489da8a5639d9b02aed273066a454a98a240242b1c462519.js"></script>
+
+
+  
+  
+
+  
+
+
+
+
+
+  
+  
+  <noscript><meta http-equiv="refresh" content="0;URL=/javascript_required" /></noscript>
+
+  <link rel="stylesheet" href="/assets/freestyle_defaults-abf69f4d6f6fda41b8f11b9e25d7db9daba77879d15433a78d46486e89974221.css" media="all" data-turbo-track="reload">
+  <link rel="stylesheet" href="/assets/talaria_core-de89abb77ac5a3c0c83ef54ca840110635b43ba1ee57e64d626307d420dddf3b.css" media="all" data-turbo-track="reload">
+  <link rel="stylesheet" href="/assets/deprecated-d1f21190c8a66e5364cd0a24ed8db41f98cdcbf213f2bd10dc70c4cc392053a6.css" media="all" data-turbo-track="reload">
+  <link rel="stylesheet" href="/assets/freestyle-1d0b64d118b93a5a1d6da7eaf25357ebf2f01ebc1b0dc3ebff482ada2373c1af.css" media="all" data-turbo-track="reload">
+<link rel="stylesheet" href="/assets/freestyle_utilities-6edb00901866fb7682c1937439259390446ccaf4c712c92e0a824f22c5cc69c4.css" media="all" data-turbo-track="reload">
+
+  <link rel="stylesheet" href="/assets/freeagentwebapp-cfe9d51ce425a305b3c43f0e3e6ceeb10dceda4b38f849046957fbb5a1a9364b.css" media="all" data-turbo-track="reload">
+
+  <link rel="stylesheet" href="/assets/talaria-df71c878c14316bec0ee6b75d0aead1d0358c9633d4d4c8226c314ea8a6b426c.css" media="all" data-turbo-track="reload">
+<link rel="stylesheet" href="/assets/talaria_enhancements-797f9111efbf6bd597ad4b62cd47dedd559a36f7e3faea0da37dc8e03703f5c5.css" media="all" data-turbo-track="reload">
+  <link rel="stylesheet" href="/assets/talaria/general_print-60a7cf7dc7836f84b4f843afb999edb57091c4c9f54eac1f85b2de2a2fd23b6e.css" media="print" data-turbo-track="reload">
+  
+  
+
+  <script id="async-loader-map" type="application/json">
+  {
+    "imports": {
+      "zxcvbn": "/assets/packs/vendor/zxcvbn-4ac3d0626846f739cb40112e0c48d8b0c65c3988962d9a4e1f7cf597c730a2b3.js"
+    }
+  }
+</script>
+
+  <script>
+  var dataLayer = window.dataLayer = window.dataLayer || [];
+  if (window.dataLayer !== undefined) { window.dataLayer.push({"user_id":975572680}); }
+  if (window.dataLayer !== undefined) { window.dataLayer.push({"company_id":895398267}); }
+  if (window.dataLayer !== undefined) { window.dataLayer.push({"subscription_status":"Direct - Live Free Trial"}); }
+  if (window.dataLayer !== undefined) { window.dataLayer.push({"user_type":"User"}); }
+  
+  
+  if (window.dataLayer !== undefined) { window.dataLayer.push({"dimension2":"clientId","dimension3":"user_id","dimension4":"prospect_type","dimension5":"company_structure","dimension6":"company_id","dimension7":"industry_category","dimension8":"vat_status","dimension10":"subscription_status","dimension13":"user_type","dimension14":"accountancy_practice_id","dimension15":"invoice_id","metric1":"subscription","metric2":"setup_completion","metric3":"sign_up_direct","metric8":"setup_stage1","metric9":"setup_stage2","metric10":"setup_stage3","metric12":"setup_stage4","metric18":"login","metric19":"sign_up_rbsg"}); }
+</script>
+
+<!-- Google Tag Manager -->
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5Z2HTS7');
+</script>
+<!-- End Google Tag Manager -->
+
+  <script src="/assets/packs/performance-946a99e18206b16a49b4fe21d8041edbce28fd847ba34db18ae99bd965522d22.js" defer="defer" data-turbo-track="reload"></script>
+  <script src="/assets/talaria-9047d44a9037c5cb493ab814bf78a278342dc9dc511087c7d673063dddcf0e4e.js" data-turbo-track="reload"></script>
+    <style type="text/css">
+  * {
+    transition-property: none !important;
+    -webkit-transition-property: none !important;
+
+    animation: none !important;
+    -webkit-animation: none !important;
+  }
+
+  /* Hide Browser scrollbars, relevant for Visual Regression consistency */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  </style>
+
+  <script type="text/javascript">
+    jQuery.fx.off = true;
+    if ( $.notifications ) {
+      $.notifications.defaults = $.extend({}, $.notifications.defaults, {stick: true});
+    }
+  </script>
+
+
+
+  <script src="/assets/packs/polyfills-bd4383135c64889233686ed3a5ff8f32e294dda04969bb1ddc22d1c1e5ea3b5d.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/assets/packs/global-e7c6e44d03747d3959e27fef7ce025fc073880d999118fd2e81c07993e6dcd13.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/assets/packs/application-38046cae4c52502f3958bec1dd41d7b74f48a4f53d473c7b7ef62247686efbec.js" defer="defer" data-turbo-track="reload"></script>
+  
+<style>*, *::before, *::after {
+   transition: none !important;
+   animation-duration: 0s !important;
+   animation-delay: 0s !important;
+   scroll-behavior: auto !important;
+}
+</style><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="git-rev" content="ca273ae907c5334440cc7dfbf164bcf792bf5751"><meta name="host" content="41d04d7e2846"><meta name="robots" content="noindex, nofollow, noarchive"><title>FreeAgent : Prepare Month 1 2015/16 Payroll</title><link rel="icon" href="http://subdomain000001.lvh.me:9895/assets/favicons/freeagent/favicon-f63f28eccb1097720e8d73e663ec0ec343acf8e3120755ccc83ea5ce2c920a1a.ico" sizes="any"><link rel="icon" href="http://subdomain000001.lvh.me:9895/assets/favicons/freeagent/icon-e1cd384ec4a129915fdbffc66c9a60c36dfd1ddf3e5a141339e1b1968d194ca0.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="http://subdomain000001.lvh.me:9895/assets/favicons/freeagent/apple-touch-icon-bb14b5ad3b0a111c7e43702b160b885c59fdd85a331e23459249f455d6ab4fbf.png"><link rel="manifest" href="/manifest.webmanifest"><meta name="native-currency" content="GBP"><meta name="native-currency-unit" content="£"><meta name="native-currency-separator" content="."><meta name="native-currency-delimiter" content=","><meta name="native-currency-format" content="%u%n"><meta name="native-currency-locale" content="en"><meta name="max-attachment-size-name" content="5MB"><meta name="freeagent-start-date" content="2012-01-01"><meta name="turbo-cache-control" content="no-cache"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+
+<body class="js-loaded" data-turbo="true" data-stimulus-debug="false" data-controller="analytics" data-analytics-custom-map="{&quot;dimension2&quot;:&quot;clientId&quot;,&quot;dimension3&quot;:&quot;user_id&quot;,&quot;dimension4&quot;:&quot;prospect_type&quot;,&quot;dimension5&quot;:&quot;company_structure&quot;,&quot;dimension6&quot;:&quot;company_id&quot;,&quot;dimension7&quot;:&quot;industry_category&quot;,&quot;dimension8&quot;:&quot;vat_status&quot;,&quot;dimension10&quot;:&quot;subscription_status&quot;,&quot;dimension13&quot;:&quot;user_type&quot;,&quot;dimension14&quot;:&quot;accountancy_practice_id&quot;,&quot;dimension15&quot;:&quot;invoice_id&quot;,&quot;metric1&quot;:&quot;subscription&quot;,&quot;metric2&quot;:&quot;setup_completion&quot;,&quot;metric3&quot;:&quot;sign_up_direct&quot;,&quot;metric8&quot;:&quot;setup_stage1&quot;,&quot;metric9&quot;:&quot;setup_stage2&quot;,&quot;metric10&quot;:&quot;setup_stage3&quot;,&quot;metric12&quot;:&quot;setup_stage4&quot;,&quot;metric18&quot;:&quot;login&quot;,&quot;metric19&quot;:&quot;sign_up_rbsg&quot;}">
+
+  <a class="fe-SkipLink" data-turbo="false" href="#main-content">Skip to content</a>
+  <div class="fe-l-app fe-t-freeAgent fe-l-app--responsive">
+
+      
+
+
+    <header class="fe-l-app-header">
+      <div id="environment" class="fe-u-noPrint" style="background:#cf1f1f;color:white;font-weight:bold;opacity: 0.6;padding:0.25rem;position:fixed;text-transform:uppercase;top:0;z-index:100;" onclick="this.parentNode.removeChild(this);">test updated 2022-12-15 09:57:14 +0000</div>
+      <div class="fe-Navigation" data-controller="navigation--navigation" data-action="click@document->navigation--navigation#closeOnClick keydown@document->navigation--navigation#closeOnKeypress resize@window->navigation--navigation#closeOnResize">
+  <nav class="fe-Navigation-nav">
+    
+
+  <button class="fe-Navigation-iconButton fe-Navigation-iconButton--hamburger" type="button" aria-label="Toggle navigation" aria-controls="navigation" aria-expanded="false" data-action="click->navigation--navigation#toggleNav">
+  <span class="fe-Navigation-icon fe-Navigation-icon--openNav">
+    
+<span class="fe-Icon fe-Icon--major">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 48 48">
+  <path fill="currentColor" d="M32 29a1 1 0 010 2H16a1 1 0 010-2h16zm0-6a1 1 0 010 2H16a1 1 0 010-2h16zm0-6a1 1 0 010 2H16a1 1 0 010-2h16z"></path>
+</svg>
+
+</span>
+  </span>
+  <span class="fe-Navigation-icon fe-Navigation-icon--closeNav">
+    
+<span class="fe-Icon fe-Icon--major">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 48 48">
+  <path fill="currentColor" d="M22.586 24l-7.293-7.293a1 1 0 0 1 1.414-1.414L24 22.586l7.293-7.293a1 1 0 0 1 1.414 1.414L25.414 24l7.293 7.293a1 1 0 0 1-1.414 1.414L24 25.414l-7.293 7.293a1 1 0 0 1-1.414-1.414L22.586 24z"></path>
+</svg>
+
+</span>
+  </span>
+</button>
+
+<ul class="fe-Navigation-primary" id="navigation">
+  
+    <li class="fe-Navigation-item">
+  <a class="fe-Navigation-button" href="/">
+    Overview
+  </a>
+</li>
+
+
+    
+
+    <li class="fe-Navigation-item">
+  <a class="fe-Navigation-button" href="/contacts">
+    Contacts
+  </a>
+</li>
+
+
+    <li class="fe-Navigation-item">
+  <button type="button" class="fe-Navigation-button" aria-controls="navigation-menu-work" aria-expanded="false" data-action="click->navigation--navigation#toggleMenu">
+    Work
+    <span class="fe-Navigation-chevron">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path fill="currentColor" d="M15.2928932,10.2928932 C15.6834175,9.90236893 16.3165825,9.90236893 16.7071068,10.2928932 C17.0976311,10.6834175 17.0976311,11.3165825 16.7071068,11.7071068 L12.7071068,15.7071068 C12.3165825,16.0976311 11.6834175,16.0976311 11.2928932,15.7071068 L7.29289322,11.7071068 C6.90236893,11.3165825 6.90236893,10.6834175 7.29289322,10.2928932 C7.68341751,9.90236893 8.31658249,9.90236893 8.70710678,10.2928932 L12,13.5857864 L15.2928932,10.2928932 Z"></path>
+</svg>
+
+</span>
+    </span>
+  </button>
+  <ul class="fe-Navigation-menu" id="navigation-menu-work">
+    
+      <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/estimates">
+      Estimates
+    </a>
+</li>
+
+      <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/projects">
+      Projects
+    </a>
+</li>
+
+      <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/timeslips">
+      Time Tracking
+    </a>
+</li>
+
+      <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/invoices">
+      Invoicing
+    </a>
+</li>
+
+      <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/invoices/recurring">
+      Recurring Invoices
+    </a>
+</li>
+
+
+  </ul>
+</li>
+
+    <li class="fe-Navigation-item">
+  <a class="fe-Navigation-button" href="/bills">
+    Bills
+  </a>
+</li>
+
+
+      <li class="fe-Navigation-item">
+  <button type="button" class="fe-Navigation-button is-current" aria-controls="navigation-menu-my-money" aria-expanded="false" data-action="click->navigation--navigation#toggleMenu">
+    My Money
+    <span class="fe-Navigation-chevron">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path fill="currentColor" d="M15.2928932,10.2928932 C15.6834175,9.90236893 16.3165825,9.90236893 16.7071068,10.2928932 C17.0976311,10.6834175 17.0976311,11.3165825 16.7071068,11.7071068 L12.7071068,15.7071068 C12.3165825,16.0976311 11.6834175,16.0976311 11.2928932,15.7071068 L7.29289322,11.7071068 C6.90236893,11.3165825 6.90236893,10.6834175 7.29289322,10.2928932 C7.68341751,9.90236893 8.31658249,9.90236893 8.70710678,10.2928932 L12,13.5857864 L15.2928932,10.2928932 Z"></path>
+</svg>
+
+</span>
+    </span>
+  </button>
+  <ul class="fe-Navigation-menu" id="navigation-menu-my-money">
+    
+        <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/users/975572680/expenses">
+      Expenses
+    </a>
+</li>
+
+        <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/my_money/975572680/dividends">
+      Dividends
+    </a>
+</li>
+
+          <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/my_money/975572680/salary">
+      Salary
+    </a>
+</li>
+
+          <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/payroll/current/overview">
+      Payroll
+    </a>
+</li>
+
+
+  </ul>
+</li>
+
+        <li class="fe-Navigation-item">
+  <button type="button" class="fe-Navigation-button" aria-controls="navigation-menu-banking" aria-expanded="false" data-action="click->navigation--navigation#toggleMenu">
+    Banking
+    <span class="fe-Navigation-chevron">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path fill="currentColor" d="M15.2928932,10.2928932 C15.6834175,9.90236893 16.3165825,9.90236893 16.7071068,10.2928932 C17.0976311,10.6834175 17.0976311,11.3165825 16.7071068,11.7071068 L12.7071068,15.7071068 C12.3165825,16.0976311 11.6834175,16.0976311 11.2928932,15.7071068 L7.29289322,11.7071068 C6.90236893,11.3165825 6.90236893,10.6834175 7.29289322,10.2928932 C7.68341751,9.90236893 8.31658249,9.90236893 8.70710678,10.2928932 L12,13.5857864 L15.2928932,10.2928932 Z"></path>
+</svg>
+
+</span>
+    </span>
+  </button>
+  <ul class="fe-Navigation-menu" id="navigation-menu-banking">
+    
+          <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/bank_accounts">
+      Bank Accounts
+    </a>
+</li>
+
+          <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/banking/cashflow">
+      Cashflow
+    </a>
+</li>
+
+
+  </ul>
+</li>
+
+      <li class="fe-Navigation-item">
+  <button type="button" class="fe-Navigation-button" aria-controls="navigation-menu-taxes" aria-expanded="false" data-action="click->navigation--navigation#toggleMenu">
+    Taxes
+    <span class="fe-Navigation-chevron">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path fill="currentColor" d="M15.2928932,10.2928932 C15.6834175,9.90236893 16.3165825,9.90236893 16.7071068,10.2928932 C17.0976311,10.6834175 17.0976311,11.3165825 16.7071068,11.7071068 L12.7071068,15.7071068 C12.3165825,16.0976311 11.6834175,16.0976311 11.2928932,15.7071068 L7.29289322,11.7071068 C6.90236893,11.3165825 6.90236893,10.6834175 7.29289322,10.2928932 C7.68341751,9.90236893 8.31658249,9.90236893 8.70710678,10.2928932 L12,13.5857864 L15.2928932,10.2928932 Z"></path>
+</svg>
+
+</span>
+    </span>
+  </button>
+  <ul class="fe-Navigation-menu" id="navigation-menu-taxes">
+    
+          <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/tax/975572680/self_assessment_returns">
+      Self Assessment
+    </a>
+</li>
+
+          <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/tax/corporation_tax_returns">
+      Corporation Tax
+    </a>
+</li>
+
+          <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/tax/paye">
+      PAYE &amp; NI
+    </a>
+</li>
+
+
+  </ul>
+</li>
+
+      <li class="fe-Navigation-item">
+  <button type="button" class="fe-Navigation-button" aria-controls="navigation-menu-accounting" aria-expanded="false" data-action="click->navigation--navigation#toggleMenu">
+    Accounting
+    <span class="fe-Navigation-chevron">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path fill="currentColor" d="M15.2928932,10.2928932 C15.6834175,9.90236893 16.3165825,9.90236893 16.7071068,10.2928932 C17.0976311,10.6834175 17.0976311,11.3165825 16.7071068,11.7071068 L12.7071068,15.7071068 C12.3165825,16.0976311 11.6834175,16.0976311 11.2928932,15.7071068 L7.29289322,11.7071068 C6.90236893,11.3165825 6.90236893,10.6834175 7.29289322,10.2928932 C7.68341751,9.90236893 8.31658249,9.90236893 8.70710678,10.2928932 L12,13.5857864 L15.2928932,10.2928932 Z"></path>
+</svg>
+
+</span>
+    </span>
+  </button>
+  <ul class="fe-Navigation-menu" id="navigation-menu-accounting">
+    
+        <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/accounting">
+      Reports
+    </a>
+</li>
+
+        <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/accounting/journal_sets">
+      Journal Entries
+    </a>
+</li>
+
+        <li class="fe-Navigation-menuItem">
+    <a class="fe-Navigation-menuLink" href="/accounting/end_of_year">
+      End of Year
+    </a>
+</li>
+
+
+  </ul>
+</li>
+
+</ul>
+
+  <span class="fe-Navigation-banner">
+  
+    FreeAgent Central
+
+</span>
+
+  <ul class="fe-Navigation-utilities">
+  
+
+
+
+      
+<li id="navigation-running-timers" class="fe-Navigation-utilityItem is-hidden" data-controller="navigation--timers-frame">
+    <button type="button" class="fe-Navigation-iconButton" data-action="click->navigation--navigation#toggleUtil" data-navigation--timers-frame-target="toggler" data-testid="navigation_show_running_timers" aria-label="Running timers" aria-controls="navigation-menu-running-timers" aria-expanded="false">
+      <span class="fe-Navigation-icon">
+        
+<span class="fe-Icon fe-Icon--major">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 48 48">
+  <path d="M24 34c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"></path>
+  <path d="M25 24a1 1 0 0 1-2 0v-5a1 1 0 0 1 2 0v5z"></path>
+  <path d="M21.707 27.707a1 1 0 0 1-1.414-1.414l3-3a1 1 0 0 1 1.414 1.414l-3 3z"></path>
+  <path d="M14.379 17l2.121-2.121a1 1 0 0 1 1.414 0l1.414 1.414-3.535 3.535-1.414-1.414a1 1 0 0 1 0-1.414zM31.5 14.879L33.621 17a1 1 0 0 1 0 1.414l-1.414 1.414-3.535-3.535 1.414-1.414a1 1 0 0 1 1.414 0z"></path>
+</svg>
+<div class="fe-Icon-alert"></div>
+
+</span>
+      </span>
+</button>
+    <div class="fe-Navigation-utilityMenu" id="navigation-menu-running-timers">
+      
+  <div class="fe-ActionList">
+    <div class="fe-ActionList-section" aria-live="polite">
+      <turbo-frame loading="lazy" data-action="turbo:submit-end->navigation--timers-frame#timeslipsLoaded" data-navigation--timers-frame-target="content" data-testid="navigation_running_timers" id="navigation-running-timers" src="/running_timers">
+        <div class="fe-l-flex fe-l-flex--centre fe-u-padding--smaller">
+          <div class="fe-InlineLoader">
+  <div class="fe-InlineLoader-icon">
+    
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg fe-Icon-svg--cog" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path d="M6.824 14.31c.256.556.556 1.027.94 1.455l-1.41 2.438c-.258.342-.13.856.213 1.07l.642.427c.342.257.813.129 1.07-.214l1.753-2.224c.556.214 1.112.342 1.711.342l.728 2.738c.085.428.47.684.898.599l.727-.129a.746.746 0 0 0 .6-.898l-.343-2.738a5.669 5.669 0 0 0 1.454-.94l2.439 1.41c.342.258.813.13 1.07-.213l.427-.642c.257-.342.128-.813-.214-1.07l-2.224-1.753c.214-.556.342-1.112.342-1.711l2.738-.728a.746.746 0 0 0 .599-.898l-.129-.727a.746.746 0 0 0-.898-.6l-2.78.343a5.669 5.669 0 0 0-.942-1.454l1.412-2.439c.257-.342.128-.813-.214-1.07l-.642-.427c-.342-.257-.813-.128-1.07.214l-1.753 2.224c-.556-.214-1.112-.342-1.711-.342l-.728-2.738a.746.746 0 0 0-.898-.599l-.727.129a.766.766 0 0 0-.6.898l.343 2.78a5.297 5.297 0 0 0-1.454.942L5.754 6.353c-.342-.257-.813-.085-1.07.214l-.427.642c-.257.342-.128.813.214 1.07l2.224 1.753c-.214.556-.342 1.112-.342 1.711l-2.738.728a.746.746 0 0 0-.599.898l.129.727c.085.428.47.685.898.6l2.78-.386zm2.566-1.84c-.085-.342-.042-.684 0-1.026.129-.685.557-1.284 1.156-1.669.299-.17.598-.299.94-.385.343-.085.685-.042 1.027 0 .685.129 1.284.557 1.669 1.156.17.299.3.598.385.94.085.343.043.685 0 1.027-.129.685-.556 1.284-1.155 1.669-.3.17-.6.3-.941.385-.343.085-.685.043-1.027 0-.685-.129-1.284-.556-1.669-1.155-.17-.257-.299-.6-.385-.941z"></path>
+</svg>
+
+</span>
+  </div>
+  Loading running timers...
+</div>
+
+        </div>
+</turbo-frame>    </div>
+  </div>
+  <a class="fe-ActionList-item fe-ActionList-item--separator" target="_top" href="/timeslips">
+    <span>View all timeslips</span>
+    <span class="fe-ActionList-itemIcon">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path fill-rule="nonzero" d="M13,12.5857864 L16.2928932,9.29289322 C16.6834175,8.90236893 17.3165825,8.90236893 17.7071068,9.29289322 C18.0976311,9.68341751 18.0976311,10.3165825 17.7071068,10.7071068 L13.7071068,14.7071068 C13.3165825,15.0976311 12.6834175,15.0976311 12.2928932,14.7071068 L8.29289322,10.7071068 C7.90236893,10.3165825 7.90236893,9.68341751 8.29289322,9.29289322 C8.68341751,8.90236893 9.31658249,8.90236893 9.70710678,9.29289322 L13,12.5857864 Z" transform="rotate(-90 13 12)"></path>
+</svg>
+
+</span>
+    </span>
+</a>
+    </div>
+</li>
+
+      
+<li class="fe-Navigation-utilityItem" data-controller="content-loader radar--bell" data-action="tabs-panel-show@document->content-loader#load tabs-panel-show@document->radar--bell#track" data-content-loader-url="/bell_popover/tabs_panel" data-radar--bell-is-ringing="false" data-radar--bell-is-inside-drawer="false" data-radar--bell-popover-enabled="true">
+    <button type="button" class="fe-Navigation-iconButton" data-action="click->navigation--navigation#toggleUtil" data-event-name="tabs-panel" aria-label="Notifications" aria-controls="navigation-menu-notifications" aria-expanded="false">
+      <span class="fe-Navigation-icon">
+        
+<span class="fe-Icon fe-Icon--major">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg fe-Icon-svg--bell" aria-hidden="true" focusable="false" viewBox="0 0 48 48">
+  <path d="M22.161 14.212a2 2 0 0 1 3.678 0A8.003 8.003 0 0 1 32 22v4.5c0 2.082.574 3.66 1.707 4.793.63.63.184 1.707-.707 1.707H15c-.89 0-1.337-1.077-.707-1.707C15.426 30.159 16 28.582 16 26.5V22a8.003 8.003 0 0 1 6.161-7.788zM30 22a6 6 0 1 0-12 0v4.5c0 1.727-.34 3.233-1.022 4.5h14.044C30.339 29.733 30 28.227 30 26.5V22z"></path>
+  <path d="M27 32a3 3 0 0 1-6 0h6z"></path>
+</svg>
+<div class="fe-Icon-alert fe-Icon-alert--pulse"></div>
+
+</span>
+      </span>
+</button>
+    <div class="fe-Navigation-utilityMenu" id="navigation-menu-notifications">
+      
+        <div data-content-loader-target="content" aria-live="polite">
+  <div class="fe-Tabs">
+  
+    <a data-dashboard--tabs-target="tab" class="fe-Tabs-tab is-current" role="tab" aria-selected="false" href="javascript:void(0)">Admin To-Do</a>
+    <a data-dashboard--tabs-target="tab" class="fe-Tabs-tab" role="tab" aria-selected="false" href="javascript:void(0)">Radar</a>
+
+</div>  <div class="fe-Tabs-content" data-dashboard--tabs-target="content">
+    <div class="fe-l-flex fe-l-flex--centre fe-u-padding--default">
+      <div class="fe-InlineLoader">
+  <div class="fe-InlineLoader-icon">
+    
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg fe-Icon-svg--cog" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path d="M6.824 14.31c.256.556.556 1.027.94 1.455l-1.41 2.438c-.258.342-.13.856.213 1.07l.642.427c.342.257.813.129 1.07-.214l1.753-2.224c.556.214 1.112.342 1.711.342l.728 2.738c.085.428.47.684.898.599l.727-.129a.746.746 0 0 0 .6-.898l-.343-2.738a5.669 5.669 0 0 0 1.454-.94l2.439 1.41c.342.258.813.13 1.07-.213l.427-.642c.257-.342.128-.813-.214-1.07l-2.224-1.753c.214-.556.342-1.112.342-1.711l2.738-.728a.746.746 0 0 0 .599-.898l-.129-.727a.746.746 0 0 0-.898-.6l-2.78.343a5.669 5.669 0 0 0-.942-1.454l1.412-2.439c.257-.342.128-.813-.214-1.07l-.642-.427c-.342-.257-.813-.128-1.07.214l-1.753 2.224c-.556-.214-1.112-.342-1.711-.342l-.728-2.738a.746.746 0 0 0-.898-.599l-.727.129a.766.766 0 0 0-.6.898l.343 2.78a5.297 5.297 0 0 0-1.454.942L5.754 6.353c-.342-.257-.813-.085-1.07.214l-.427.642c-.257.342-.128.813.214 1.07l2.224 1.753c-.214.556-.342 1.112-.342 1.711l-2.738.728a.746.746 0 0 0-.599.898l.129.727c.085.428.47.685.898.6l2.78-.386zm2.566-1.84c-.085-.342-.042-.684 0-1.026.129-.685.557-1.284 1.156-1.669.299-.17.598-.299.94-.385.343-.085.685-.042 1.027 0 .685.129 1.284.557 1.669 1.156.17.299.3.598.385.94.085.343.043.685 0 1.027-.129.685-.556 1.284-1.155 1.669-.3.17-.6.3-.941.385-.343.085-.685.043-1.027 0-.685-.129-1.284-.556-1.669-1.155-.17-.257-.299-.6-.385-.941z"></path>
+</svg>
+
+</span>
+  </div>
+  Loading
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+    </div>
+</li>
+    <li class="fe-Navigation-utilityItem">
+  <button type="button" class="fe-Navigation-iconButton fe-Navigation-iconButton--accountMenu" aria-label="Account and settings" aria-controls="navigation-menu-account" aria-expanded="false" data-action="click->navigation--navigation#toggleUtil">
+    <span class="fe-Navigation-icon">
+      
+<span class="fe-Icon fe-Icon--major">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg fe-Icon-svg--cog" aria-hidden="true" focusable="false" viewBox="0 0 48 48">
+  <g fill="#currentColor" fill-rule="nonzero">
+    <path d="M18.827 19.648a1 1 0 0 1 .001 1.083 5.996 5.996 0 0 0-.792 1.878 1 1 0 0 1-.781.753l-2.306.454.066 1.264 2.336.21a1 1 0 0 1 .855.668c.226.651.563 1.26.994 1.799a1 1 0 0 1 .103 1.092l-1.1 2.082 1.023.744 1.68-1.733a1 1 0 0 1 1.042-.25 6.085 6.085 0 0 0 1.95.327 1 1 0 0 1 .91.592l.996 2.223 1.216-.348-.335-2.425a1 1 0 0 1 .455-.981 6.06 6.06 0 0 0 1.458-1.299 1 1 0 0 1 1.034-.337l2.384.633.495-1.164-2.131-1.287a1 1 0 0 1-.477-.969 5.996 5.996 0 0 0-.089-1.906 1 1 0 0 1 .375-1.003l1.99-1.506-.614-1.107-2.275.867a1 1 0 0 1-1.071-.235c-.463-.474-1-.869-1.592-1.167a1 1 0 0 1-.55-.926l.08-2.43-1.246-.22-.745 2.274a1 1 0 0 1-.852.684c-.68.067-1.341.25-1.958.539a1 1 0 0 1-1.078-.15l-1.78-1.54-.956.83 1.285 1.987zm-3.435-1.63a1 1 0 0 1 .184-1.298l2.264-1.968a1 1 0 0 1 1.31-.001l1.968 1.703a8 8 0 0 1 1.34-.37l.822-2.506a1 1 0 0 1 1.124-.674l2.954.521a1 1 0 0 1 .826 1.017l-.088 2.689c.377.23.734.49 1.067.78l2.5-.954a1 1 0 0 1 1.231.45l1.455 2.624a1 1 0 0 1-.271 1.282l-2.2 1.665c.053.414.072.832.06 1.252l2.349 1.42a1 1 0 0 1 .403 1.246l-1.172 2.761a1 1 0 0 1-1.177.576l-2.626-.697a8.063 8.063 0 0 1-.965.859l.37 2.676a1 1 0 0 1-.715 1.098l-2.884.827a1 1 0 0 1-1.188-.552l-1.099-2.454a8.122 8.122 0 0 1-1.313-.221l-1.863 1.92a1 1 0 0 1-1.306.113l-2.427-1.763a1 1 0 0 1-.296-1.276l1.214-2.296a8.065 8.065 0 0 1-.685-1.24l-2.585-.233a1 1 0 0 1-.91-.943l-.157-2.996a1 1 0 0 1 .806-1.034l2.552-.502c.145-.451.329-.886.55-1.301l-1.422-2.2z"></path>
+    <path d="M24 28a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+  </g>
+</svg>
+
+</span>
+    </span>
+
+    <span class="fe-Navigation-label">
+      FreeAgent Central
+    </span>
+    <span class="fe-Navigation-chevron">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path fill="currentColor" d="M15.2928932,10.2928932 C15.6834175,9.90236893 16.3165825,9.90236893 16.7071068,10.2928932 C17.0976311,10.6834175 17.0976311,11.3165825 16.7071068,11.7071068 L12.7071068,15.7071068 C12.3165825,16.0976311 11.6834175,16.0976311 11.2928932,15.7071068 L7.29289322,11.7071068 C6.90236893,11.3165825 6.90236893,10.6834175 7.29289322,10.2928932 C7.68341751,9.90236893 8.31658249,9.90236893 8.70710678,10.2928932 L12,13.5857864 L15.2928932,10.2928932 Z"></path>
+</svg>
+
+</span>
+    </span>
+  </button>
+  <ul class="fe-Navigation-utilityMenu fe-Navigation-utilityMenu--narrow" id="navigation-menu-account">
+    
+      <li class="fe-Navigation-utilityMenuItem">
+  <div class="fe-Navigation-utilityMenuContainer">
+    
+        <span class="fe-Navigation-userName">
+          Ed Molyneux
+        </span>
+        <span class="fe-Navigation-companyName">
+          FreeAgent Central
+        </span>
+
+  </div>
+</li>
+
+        <li class="fe-Navigation-utilityMenuItem fe-Navigation-utilityMenuItem--divider">
+  <a class="fe-Navigation-utilityMenuLink" href="/settings">Settings</a>
+</li>
+
+      <li class="fe-Navigation-utilityMenuItem">
+  <a class="fe-Navigation-utilityMenuLink" href="/addons_and_connections">Connections &amp; Add-ons</a>
+</li>
+
+      <li class="fe-Navigation-utilityMenuItem">
+  <a class="fe-Navigation-utilityMenuLink" href="/files">Files</a>
+</li>
+
+        <li class="fe-Navigation-utilityMenuItem">
+  <a class="fe-Navigation-utilityMenuLink" href="/company/account">Billing</a>
+</li>
+
+      
+      <li class="fe-Navigation-utilityMenuItem fe-Navigation-utilityMenuItem--divider">
+  <a class="fe-Navigation-utilityMenuLink" href="/logout" data-turbo="false">Log Out</a>
+</li>
+
+
+  </ul>
+</li>
+
+</ul>
+
+  </nav>
+</div>
+
+    </header>
+
+    <main id="main-content" class="fe-l-app-main">
+      
+  <div class="fe-PageHeader">
+  <div class="fe-l-contentWrapper">
+    
+
+    <div class="fe-PageHeader-row">
+      <div class="fe-PageHeader-column">
+            <h1 class="fe-PageHeader-title">
+              Prepare Month 1 2015/16 Payroll
+            </h1>
+      </div>
+
+        <div class="fe-PageHeader-column">
+          <div class="fe-PageHeader-actions" id="freestyle_page_header_actions">
+                        
+<div class="fe-PageHeader-actionItem"><a data-method="delete" data-confirm="Are you sure you want to delete this period?" data-turbo="false" class="fe-Button" href="/payroll/2016/periods/4">Delete Month 1 Payroll</a></div>
+<div class="fe-PageHeader-actionItem"><a data-modal-width="720" class="fe-Button fe-Button--primary run_and_report_button" href="#">Run &amp; Report Month 1 Payroll</a></div>
+<div class="fe-PageHeader-actionItem"><a class="fe-Button fe-Button--primary run_button" style="display: none" href="/payroll/2016/periods/4/submission/run_without_filing">Run Month 1 Payroll</a></div>
+
+
+
+          </div>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+
+      
+
+
+<section id="content" class=" fe-l-pageBody">
+
+  <div id="contents">
+    <div id="rti_container">
+  <div id="notices">
+  
+
+
+
+
+    <div class="fe-Notice fe-Notice--warning">
+    <div class="fe-Notice-icon">
+      
+<span class="fe-Icon">
+  <svg xmlns="http://www.w3.org/2000/svg" class="fe-Icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path d="M12 4a8 8 0 110 16 8 8 0 010-16zm0 2a6 6 0 100 12 6 6 0 000-12zm0 8a1 1 0 011 1v.5a1 1 0 01-2 0V15a1 1 0 011-1zm0-6.5a1 1 0 011 1v4a1 1 0 01-2 0v-4a1 1 0 011-1z"></path>
+</svg>
+</span>
+    </div>
+  <div class="fe-Notice-content">
+    <h2 class="fe-Notice-title">Please check your <a href="/settings/details">Company Details</a> before you Run &amp; Report Month 1 Payroll.</h2>
+    
+      <p>HMRC will require your PAYE Reference and Accounts Office Reference as part of your RTI submission.</p>
+      
+        <p>Learn more about <a target="_blank" rel="noopener noreferrer" href="https://www.freeagent.com/support/kb/payroll/setting-up-payroll">setting up Payroll →</a></p>
+
+  </div>
+</div>
+
+</div>
+
+
+  <form data-turbo="false" class="Form" id="rti_workflow" action="/payroll/2016/periods/4" accept-charset="UTF-8" data-remote="true" method="post"><input type="hidden" name="_method" value="put" autocomplete="off">
+
+
+    <ol class="fe-Walkthrough">
+  
+
+      <li class="fe-Walkthrough-step">
+
+  <div class="fe-Walkthrough-stepIndicator" role="presentation">
+    <div class="fe-Walkthrough-stepIndicatorContent" role="presentation">
+    </div>
+  </div>
+
+  <div class="fe-Walkthrough-stepContent">
+      <div class="fe-Card fe-Card--medium">
+  
+        <div class="fe-Card-segment ">
+  
+          <h2 class="fe-Walkthrough-stepHeading">Enter the date you will pay your staff</h2>
+          
+  <div class="important_field field_with_attention">
+    <label for="payroll_date" class="fe-u-visuallyHidden">Payroll date</label>
+    <div class="FormElementGroup"><input data-role="calendar" data-date-format="%d %b %y" size="12" placeholder="dd mmm yy" class="FormElement FormElement-input" value="25 Apr 15" type="text" name="period[dated_on]" id="period_dated_on">
+          <div class="Button FormElementGroup-last date-picker-button" id="period_dated_on_calendar">
+            <b class="Icons Icon--cal" title="Show calendar">Show calendar</b>
+          </div></div>
+
+
+    <p>
+      You must report your payroll to HMRC on or before your payday, otherwise it is considered late.
+      <br>
+      Dates between 06 Apr 15 and
+      05 May 15 are valid for this pay period.
+    </p>
+  </div>
+
+
+</div>
+</div>  </div>
+</li>
+
+      <li class="fe-Walkthrough-step">
+
+  <div class="fe-Walkthrough-stepIndicator" role="presentation">
+    <div class="fe-Walkthrough-stepIndicatorContent" role="presentation">
+    </div>
+  </div>
+
+  <div class="fe-Walkthrough-stepContent">
+      <div class="fe-Card fe-Card--medium">
+  
+        <div class="fe-Card-segment ">
+  
+          
+          
+          <h2>Review and edit payslips</h2>
+          <p>Review and edit the payslips for all
+            employees in this month's Payroll. To add an employee you need to create
+            a payroll profile for them.</p>
+        <div class="fe-Table-scroller fe-u-scrollable--horizontal">
+  <table class="Table Table--flush" id="payslips">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class="num">Total Pay</th>
+        <th class="num">Tax</th>
+        <th class="num">Employee NI</th>
+        <th class="num">Other Deductions</th>
+        <th class="num">Net Pay</th>
+        <th class="num">Employer NI</th>
+        <th></th>
+      </tr>
+    </thead>
+      <tbody><tr>
+        <td>
+          Ed Molyneux
+          
+          
+          
+        </td>
+        <td class="num">
+          £1,000.00
+        </td>
+        <td class="num">
+          £42.40
+        </td>
+        <td class="num">
+          £39.36
+        </td>
+        <td class="num">
+          £0.00
+        </td>
+        <td class="bold num">
+          £918.24
+        </td>
+        <td class="num">
+          £44.71
+        </td>
+          <td class="Table-cell--actions">
+            <a class="cc-but dataedit edit_payslip_trigger" rel="modal" data-modal-width="900" title="Edit payslip for Ed Molyneux" href="/my_money/975572680/payroll/period_payslips/4/edit">Edit Payslip</a>
+          </td>
+      </tr>
+    <tr class="Table-row--bold Table-row--prominent">
+      <td></td>
+      <td class="num">
+        £1,000.00
+      </td>
+      <td class="num">
+        £42.40
+      </td>
+      <td class="num">
+        £39.36
+      </td>
+      <td class="num">
+        £0.00
+      </td>
+      <td class="num">
+        £918.24
+      </td>
+      <td class="num">
+        £44.71
+      </td>
+      <td></td>
+    </tr>
+  </tbody></table>
+</div>
+        
+        
+
+
+</div>
+</div>  </div>
+</li>
+
+
+      <li class="fe-Walkthrough-step">
+
+  <div class="fe-Walkthrough-stepIndicator" role="presentation">
+    <div class="fe-Walkthrough-stepIndicatorContent" role="presentation">
+    </div>
+  </div>
+
+  <div class="fe-Walkthrough-stepContent">
+      <div class="fe-Card fe-Card--medium">
+  
+        <div class="fe-Card-segment ">
+  
+          <h2 class="fe-Walkthrough-stepHeading">Double-check everything</h2>
+          
+        <p>Make sure that you have chosen the correct date, that all employees you need to pay are included in your Payroll and that all employee details are correct.</p>
+          <div class="fe-l-autoGrid">
+  
+            <div>
+              <h3>On the Payroll Profiles</h3>
+              <ul class="fe-List--ticked">
+                <li>Employee leaving dates</li>
+                <li>Tax code and student loan</li>
+                <li>Childcare vouchers and other benefits</li>
+              </ul>
+            </div>
+            <div>
+              <h3>On the Payslips</h3>
+              <ul class="fe-List--ticked">
+                <li>Bonuses, commission and deductions</li>
+                <li>Sick pay, maternity, paternity, and adoption pay</li>
+                <li>Pension contributions</li>
+              </ul>
+            </div>
+
+</div>
+
+</div>
+</div>  </div>
+</li>
+      <li class="fe-Walkthrough-step fe-Walkthrough-step--action">
+
+  <div class="fe-Walkthrough-stepIndicator" role="presentation">
+    <div class="fe-Walkthrough-stepIndicatorContent" role="presentation">
+    </div>
+  </div>
+
+  <div class="fe-Walkthrough-stepContent">
+      
+      
+        <a data-modal-width="720" class="fe-Button fe-Button--large fe-Button--primary run_and_report_button" href="#">Run &amp; Report Month 1 Payroll</a>
+        <a class="fe-Button fe-Button--large fe-Button--primary run_button" style="display: none" id="run_without_filing_button" href="/payroll/2016/periods/4/submission/run_without_filing">Run Month 1 Payroll</a>
+        <input type="hidden" name="hidden_submit" id="hidden_submit" value="hidden_submit">
+
+        <div class="fe-u-clear">
+          <div class="FormElement-checkbox"><input type="checkbox" name="no_rti_checkbox" id="no_rti_checkbox" data-run-without-filing-url="/payroll/2016/periods/4/submission/run_without_filing"><span></span></div>
+          <label for="no_rti_checkbox" class="FormElement FormElement-label">Don't report Month 1 payroll to HMRC.</label>
+          <span id="no_rti_warning" class="attention" style="display: none">Are you sure you don't need to file RTI?</span>
+        </div>
+
+          <span class="FormElement-note" id="needs_gateway_details">You won’t be able to edit payslips after running your payroll.<br>
+            Your <a title="Visit Government Gateway" href="http://www.gateway.gov.uk/">Government Gateway</a>
+            login details are required to report details of this pay period to HMRC.
+          </span>
+
+  </div>
+</li>
+</ol></form></div>
+
+  </div>
+
+</section>
+</main>
+    <div class="fe-l-app-footer">
+      <footer class="fe-GlobalFooter ">
+  
+
+
+<div class="fe-l-contentWrapper">
+  <div class="fe-GlobalFooter-content">
+
+    <div class="fe-GlobalFooter-links">
+      <ul class="fe-GlobalFooter-linkList">
+
+          <li class="fe-GlobalFooter-linkListItem"><a target="_blank" rel="noopener noreferrer" class="fe-GlobalFooter-link" href="https://www.freeagent.com/privacy">Privacy Policy</a></li>
+          <li class="fe-GlobalFooter-linkListItem"><a target="_blank" rel="noopener noreferrer" class="fe-GlobalFooter-link" href="https://www.freeagent.com/terms">Terms of Service</a></li>
+
+
+              <li class="fe-GlobalFooter-linkListItem"><a class="fe-GlobalFooter-link" href="/settings/support_access">Support Access</a></li>
+
+          <li class="fe-GlobalFooter-linkListItem"><a target="_blank" rel="noopener noreferrer" class="fe-GlobalFooter-link" href="https://www.freeagent.com/support">Knowledge Base</a></li>
+
+      </ul>
+    </div>
+
+      <div class="fe-GlobalFooter-logoWrapper">
+        <img alt="FreeAgent" class="fe-GlobalFooter-logo" height="20" width="97" src="/assets/freeagent_logo--white-76d6bb90a390dab9f2da71778b956350f05a50836f1d7604be6c46c72d4bec2e.svg">
+      </div>
+  </div>
+</div>
+
+</footer>
+    </div>
+  </div>
+
+  <div id="freestyle_modal">
+    
+  </div>
+
+  
+
+
+  
+<script>//<![CDATA[
+  (typeof jQuery !== 'undefined') && (jQuery.fx.off = true);
+//]]>
+</script>
+</body>  
+
+  
+  
+  
+  
+  
+  </html>

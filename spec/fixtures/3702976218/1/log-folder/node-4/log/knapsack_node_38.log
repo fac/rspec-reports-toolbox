@@ -1,0 +1,1436 @@
+I, [2022-12-15T09:58:57.246705 #244]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual 'it's. Thanks to that a single slow test file can be split across parallel CI nodes). Analyzing 7 slow test files.
+2022-12-15T09:59:13.020Z pid=326 tid=9ne INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+User
+  does not allow deletion of a user with email templates
+  allows deletion of a user with email templates belonging to another company - security test
+  allows creation of a user with valid NI number
+  does not allow creation of a user with invalid NI number
+  find_latest_timeslip
+  deletes ResetPasswordRequest when email changes
+  does not delete ResetPasswordRequest when email does not changes
+  is not hidden by default
+  cannot be hidden if it is an account owner
+  can be hidden if it is not an account owner
+  not_be_able_to_set_permission_level_lower_than_tax_and_accounting_for_advisors
+  recent expense transactions should be returned in descending dated_on order
+  deletes user record from Salesforce
+  expense transactions
+    returns correctly sorted transactions from #recent_expense_transactions
+    returns recent expenses from #recent_expenses
+    #expense_balance_at_end_of
+[ActiveJob] [EmailMark…] [840f4512-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 840f4512-9eb2-4bf2-926a-b90480b26db0) from staged jobs, not found
+[ActiveJob] [EmailMark…] [e64a7f35-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: e64a7f35-4755-48fd-8843-81e7f25a7a04) from staged jobs, not found
+[ActiveJob] [RescanSma…] [84158bf0-…] Failed to delete RescanSmartUserPaymentsJob (Job ID: 84158bf0-95cf-4256-9a49-0eaf3fa4ca49) from staged jobs, not found
+[ActiveJob] [EmailMark…] [5d6f280f-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 5d6f280f-3bc6-4385-a810-3f4d20c964eb) from staged jobs, not found
+      correctly calculates expense balance for the date
+[ActiveJob] [EmailMark…] [27a12faf-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 27a12faf-723b-48c1-83cb-4785069874ed) from staged jobs, not found
+[ActiveJob] [EmailMark…] [c54b9326-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: c54b9326-e367-462d-b446-19b2e2623494) from staged jobs, not found
+[ActiveJob] [RescanSma…] [d1461fa0-…] Failed to delete RescanSmartUserPaymentsJob (Job ID: d1461fa0-8fd1-46b9-8f71-2d335f79ac6f) from staged jobs, not found
+[ActiveJob] [EmailMark…] [1cd0f7d1-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 1cd0f7d1-1dd0-40a5-a8dc-704b8cb72916) from staged jobs, not found
+      works with foreign currency expenses
+  #deletable?
+    when user is the account_owner
+      returns false
+    when the user is not the account_owner
+      returns true
+      and user has a timeslip
+        returns false
+      and user has a payslip
+        returns false
+      and user has an expense
+        returns false
+      and user has a journal_entry
+        returns false
+      and user has a payroll_profile
+        returns false
+  An account owner
+    is not allowed to change their role to Accountant
+  A user in existence without a company
+    does not have a company and is an account owner
+    alerts that a user exists without a company
+  The first user of a company
+    has a company and is an account owner
+  The second user of a company
+    has a company but is not an account owner
+  New users for sole traders
+    has a role of Employee if an owner exists
+    has no default role if no owner already exists
+  An accountant
+    is invalid if they are the first user for a company
+    who is not the first user for a company
+      is valid
+  A non-accountant
+    can change role to accountant
+    with a payroll profile
+      cannot change role to accountant
+    with expenses
+      cannot change role to accountant
+    with payslips
+      cannot change role to accountant
+    with timeslips
+      cannot change role to accountant
+    with bank account entries
+      cannot change role to accountant
+    with journal entries
+      cannot change role to accountant
+  Deleting a user
+    deletes that user's running_timers
+    marks the user as deleted in Salesforce
+    if the user's company is being deleted
+      does not mark the company as deleted in Salesforce
+  Updating an existing user form a SAML Request
+    changes the e-mail address if I give it a unique one
+    does not change the e-mail address if I use another user's email
+  a Employee with payslips
+    recreates ledger entries for future payslips when the role changes from Employee to Director
+  a Director with payslips
+    recreates ledger entries for future payslips when the role changes from Director to Employee
+  #view_selected_user
+    returns other user
+    raises error if other user does not exist
+    raises error if other user is in another company
+    raises error if this user does not have permissions to view
+    has access to self, even if user cannot view other users
+  #viewable_users
+    includes other user
+    returns no users for other companies
+    only includes self if this user does not have permissions to view
+  #salesforce_user
+    returns a Salesforce user for the current user
+  partnership profit share
+    defaults to 0 for employees with no filed SA return
+    defaults to 0 for employees with a filed SA return with an incorrect partnership_profit_share of 1
+    defaults to 1 for partners with no filed SA return
+    returns partnership_profit_share from SA return
+  #external_authentication_mechanism
+    returns nil by default
+    returns :saml for account owners of companies signed up via SAML
+  #subscribed_to_company_digest?
+    defaults to false
+    returns the latest specified preference, if set
+  #subscribed_to_company_digest=
+    marks the attribute as dirty if the value changes
+    does not mark the attribute as dirty if the value is unchanged
+  saving after subscribed_to_company_digest was changed
+    stores the user's updated preference
+  User is the second owner to UK Sole Trader company
+    saving user, role has changed
+      is not valid
+    saving user, role hasn't changed
+      is valid
+  #dividend_payments_in_date_range
+    orders the dividends by date
+  A user with no support code
+    returns an un-persisted support code
+  A user with an existing support code
+    returns the existing support code
+  #dividend_payments
+    only includes the dividend_payment
+  #expense_balance_before
+    includes payments dated on the first expense date
+    includes handle earlier payments on the same day
+    includes prior expenses on the first expense date
+  #freeagent_internal_account?
+    for a typical email address
+      is expected not to be freeagent internal account
+    for a freeagent.com email address
+      is expected to be freeagent internal account
+    for a medianode.com email address
+      is expected to be freeagent internal account
+    for a example.com email address
+      is expected to be freeagent internal account
+  email marketing
+    syncs with salesforce when the email changes
+    syncs with salesforce when the position changes
+    doesn't sync with Salesforce when the email has not changed
+    syncs company and user to Salesforce when an account owner is first created
+    does not sync to Salesforce when a non-account owner is created
+    does not sync to Salesforce when an account owner of a demo company is created
+    does not sync to Salesforce when non-account owners change their email address
+    does not sync to Salesforce when account owners of demo companies change their email address
+  #paginated_expenses_in_date_range
+    for a uk limited company user
+[ActiveJob] [RescanSma…] [078d1c9b-…] Failed to delete RescanSmartUserPaymentsJob (Job ID: 078d1c9b-e2d1-4eb1-b9fd-dfaa6bc38bf5) from staged jobs, not found
+      returns entries for a uk limited company
+[ActiveJob] [RescanSma…] [2631232a-…] Failed to delete RescanSmartUserPaymentsJob (Job ID: 2631232a-a0d1-494f-b599-ac0f2a0d50bf) from staged jobs, not found
+      only returns entries in range
+    for a sole trader user
+      returns entries for a uk sole trader
+  changing name
+    updates the general_ledger_account names
+  insights
+    #insights_enabled?
+      user has full access permission level
+        is expected to equal true
+      user has < full access permission level
+        is expected to equal false
+    #notify_on_login_pings
+      user existed before the radar page was launched
+        user has full access permission level
+          creates a 'product update insight for radar' notification
+          radar config can set skipping product update ping generation
+            skips creation if Radar configuration is set to true
+        user has < full access permission level
+          does not create a 'product update insight for radar' notification
+      user is new, after the radar page was launched
+        does not create a 'product update insight for radar' notification
+      user existed before the covid furlough feature was launched
+        user has full access permission level, but no recent payslips
+          does not create a 'product update insight for covid furlough' notification
+        user has full access permission level and a recent payslip
+          creates a 'product update insight for covid furlough' notification
+        user has < full access permission level
+          does not create a 'product update insight for covid furlough' notification
+      user is new, after the covid furlough feature was launched
+        does not create a 'product update insight for covid furlough' notification
+      for a user who should see the SA 19/20 product update
+        who was created before the launch date
+          creates the notification on first invocation
+          does not create another notification second time around
+        who was created after the launch date
+          does not create the notification
+      the banking automation product update
+        creates a 'product update insight for banking automation' notification
+        does not create an update when the user is created after the launch date
+      the credit note reconciliation product update
+        when the feature is enabled
+          creates a 'product update insight for credit note reconciliations' notification
+          does not create an update when the user is created after the launch date
+      the Capital Allowances product update
+        for a user with correct permissions who was created before the launch date
+          creates the notification on first invocation
+          does not create another notification second time around
+        for a user with correct permissions who was created after the launch date
+          does not create the notification
+        for a level 7 user who was created before the launch date
+          creates a notification
+        for a user with incorrect permissions who was created before the launch date
+          does not create a notification
+      the payit product update
+        when the company is elgible for payit
+          and the user level 8 account owner
+            creates a product update insight for payit
+          and the user is the account owner and level 7
+            creates a product update insight for payit
+          and the user is level 7
+            does not create a product update insight for payit
+          when the user is created after launch date
+            does not create a product update insight for payit
+        when the company is not eligible for payit
+          does not create a product update insight for payit
+      the manual invoice reminders product update
+        creates a 'product update insight for manual invoice reminders
+        does not create an update when the user is created after the launch date
+    tax/pay for current tax year
+      pulls the right figures late in the tax year
+      pulls the right figures early in the next tax year
+  #sync_name_with_sender_addresses
+    updates sender addresses when a user's name is changed
+  #sync_name_with_email_templates
+    updates email templates when a user's name is changed
+  #can_approve_api_apps?
+    for an unconfirmed company
+      is expected to equal false
+    for a company still in setup
+      is expected to equal false
+    for a company which has confirmed and completed setup
+      is expected to equal true
+  #has_any_unread_messages?
+    returns false if user has no message subscriptions
+    returns true if the first subscription has unread messages
+  #total_unread_messages
+    when the user has no thread subscriptions
+      returns 0
+    when the user has one thread subscription
+      returns the unread message count of the thread subscription
+    when the user has one multiple thread subscription
+      returns the total unread message count of the thread subscription
+  #latest_message
+    when the user is not subscribed to any threads
+      is expected to equal nil
+    when the user is subscribed to a thread
+      with no messages
+        is expected to equal nil
+      where the last recorded message is from the current user
+        returns the last message
+      where the last recorded message is from another sender
+        returns the last message
+      when the last recorded message is blank
+        returns the last message
+  locking attributes
+    for a frontbook provisioned company
+      the account owner
+        does not lock previously locked attributes
+      a user that is not the account owner
+        behaves like an unlocked user
+          doesn't have any of the expected attributes locked
+    a non frontbook company
+      behaves like an unlocked user
+        doesn't have any of the expected attributes locked
+    when the user does not have a company
+      behaves like an unlocked user
+        doesn't have any of the expected attributes locked
+  #sync_event_data_to_salesforce
+    when the user is an account owner
+      schedules a ContactEventDataSyncJob for the user
+    when the user is not an account owner
+      does not schedule a job
+    when the user is not associated with a company
+      does not schedule a job
+
+Api::EstimateIntegration
+  GET /estimates
+    with the right permission_level
+      with 3 estimates with 2 estimate items each
+        with no nested estimate items
+          responds with an array of estimates
+        with nested_estimate_items=true
+          contains estimate_items fields
+      pagination
+        with less entries then the default items per page
+          responds with an array of estimates
+        with more entries then the default items per page
+          on the first page
+            responds with an array of estimates
+          on the last page
+            responds with an array of estimates
+      filter
+        by view
+          valid filter
+            all
+              responds with an array of estimates
+            draft
+              responds with an array of estimates
+            non_draft
+              responds with an array of estimates
+            sent
+              responds with an array of estimates
+            approved
+              responds with an array of estimates
+            rejected
+              responds with an array of estimates
+            invoiced
+              responds with an array of estimates
+          invalid filter
+            is expected to respond with status code :bad_request (400)
+        by date
+          valid date
+            from_date
+              responds with an array of estimates
+            to_date
+              responds with an array of estimates
+            from_date_to_date
+              responds with an array of estimates
+            updated_since
+              responds with an array of estimates
+          invalid date
+            is expected to respond with status code :bad_request (400)
+      with a :sort parameter
+        sorts correctly
+    without the right permission_level
+      is expected to respond with status code :forbidden (403)
+  GET /estimates/estimate_id
+    with the right permission_level
+      with valid estimate_id
+        with no estimate_items
+          responds with the standard estimate fields
+        with 3 estimate_items
+          appends an array of estimate_items
+        for a MOSS estimate
+          is marked as moss
+        sales tax status
+          translates the sales tax status attributes into the API format
+      with invalid estimate_id
+        is expected to respond with a missing status code (404)
+    for a company with estimates by two different contacts
+      when filtering by the first contact
+        responds with estimates only for the specified contact
+      when filtering by the second contact
+        responds with estimates only for the specified contact
+    for a company with estimates on two different projects
+      when filtering by the first project
+        responds with estimates only for the specified project
+      when filtering by the second project
+        responds with estimates only for the specified project
+    for a company with estimates on two different invoices
+      when filtering by the first invoice
+        responds with estimates only for the specified invoice
+      when filtering by the second invoice
+        responds with estimates only for the specified invoice
+    without the right permission_level
+      with valid estimate_id
+        is expected to respond with status code :forbidden (403)
+  GET /estimates/estimate_id/pdf
+    returns base64 encoded PDF data with correct permissions
+    doesn't allow access without the right permission_level
+  GET /estimates/:id/email_template
+    without the right permission_level
+      is expected to respond with status code :forbidden (403)
+    with a default new estimate template
+      returns the correct estimate data
+    without a default new estimate template
+      returns the correct estimate data
+  POST /estimates
+    with the right permission_level
+      with estimate item with a stock list item
+      with valid attributes
+        with the company's default estimate theme set to something other than the last theme
+[7] [183] Found unpermitted params: estimate_items_attributes
+          uses the company's selected estimate theme
+        when the company's default theme selection is the custom theme and the theme_customisation_circuit_breaker is broken
+[7] [184] Found unpermitted params: estimate_items_attributes
+          creates a new estimate using the fallback default theme instead of the custom theme
+        with no estimate_items
+[7] [185] Found unpermitted params: estimate_items_attributes
+          has created a estimate record for the current company and creates an audit entry
+        with contact on another company
+          is expected to respond with status code :unprocessable_entity (422)
+        with ec_status set
+          to Non-EC
+            (value as "Non-EC")
+[7] [187] Found unpermitted params: estimate_items_attributes
+              creates an estimate with the correct ec_status
+            (value as "0")
+[7] [188] Found unpermitted params: estimate_items_attributes
+              creates an estimate with the correct ec_status
+          to EC Services
+            (value as "EC Services")
+              when the company is in the EU on the record date
+[7] [189] Found unpermitted params: estimate_items_attributes
+                creates an estimate with the correct ec_status
+              when the company is not in the EU on the record date
+                when the company has a NI postcode
+[7] [190] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                when the company does not have a NI postcode
+[7] [191] Found unpermitted params: estimate_items_attributes
+                  is expected to respond with status code :unprocessable_entity (422)
+            (value as "1")
+              when the company is in the EU on the record date
+[7] [192] Found unpermitted params: estimate_items_attributes
+                creates an estimate with the correct ec_status
+              when the company is not in the EU on the record date
+                when the company has a NI postcode
+[7] [193] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                when the company does not have a NI postcode
+[7] [194] Found unpermitted params: estimate_items_attributes
+                  is expected to respond with status code :unprocessable_entity (422)
+          to EC Goods
+            (value as "EC Goods")
+[7] [195] Found unpermitted params: estimate_items_attributes
+              creates an estimate with the correct ec_status
+            (value as "2")
+[7] [196] Found unpermitted params: estimate_items_attributes
+              creates an estimate with the correct ec_status
+          to EC VAT MOSS
+            (value as "EC VAT MOSS")
+              invoice dated inside EU membership
+                with a place of supply
+[7] [197] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                without a place of supply
+[7] [198] Found unpermitted params: estimate_items_attributes
+                  is expected to respond with status code :unprocessable_entity (422)
+              invoice dated outside EU membership
+                with a place of supply
+[7] [199] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                without a place of supply
+[7] [200] Found unpermitted params: estimate_items_attributes
+                  is expected to respond with status code :unprocessable_entity (422)
+            (value as "3")
+              invoice dated inside EU membership
+                with a place of supply
+[7] [201] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                without a place of supply
+[7] [202] Found unpermitted params: estimate_items_attributes
+                  is expected to respond with status code :unprocessable_entity (422)
+              invoice dated outside EU membership
+                with a place of supply
+[7] [203] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                without a place of supply
+[7] [204] Found unpermitted params: estimate_items_attributes
+                  is expected to respond with status code :unprocessable_entity (422)
+          to Reverse Charge
+            (value as "Reverse Charge")
+              when the company is in the EU on the record date
+[7] [205] Found unpermitted params: estimate_items_attributes
+                is expected to respond with status code :unprocessable_entity (422)
+              when the company is not in the EU on the record date
+                when the company has a NI postcode
+[7] [206] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                when the company does not have a NI postcode
+[7] [207] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+            (value as "4")
+              when the company is in the EU on the record date
+[7] [208] Found unpermitted params: estimate_items_attributes
+                is expected to respond with status code :unprocessable_entity (422)
+              when the company is not in the EU on the record date
+                when the company has a NI postcode
+[7] [209] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+                when the company does not have a NI postcode
+[7] [210] Found unpermitted params: estimate_items_attributes
+                  creates an estimate with the correct ec_status
+          to an invalid value
+[7] [211] Found unpermitted params: estimate_items_attributes
+            is expected to respond with status code :unprocessable_entity (422)
+        with 3 estimate_items
+          has created a estimate record for the current company
+        with 3 estimate_items with named positions
+          has created a the estimate items in the correct order
+        with 3 estimate_items to different category
+          has created a estimate record for the current company
+        with a nil category
+[7] [215] Found unpermitted params: category
+          should create the estimate
+        with estimate items with a sales tax status specified
+          sets the sales tax rate of the nested estimate item
+      with invalid attributes
+        estimate
+          dated_on
+[7] [217] Found unpermitted params: estimate_items_attributes
+            has the same number of estimates after posting attempt
+        estimate_item
+          price
+            has the same number of estimates after posting attempt
+    without the right permission_level
+      with valid attributes
+        is expected to respond with status code :forbidden (403)
+  POST /estimates/:id/duplicate
+    should duplicate the correct estimate properties
+  POST /estimates/build
+    without the right permission_level
+    with no attributes
+      returns default attributes for a new estimate
+    with custom attributes
+[7] [223] Found unpermitted params: estimate_items_attributes
+      returns default and custom attributes for a new estimate
+  PUT /estimates/estimate_id
+    with the right permission_level
+      with valid estimate_id
+        with valid attributes
+          estimate
+[7] [224] Found unpermitted params: id, omit_header, client_contact_name, theme_id, sent_company_name, sent_company_address1, sent_company_address2, sent_company_address3, sent_company_town, sent_company_region, sent_company_postcode, sent_company_country, sent_company_contact_email, sent_company_contact_phone, sent_company_website, sent_company_registration_number, sent_company_vat_registration_number, sent_contact_first_name, sent_contact_last_name, sent_contact_organisation_name, sent_contact_address1, sent_contact_address2, sent_contact_address3, sent_contact_town, sent_contact_region, sent_contact_postcode, sent_contact_country, sent_contact_sales_tax_registration_number, sent_contract_po_reference, sent_estimate_involves_sales_tax, sent_estimate_involves_second_sales_tax, cached_net_value, cached_sales_tax_value, cached_second_sales_tax_value, created_at, updated_at, company_id, sent_locale, exchange_rate, sent_native_currency, show_project_name, estimate_items_attributes
+            does not have an additional estimate after one has been updated and creates an audit entry
+          estimate_items
+            POST estimate_item_id
+              have an additional estimate_item after one has been 'posted' and creates an audit entry
+            PUT estimate_item_id
+              updates the estimate item fields
+              updates estimate item sales tax statuses and creates an audit entry
+            DELETE estimate_item_id
+              deletes the estimate item
+          removing the project
+[7] [229] Found unpermitted params: estimate_items_attributes
+            removes the project from the estimate
+        with invalid attributes
+          dated_on
+[7] [230] Found unpermitted params: id, omit_header, client_contact_name, theme_id, sent_company_name, sent_company_address1, sent_company_address2, sent_company_address3, sent_company_town, sent_company_region, sent_company_postcode, sent_company_country, sent_company_contact_email, sent_company_contact_phone, sent_company_website, sent_company_registration_number, sent_company_vat_registration_number, sent_contact_first_name, sent_contact_last_name, sent_contact_organisation_name, sent_contact_address1, sent_contact_address2, sent_contact_address3, sent_contact_town, sent_contact_region, sent_contact_postcode, sent_contact_country, sent_contact_sales_tax_registration_number, sent_contract_po_reference, sent_estimate_involves_sales_tax, sent_estimate_involves_second_sales_tax, cached_net_value, cached_sales_tax_value, cached_second_sales_tax_value, created_at, updated_at, company_id, sent_locale, exchange_rate, sent_native_currency, show_project_name, estimate_items_attributes
+            has the same number of estimates after posting attempt
+      with invalid estimate_id
+        is expected to respond with a not_found status code (404)
+    without the right permission_level
+      with valid estimate_id
+        is expected to respond with status code :forbidden (403)
+  DELETE /estimates/estimate_id
+    with the right permission_level
+      with valid estimate_id
+        deleteable (not sent)
+          has one less estimate after deletion and creates an audit entry
+        not deleteable (sent)
+          has the same number of estimates after deletion attempt
+      with invalid estimate_id
+        is expected to respond with a not_found status code (404)
+    without the right permission_level
+      with valid estimate_id
+        is expected to respond with status code :forbidden (403)
+  PUT /estimates/:id/transitions/mark_as_draft
+    with the right permission_level
+      with valid estimate_id
+        allowed transition
+          creates an audit entry
+        prohibited transition
+          does not create an audit entry
+      with invalid estimate_id
+        is expected to respond with a missing status code (404)
+    without the right permission_level
+      is expected to respond with status code :forbidden (403)
+  PUT /estimates/:id/transitions/mark_as_sent
+    with the right permission_level
+      with valid estimate_id
+        allowed transition
+          creates an audit entry
+        prohibited transition due to lack of line items
+          does not create an audit entry and returns an error about the lack of line items
+      with invalid estimate_id
+        is expected to respond with a missing status code (404)
+    without the right permission_level
+      is expected to respond with status code :forbidden (403)
+  PUT /estimates/:id/transitions/mark_as_approved
+    with the right permission_level
+      with valid estimate_id
+        allowed transition
+          creates an audit entry
+        prohibited transition
+          does not create an audit entry
+      with invalid estimate_id
+        is expected to respond with a missing status code (404)
+    without the right permission_level
+      is expected to respond with status code :forbidden (403)
+  PUT /estimates/:id/transitions/mark_as_rejected
+    with the right permission_level
+      with valid estimate_id
+        allowed transition
+          creates an audit entry
+        prohibited transition
+          does not create an audit entry
+      with invalid estimate_id
+        is expected to respond with a missing status code (404)
+    without the right permission_level
+      is expected to respond with status code :forbidden (403)
+  PUT /estimates/:id/transitions/convert_to_invoice
+    should not be allowed for a draft estimate
+    should not be allowed for an already invoiced estimate
+    for a sent invoice
+      should update the estimate status and creates an audit entry
+      publishes an INVOICE_CREATED event
+    unsuccessful conversion
+      should return an error message
+  the option to exclude sales tax
+    is always provided in the api response
+[7] [259] Found unpermitted params: estimate_items_attributes
+    defaults to including sales tax when the option is not specified
+[7] [260] Found unpermitted params: estimate_items_attributes
+    correctly sets the attribute to exclude sales tax from totals when specified in the params
+[7] [261] Found unpermitted params: estimate_items_attributes
+    can be updated via a PUT request
+[7] [262] Found unpermitted params: estimate_items_attributes
+    cannot be updated once it is sent
+
+BankAccountsController
+  when viewing a bank account
+  viewing a bank account with an active non-MFA Yodlee bank feed that has a problematic service with an enabled feed
+  viewing a bank account with an active Yodlee MFA bank feed that has a problematic service
+  viewing a bank account with an active Yodlee MFA bank feed that has an unavailable service
+  viewing a bank account with an active bank feed that has an unavailable service
+  does not show the PayPal Feed section on the New PayPal Account page when the company is whitelabelled
+  A non-practice managed company
+  is OK when viewing a bank account with a transaction with no bank_account_entry
+  and when viewing the banking #index page with a whitelabelled company
+  and when uploading a bank statement while on the #index page
+  edit a bank account with a non-ASCII sort code
+  viewing a bank account with a pending non-MFA yodlee feed
+    does not assign the page view google analytics url after setup
+  viewing a bank account with an active bank feed that has a problematic service
+    indicates the service is problematic and show the status message with an enabled feed
+  Viewing a bank account with an OpenBanking bank feed
+    includes reconsent url
+    includes bank name
+    includes consent expiration information
+  editing a bank account with a bank feed
+    with an active feed
+    with a disabled feed
+  with a uk limited company's bank accounts from the fixtures
+    shows all bank accounts
+    shows unexplained transactions for bank account
+    shows new bank account form
+    shows new credit card form
+    creates bank account
+    creates paypal bank account
+    creates credit card account
+    creates primary bank account
+    shows edit form
+    redirects to the 'show' page for the template if the bank account is not editable
+    shows edit form for a credit card
+    does not display 'primary' checkbox when editing primary account
+    shows 'primary' checkbox when editing non-primary account
+    shows a checkbox for guess_enabled
+    displays 'show_on_invoices' checkbox when editing primary account
+    displays 'show_on_invoices' checkbox when editing non-primary account
+    updates bank account
+    shows the edit form if update was unsuccessful
+    destroys bank account with entries
+    allows a GoCardless bank account to be destroyed when the integration is disabled
+    last_upload
+    does not show an option for cashflow
+    with a period locked company
+      a new bank account form
+        is disabled with a zero opening balance value
+        shows a checkbox for guess_enabled, defaulting to true
+      a new credit card account form
+        is disabled with a zero opening balance value
+        shows a checkbox for guess_enabled, defaulting to true
+      new paypal account form
+        is disabled with a zero opening balance value
+  A freshly created company with a single bank account
+    is not able to delete that bank account
+    having created a secondary account
+      shows the delete account button on the secondary account's show page
+  A company with multiple bank accounts
+    when viewing the default index page
+    when viewing the index page with an account specified
+    when viewing the index page with all accounts specified
+    when viewing the index page with a series specified
+    when viewing the index page with a series and account specified
+  A company with a bank account
+    when getting balance_history.js for that bank account
+    when getting balance_history.js for all bank accounts
+    when FreeAgent start date is within the last 12 months
+      balance history uses FA start date as start date
+    with a new uploaded statement setting the credits and debits incorrectly
+      displays a link to correct the upload when getting show
+      when at least one transaction has been explained
+        does not display a link to correct the upload when getting show
+    with no uploaded statement
+      does not display a link to correct the upload when getting show
+  and when viewing the banking #index page with a brand new company
+    displays the kb article links
+    displays information about bank feeds
+    if BankFeeds::AccessChecker#available_for_company? returns false on the bank account company
+      does not display information about bank feeds
+  and when a bank statement upload completes successfully while on the #index page
+    displays a message telling the user that the statement uploaded with success
+  and when an error occurs when uploading a bank statement while on the #index page
+    displays a message telling the user that there was an error
+  Viewing a bank account with non-ASCII details
+    renders the non-ASCII details correctly
+  PUT update when enabling paypal express checkout
+    tracks events when enable_express_checkout is selected
+    does not track any events when enable_express_checkout is not selected
+  POST create when enabling paypal express checkout
+    tracks events when enable_express_checkout is selected
+    does not track any events when enable_express_checkout is not selected
+  GET index with an existing bank statement import
+    publishes the BANK_STATEMENT_UPLOADED event when the import is complete
+    does not track the BANK_STATEMENT_UPLOADED event when the import is not complete
+    publishes the BANK_STATEMENT_UPLOAD_FAILED event when the import failed
+    does not track the BANK_STATEMENT_UPLOAD_FAILED event when the import did not fail
+  GET #confirm_delete
+    deletable bank account
+      has a link to delete the bank account
+    non-deletable bank account
+      does not have a link to delete the bank account
+      gives a list of reasons why the account cannot be deleted
+  a company with multiple staff
+    GET #show
+      sets the staff_data instance variable
+  autocomplete search for bank account
+    returns matching bank accounts by name
+  #index
+    with an open banking feed
+      with all active open banking consents
+        sets expiration_warning false
+      with a consent that expires within 10 days
+        sets expiration_warning true
+      with one expired consent
+        sets expiration_warning true
+      with multiple expired consents
+        sets expiration_warning true
+      with a mix of expiring and expired consents
+        sets expiration_warning true
+    with an API bank feed
+      with an expired connection
+        sets expiration_warning true
+      with a connection that's about to expire
+        sets expiration_warning true
+      with an active connection
+        sets expiration_warning false
+      with no sca_expires_at
+        sets expiration_warning false
+    with an API bank feed and an open banking feed
+      with an active open banking consent
+        with an active API bank feed connection
+          sets expiration_warning false
+        with an expired API bank feed connection
+          sets expiration_warning true
+        with an API bank feed connection that's about to expire
+          sets expiration_warning true
+      with an expired open banking consent
+        with an active API bank feed connection
+          sets expiration_warning true
+        with an expired API bank feed connection
+          sets expiration_warning true
+        with an API bank feed connection that's about to expire
+          sets expiration_warning true
+      with an open banking consent which is about to expire
+        with an active API bank feed connection
+          sets expiration_warning true
+        with an expired API bank feed connection
+          sets expiration_warning true
+        with an API bank feed connection that's about to expire
+          sets expiration_warning true
+  #new
+    should show a 'Cancel' button
+    when a PayPal account is being created
+      and the account creation flow was initiated from the Banking area
+        has a 'Cancel' button that returns to the banking area
+      and the account creation flow was initiated from the Connection & Add-ons area
+        has a 'Cancel' button that returns to the blank slate
+  #create
+    when a bank account is being created
+      should call check_tcf_eligibility
+      should redirect to the new bank account after it has been created
+    when a PayPal account is being created
+      and the account creation flow was initiated from the Banking area
+        should redirect to the new PayPal account after it has been created
+      and the account creation flow was initiated from the Connection & Add-ons area
+        should redirect to the blank slate so that the enabled modal is shown
+  #edit
+    should show a 'Cancel' button
+  #update
+    when a bank account is being updated
+Found unpermitted params: bank_account
+      should call check_tcf_eligibility
+Found unpermitted params: bank_account
+      should redirect to the bank account after it has been updated
+    when a PayPal account is being updated
+      and the account update flow was initiated from the Banking area
+Found unpermitted params: bank_account
+        should redirect to the PayPal account after it has been updated
+  #show
+    should call display_tcf_eligible_notice
+  #enabled_for_cash_flow_horizon
+    when given a parameter of ?enabled=1
+      sets enabled_for_cash_flow_horizon on the bank account to true
+      redirects to cashflow settings
+      given another user
+ActiveRecord::RecordNotFound (Couldn't find BankAccount with 'id'=950310412 [WHERE `bank_accounts`.`company_id` = ?])
+        returns a 404
+    when given a parameter of ?enabled=0
+      sets enabled_for_cash_flow_horizon on the bank account to false
+      redirects to cashflow settings
+      given another user
+ActiveRecord::RecordNotFound (Couldn't find BankAccount with 'id'=950310416 [WHERE `bank_accounts`.`company_id` = ?])
+        returns a 404
+    when given no enabled parameter
+      returns an error
+    when an invalid enabled
+      returns an error
+
+I, [2022-12-15T10:00:29.781189 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:00:29.781260 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/models/concerns/freeagent/user_spec.rb" "spec/requests/api/estimate_integration_spec.rb" "spec/controllers/bank_accounts_controller_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+User updates their communication settings
+Capybara starting Puma...
+* Version 6.0.0 , codename: Sunflower
+* Min threads: 0, max threads: 4
+* Listening on http://0.0.0.0:9894
+[7] [378] Found unpermitted params: company, commercial_proposition_preference
+  updating commercial propositions
+[7] [379] Found unpermitted params: radar_preference_set, company, commercial_proposition_preference
+  updating email notifications
+[7] [380] Found unpermitted params: company, commercial_proposition_preference, radar_preference_set
+  updating push notifications
+  as a user without permission to visit the communication settings page
+    visiting the settings page
+  as a user with permission to visit the communication settings page
+    with no available settings
+      doesn't show the preferences link or allow visiting the page
+    with available settings
+      shows the preferences link and allows visiting the page
+
+Project Level Profit and Loss for projects in native currency
+  Adding costs and income to native currency project (VAT Registered)
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [244b87cc-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 244b87cc-a22d-45b7-9a1a-b6fc5715e95a) from staged jobs, not found
+[ActiveJob] [AccountsR…] [08fcf010-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [08fcf010-…] Failed to delete AccountsRecalculationJob (Job ID: 08fcf010-7c0f-49d0-9cf6-9eec42f2e470) from staged jobs, not found
+[ActiveJob] [AccountsR…] [6861ccc6-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [6861ccc6-…] Failed to delete AccountsRecalculationJob (Job ID: 6861ccc6-e817-4ebc-8db8-72d56e2986b2) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a UK Limited Company which was started on 2019-01-01 -> And its first accounting year ends on 2019-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And it is VAT registered from 2019-01-01 -> And the company has a project A -> And the company has the following bank transactions: -> And the company has the following bills: -> And the company has the following expenses: -> And the company has the following invoices: -> Then the P&L for 'Current Year to Date' for the project will be: -> And its profit will be £1560
+  Adding income that goes into different categories onto one invoice that is split across two projects (VAT Registered)
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [bd9b2329-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: bd9b2329-1119-4b3f-bb34-dac2a28db9b6) from staged jobs, not found
+[ActiveJob] [AccountsR…] [85461404-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [85461404-…] Failed to delete AccountsRecalculationJob (Job ID: 85461404-98fa-4ad5-939f-17bf4c7d01bb) from staged jobs, not found
+[ActiveJob] [AccountsR…] [912a5387-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [912a5387-…] Failed to delete AccountsRecalculationJob (Job ID: 912a5387-e106-4e64-9f97-efa47a542a30) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a UK Limited Company which was started on 2019-01-01 -> And its first accounting year ends on 2019-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And it is VAT registered from 2019-01-01 -> And the company has a project A -> And the company has a project B -> And there is a custom income account with code "002" and name "Secret Sales" -> And project A has a multi-project invoice that looks like: -> Then the P&L for 'Current Year to Date' for project A will be: -> And the P&L for 'Current Year to Date' for project B will be:
+  Adding costs and income to native currency project (VAT Registered Invoice basis FRS)
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [ba3f1135-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: ba3f1135-ec51-4142-8733-2b4cabdf3142) from staged jobs, not found
+[ActiveJob] [AccountsR…] [4efbdf8e-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [4efbdf8e-…] Failed to delete AccountsRecalculationJob (Job ID: 4efbdf8e-d4cc-4097-a9d3-bee66f66a75e) from staged jobs, not found
+[ActiveJob] [AccountsR…] [64db5910-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [64db5910-…] Failed to delete AccountsRecalculationJob (Job ID: 64db5910-9be0-48de-b5fd-a16bc719600c) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a UK Limited Company which was started on 2018-01-01 -> And its first accounting year ends on 2018-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And it is VAT registered from 2018-01-01 -> And it is Invoice accounting for VAT, on the "Limited cost trader" flat rate scheme -> And the company has a project A -> And the company has the following bank transactions: -> And the company has the following bills: -> And the company has the following expenses: -> And the company has the following invoices: -> Then the P&L for 'Current Year to Date' for the project will be: -> And its profit will be £1476
+  Adding costs and income to native currency project (VAT Registered Cash basis FRS)
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [0584cb6e-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 0584cb6e-87ef-42bd-885c-479989a96434) from staged jobs, not found
+[ActiveJob] [AccountsR…] [93dcc000-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [93dcc000-…] Failed to delete AccountsRecalculationJob (Job ID: 93dcc000-1776-4e5e-9a60-f3c47548db0c) from staged jobs, not found
+[ActiveJob] [AccountsR…] [30699e40-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [30699e40-…] Failed to delete AccountsRecalculationJob (Job ID: 30699e40-bad4-4b7d-9fcf-c5ab3379b891) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a UK Limited Company which was started on 2018-01-01 -> And its first accounting year ends on 2018-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And it is VAT registered from 2018-01-01 -> And it is Cash accounting for VAT, on the "Limited cost trader" flat rate scheme -> And the company has a project A -> And the company has the following bank transactions: -> And the company has the following bills: -> And the company has the following expenses: -> And the company has the following invoices: -> Then the P&L for 'Current Year to Date' for the project will be: -> And its profit will be £1474
+  Adding costs and income to native currency project (Not VAT Registered)
+[ActiveJob] [EmailMark…] [085015f2-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 085015f2-db5c-4403-85cf-473280fd8563) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a UK Limited Company which was started on 2019-01-01 -> And its first accounting year ends on 2019-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And the company has a project A -> And the company has the following bank transactions: -> And the company has the following bills: -> And the company has the following expenses: -> And the company has the following invoices: -> Then the P&L for 'Current Year to Date' for the project will be: -> And its profit will be £1472
+  Adding costs and income to native currency project (Universal, Not VAT Registered)
+[ActiveJob] [EmailMark…] [dd29a16b-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: dd29a16b-0b16-44b4-8537-6829c3208a45) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a Universal Company which was started on 2019-01-01 -> And its first accounting year ends on 2019-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And the company has a project A -> And the company has the following bank transactions: -> And the company has the following bills: -> And the company has the following expenses: -> And the company has the following invoices: -> Then the P&L for 'Current Year to Date' for the project will be: -> And its profit will be $1472
+  Adding costs and income to native currency project (Universal, VAT Registered)
+[ActiveJob] [EmailMark…] [46b191fe-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 46b191fe-a4e0-4599-bb22-cf8b56cd4240) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a Universal Company which was started on 2019-01-01 -> And its first accounting year ends on 2019-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And it is registered for PST sales tax at 3%, 6%, 9% from 2019-01-01 -> And sales tax is value added from 2019-01-01 -> And the company has a project A -> And the company has the following bank transactions: -> And the company has the following bills: -> And the company has the following expenses: -> And the company has the following invoices: -> Then the P&L for 'Current Year to Date' for the project will be: -> And its profit will be $1486
+  Adding costs and income to native currency project (Universal, VAT Registered, Second Sales Tax Rate)
+[ActiveJob] [EmailMark…] [c69d672f-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: c69d672f-825f-4bfc-b2c3-3580c471c4ae) from staged jobs, not found
+    Given the current date is 2019-07-18 -> Given a Universal Company which was started on 2019-01-01 -> And its first accounting year ends on 2019-12-31 -> And it starts using FreeAgent on 2019-01-01 -> And it is registered for PST sales tax at 3%, 6%, 9% from 2019-01-01 -> And it is registered for SST second sales tax at 2%, 4%, 6% compound from 2019-01-01 -> And sales tax is value added from 2019-01-01 -> And the company has a project A -> And the company has the following bank transactions: -> And the company has the following bills: -> And the company has the following expenses: -> And the company has the following invoices: -> Then the P&L for 'Current Year to Date' for the project will be: -> And its profit will be $1486
+
+AdminCompaniesIntegration
+  When using the admin companies page
+    viewing the index page
+    viewing the activations table
+      with new activations
+        displays today's activation breakdown
+        displays a table of activations per channel
+      with no new activations
+        shows a blank slate message
+    searching for an existing company
+      by subdomain
+        displays that company in the results
+      by name
+        displays that company in the results
+    searching for a missing company
+      displays nothing in the results
+    the entrypoint
+      is remembered
+
+Reseller
+  has correct reseller names
+  throws a FK exception when creating a company with an invalid reseller
+  has a secure code
+  is findable by secure code
+  BCSG
+    is expected to validate that :name is case-sensitively unique
+    includes a count of active resold companies in a reseller report
+    does not include test companies in a reseller report count
+Unable to cancel gocardless mandates for company: 895398052 (Oauth not enabled)
+    does not include cancelled resold companies in a reseller report count
+    orders active companies by creation date
+    with a free trial, a couple of subscribed companies, a cancelled company and a test company
+      considers free trials to be active
+      considers subscribed companies to be active
+      does not consider cancelled companies to be active
+      does not consider otherwise active companies called 'BCSG' to be active
+      correctly counts the number of active companies for the reseller
+  mixed collection of resellers
+    .reports
+      correctly computes counts of active companies for each reseller
+    #active_companies
+      lists companies that have been resold by a reseller
+      lists companies that have been resold by an RBSG reseller
+  #rbsg?
+    returns true for the four RBSG resellers (Natwest, Royal Bank of Scotland, Mettle, Ulster Bank)
+    returns false for other Resellers
+  #rbsg_brand
+    RBSG reseller
+      is expected to have attributes {:name => "Royal Bank of Scotland"}
+    non-RBSG reseller
+      is expected to eq nil
+  #mettle?
+    Mettle reseller
+      is expected to be mettle
+    RBS reseller
+      is expected not to be mettle
+  #ulster_bank?
+    Ulster Bank reseller
+      is expected to be ulster bank
+    RBS reseller
+      is expected not to be ulster bank
+
+I, [2022-12-15T10:01:03.988434 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:03.988528 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/features/settings/communication_settings_spec.rb" "spec/acceptance/project_profit_and_loss/native_currencies.feature" "spec/requests/admin/admin_companies_integration_spec.rb" "spec/models/reseller_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Enable Yodlee Feed
+[ActiveJob] [EmailMark…] [f0a12bb6-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: f0a12bb6-b192-4d47-920d-e03379a83677) from staged jobs, not found
+[ActiveJob] [YodleeVer…] [b2f58a82-…] Failed to delete YodleeVerifyBankAccountsReadyJob (Job ID: b2f58a82-185c-45bf-be44-139596b1a181) from staged jobs, not found
+[ActiveJob] [YodleeImp…] [9ed19372-…] [BankFeedC…] [fdfbe995-…] Failed to delete BankFeedConsumerJob (Job ID: fdfbe995-7107-4271-9599-5eb4e2745d5f) from staged jobs, not found
+[ActiveJob] [YodleeImp…] [9ed19372-…] [BankFeedC…] [8b4f0107-…] BankFeedConsumer: Detected duplicate statement for BankFeed 82. Skipping processing.
+[ActiveJob] [YodleeImp…] [9ed19372-…] [BankFeedC…] [8b4f0107-…] BankFeedConsumer: Received statement for BankFeed 82. Statement id: 9999, Customer reference suffix: 2a13f, Account reference suffix: 1234, Acct number suffix: , Source: yodlee, Transactions count: 0
+[ActiveJob] [YodleeImp…] [9ed19372-…] [BankFeedC…] [8b4f0107-…] Failed to delete BankFeedConsumerJob (Job ID: 8b4f0107-f65d-48fe-a924-dd5da71dc3ad) from staged jobs, not found
+[ActiveJob] [YodleeImp…] [9ed19372-…] Failed to delete YodleeImportJob (Job ID: 9ed19372-7a2f-4e98-8bd5-b0c8e41ba502) from staged jobs, not found
+  from blank slate
+
+Radar::TodoItems::AccountWithUnexplainedTransactions
+  behaves like an admin todo item
+    has a applies? class method
+    has a done? method
+    has an active? method
+    has a message description
+    has a url method
+    has a track_action method
+    has a type method
+    has a details method
+    has a should_renotify_users? method
+    has a min_user_level method
+    has a display_priority method with a value in range
+    has a should_notify? method
+  .applies?
+    is true given a correct dependency type
+    given an incorrect dependency type
+      is false
+  #view_type
+    is expected to eq "explain_transactions"
+  #description
+    with one unexplained transaction
+      is expected to eq "Explain 1 Natwest bank transaction"
+    with more than one transaction
+      is expected to eq "Explain 2 Natwest bank transactions"
+    when the todo item is completed
+      is expected to eq "All Natwest bank transactions explained"
+  #url
+    is expected to match /\/bank_accounts\/\d+\?type=unexplained&view=all/
+  #track_action
+    is expected to eq "ADMIN_TODO_EXPLAIN_TRANSACTIONS"
+  #transaction_count
+    with one unexplained transaction
+      is expected to eq 1
+    with more than one transaction
+      is expected to eq 2
+  #calculated_details
+    with no added transactions
+      is expected to eq {:count=>0}
+    when there is one unexplained transactions
+      is expected to eq {:count=>1}
+    when there are two unexplained transactions
+      is expected to eq {:count=>2}
+  #active?
+    when there are no unexplained explained
+      is expected to equal false
+    when there are unexplained transactions
+      is expected to equal true
+    when the unexplained transaction is locked
+      is expected to equal false
+  #should_renotify_users?
+    and the new details have more transactions
+      is expected to equal true
+    and the new details have the same number of transactions
+      is expected to equal false
+    and the new details have fewer transactions
+      is expected to equal false
+    when new details is calculated using calculated details
+      doesn't raise an error
+  #min_user_level
+    is expected to eq 7
+  admin todo manager integration
+    with an unexplained transaction
+      persists the todos and returns the correct admin to do
+      when the number of unexplained transactions changes
+        updates the admin todo item
+      with an account manager
+        persists the todos and returns the correct admin to do
+      with a user who doesn't have permission to view the admin todo list
+        doesn't persist any todos
+    with a transaction for review another unexplained
+      persists the todos and returns the correct admin to do
+
+Migrate from RBSG to FAPDRBSG
+  migrates successfully
+  does not show the link for practice managed subscriptions
+
+Paypal::PaypalFeed
+  includes foreign currency refunds which have been held
+  handles an empty search result
+  An account with one GBP transaction
+    should return the transaction
+  An account with foreign currency transactions
+    should return one transaction
+    should convert the amount to GBP
+  An account with foreign expense
+    should return one transaction
+    should convert the amount to GBP
+  An account with an out-of-order foreign expense
+    should return one transaction
+    should convert the amount to GBP
+  An account with another case of out-of-order foreign expense
+    should return one transaction
+    should convert the amount to GBP
+  An account with an incomplete currency conversion
+    should return no transactions
+  An account with a transaction paid by partial currency conversion
+    USD account
+      has a transaction to cover the conversion
+    GBP account
+      has another transaction to make up the difference
+  An account with a transfer
+    should return the transaction
+  complete_details
+    should markup missing fees
+  with duplicate fees
+    should only return the payment
+  with duplicate fee reversal
+    should only return the payment
+  a 'Pending Balance Payment' transaction
+    should be filtered from the list of transactions
+  an 'Authorization' transaction
+    is filtered from the list of transactions
+  Fetching transactions
+    single page fetch_transactions
+      should get one page
+    multiple page fetch_transactions
+      should get two pages
+    multiple page fetch_transactions with duplicate and multiple passes
+      should get two pages
+    fetch_transactions encountering a missing transaction timestamp
+      should report details of the offending transaction
+    get_transactions(@account.paypal_sync_date_range) is unauthorised
+      should raise error
+
+I, [2022-12-15T10:01:19.423967 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:19.424053 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/features/bank_feeds/yodlee_feed_spec.rb" "spec/models/radar/todo_items/account_with_unexplained_transactions_spec.rb" "spec/features/admin/migrate_to_fapdrbsg_spec.rb" "spec/models/paypal/paypal_feed_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+api/bank_integrations/_bank_integrations_common.rbapi
+  bank_integration details
+    are included
+  authorised_accounts
+    authorised_accounts not expired
+      are all included
+      contain the expected values
+      contains the expected linked_bank_account values
+    authorised_accounts expired
+      has an expiry date in the past
+    with no account_integration
+      does not have bank_account details
+    bank account provisioning
+      knows if a bank account was provisioned
+      knows if a bank account was not provisioned
+      still works when we don't know if a bank account was provisioned
+      knows the connection status for accounts we tried to link
+      doesn't show connection status for authorised accounts we didn't try to link
+
+Banking::Guess::ExplanationTracker
+  creates a GuessedExplanation
+  takes an optional source_explanation parameter
+  publishes explanation created event with invoice id
+  publishes explanation created event with bill id
+  publishes explanation created event with linked transfer explanation id
+  publishes explanation created event with source explanation id
+  publishes whether the explanation was auto-approved
+
+EmailTemplate
+  when validating an EmailTemplate
+    is expected not to allow :template_type to be ‹"abcd"›
+    is expected not to allow :template_type to be ‹1234›
+    is expected to allow :template_type to be ‹"new_invoice"›
+    is expected to allow :template_type to be ‹"reminder"›
+    is expected to allow :template_type to be ‹"quick_send_reminder"›
+    is expected to allow :template_type to be ‹"thank_you"›
+    is expected to validate that :subject cannot be empty/falsy
+    is expected to validate that :body cannot be empty/falsy
+    is expected to validate that :from cannot be empty/falsy
+    is expected to validate that :to cannot be empty/falsy
+    is expected to validate that :company cannot be empty/falsy
+    is expected not to allow :to to be ‹"blah"› or ‹"blah, test@test.com"›
+    is expected not to allow :from to be ‹"Prince Ali <prince.ali@whitehouse.com>"›
+    allows macros in 'to' field
+    when validating recipient limit
+      allows multiple comma-separated email addresses
+      allows multiple fails if the number of address exceeds the account limit
+    when validating email template documents
+      when validating the owner of the documents
+        with documents owned by the same company
+          is expected to eql
+        with documents owned by a different company
+          is expected to eql "do not belong to you!"
+      when the email template has an invalid document
+        is expected to include "is invalid"
+      when attaching multiple documents to an email_template
+        when attaching the maximum number of documents allowed
+          is expected not to include "Too many attachments! You can send a maximum of 10"
+        when attaching more documents than allowed
+          is expected to include "Too many attachments! You can send a maximum of 10"
+  when sanitizing the email content
+    when the subject has emojis and text
+      stores the emoji from the subjects and keeps other unicode characters
+    when the subject has only emojis
+      accepts subjects only with emojis
+    when the body has emojis and text
+      stores the emoji from the body and keeps other unicode characters
+    when the body has only emojis
+      accepts messages only with emojis
+    when the body has extra white space before and after text
+      strips surrounding whitespace from email_template body
+    when the body is surrounded by a combination of whitespace and non-breaking whitespace
+      strips surrounding non breaking whitespace from email_template body
+    when theb body contains only html tags
+      is expected to raise ActiveRecord::RecordInvalid
+  #email_attributes
+    when the email_payment_button feature switch is disabled
+      is expected to eq {:body=>"Message", :category=>"invoice", :document_ids=>[1261], :email_to_sender=>false, :from=>"Jerry Smith <jerry.smith@c137.com>", :subject=>"Default Subject", :to=>"olly@lylo.co.uk"}
+    when the email_payment_button feature switch is enabled
+      is expected to eq {:body=>"Message", :category=>"invoice", :document_ids=>[1273], :email_to_sender=>false, :from=>"Jerr...mith@c137.com>", :include_payment_button=>true, :subject=>"Default Subject", :to=>"olly@lylo.co.uk"}
+  #payment_methods
+    is expected to be a kind of EmailTemplate::PaymentMethods
+
+properties/expenses/index
+  when there are expenses sources
+    renders a list of expenses sources
+  when there are no expenses sources
+    shows a message explaining why
+
+GettingStarted::OpenBankingSetupsController
+  #show
+    renders the open banking setups template
+    with the bank services being beta services
+      redirects to open_banking_banking_details
+    with the bank institution not having an open banking service
+      redirects to open_banking_banking_details
+  #update
+    creates a bank account
+    redirects to open banking authorise url
+    publishes an event
+    when there is an error in consent creation
+      renders the show page
+      sets a flash error message
+
+I, [2022-12-15T10:01:28.368397 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:28.368463 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/views/api/bank_integrations/_bank_integration_common_spec.rb" "spec/models/banking/guess/explanation_tracker_spec.rb" "spec/models/email_template_spec.rb" "spec/views/properties/expenses/index.html.erb_spec.rb" "spec/controllers/getting_started/open_banking_setups_controller_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:69:6:1"], "./spec/models/uk_accounts_mapper_spec.rb"=>["1:3:1:1:2:7:4:3"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Invoice
+  A VAT-registered UK company
+    with a written off invoice not involving sales tax
+      does not switch to involving sales tax when changing the status to sent
+
+UkAccountsMapper
+  Accounts Mapper for UK companies who are VAT registered
+    on the cash accounting basis
+      not on the Flat Rate Scheme
+        Bank Account Entries
+          for the payment of a bill
+            representing out of VAT scope admin expense
+Scoped order is ignored, it's forced to be batch order.
+              posts one ledger entry to the bank account for the gross value
+
+recurring_invoices/new
+  for a non-landlord company
+    does not show any property related fields or drop-downs
+  for a landlord company
+    has the correct fields and sections
+    which already has properties, contacts and projects
+      has the correct fields and sections
+    which already has properties but no contacts
+      has the correct fields and sections
+    which already has contacts but no properties
+      has the correct fields and sections
+
+Subscription::AccountancyPracticeUnlinker
+  #unlink!
+    with a company without an account manager
+      rejects attempt to unlink the company
+    with a linked company
+      allows the account manager to be removed to unlink company from the practice dashboard
+      deletes the PracticeClient::Relationship
+    with a practice managed company
+      rejects attempt to unlink
+    with a CoPilot enabled company
+      rejects attempt to unlink
+
+vat_transactions/vat_purchases
+  tooltips
+    a VAT return starting before Brexit
+      has the correct tooltip for box 9
+      has the correct tooltip for box 4
+    a VAT return starting after Brexit
+      has the correct tooltip for box 9
+      has the correct tooltip for box 4
+
+I, [2022-12-15T10:01:32.215957 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:32.216032 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/models/invoice_spec.rb[1:69:6:1]" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:1:2:7:4:3]" "spec/views/recurring_invoices/new.html.erb_spec.rb" "spec/models/subscription/accountancy_practice_unlinker_spec.rb" "spec/views/vat_transactions/vat_purchases.html.erb_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Admin::Companies::HMRCController
+  #index
+    assigns the company and latest_vat_registration
+    when the company has setup payroll
+      assigns latest_payroll_period
+    when the company has not setup payroll
+      assigns latest_payroll_period to nil
+    when the company is a limited company
+      with no year ends
+        assigns current_year_end to nil
+      with one incomplete year end
+        assigns the current year end to the incomplete year end
+      with one complete and one incomplete year end
+        assigns the current year end to the incomplete year end
+    when the company is not a limited company
+      does not assign current_year_end
+
+Api::Estimates::DefaultAdditionalTextController
+  GET :default_additional_text
+    a valid request - default additional text not set
+      returns 200 and empty response is returned
+    a valid request - default additional text exists
+      returns 200 and company default estimate additional text is returned
+    invalid request - user does not have permissions
+      returns 403 forbidden error
+  PUT :default_additional_text
+    a valid request
+      returns 200 and default_additional_text is updated
+    invalid request - no payload
+      returns 400 and an error
+    invalid request - user does not have permissions
+      returns 403 forbidden error
+  DELETE :default_additional_text
+    a valid request
+      returns 200 and company default estimate additional text is nil
+    invalid request - user does not have permissions
+      returns 403 forbidden error
+
+Admin::AccountOwnerChangesController
+  GET :new
+    only has eligible users in the list
+    redirects to the unauthorised page if the user has no permissions
+  POST create
+    changes the account owner to an eligible user
+    redirects to the unauthorised page if the user has no permissions
+Unable to change the account owner: {:new_account_owner=>["is not eligible to become an account owner"]}
+    rejects an ineligible user
+Unable to change the account owner: {:new_account_owner=>["is not eligible to become an account owner"]}
+    rejects an accountant
+    for a CoPilot subscribed company
+      updates the message thread to subscribe an eligible user
+      unsubscribes the previous account manager
+
+Admin::VatReturnUnlockerJob
+  #perform
+    the status of the unlocker is unlocking
+Scoped order is ignored, it's forced to be batch order.
+      unlocks the VAT return with the correct admin user
+    the status of the unlocker is not unlocking
+      unlocks the VAT return and cleans up the admin user
+    when a VatUnlockError is raised while unlocking the vat return
+      log an error, but does not alert
+
+I, [2022-12-15T10:01:38.062954 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:38.063024 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/controllers/admin/companies/hmrc_controller_spec.rb" "spec/controllers/api/estimates/default_additional_text_spec.rb" "spec/controllers/admin/account_owner_changes_controller_spec.rb" "spec/jobs/admin/vat_return_unlocker_job_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/uk_accounts_mapper_spec.rb"=>["1:3:1:1:2:1:1"], "./spec/models/invoice_spec.rb"=>["1:56:2:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Guess::ExcludedTermsController
+  #index
+    sets the excluded term variable
+  #new
+    renders the modal
+    with term set
+      renders the modal
+      contains the term passed in
+  #remote_new
+    renders the modal
+    with term set
+      renders the modal
+      contains the term passed in
+  #edit
+    renders the modal
+  #create
+    POST as html
+      creates new terms
+      shows an error when something goes wrong
+    POST as JS
+      creates new terms
+      shows an error when something goes wrong
+  #update
+    updates the term
+    shows an error when something goes wrong
+  #destroy
+    destroys the term
+
+admin/bank_feeds/index
+  renders "1 Feed Disabled" when @feeds contains a single disabled feed
+  renders open banking support access disabled details
+  renders open banking support access enabled details
+
+UkAccountsMapper
+  Accounts Mapper for UK companies who are VAT registered
+    on the cash accounting basis
+      not on the Flat Rate Scheme
+        Bank Account Entries
+          representing income
+Scoped order is ignored, it's forced to be batch order.
+            associated with a account
+
+Invoice
+  An over-refunded credit note
+    when the refund is removed
+      marks the credit note as unpaid
+
+I, [2022-12-15T10:01:40.975052 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:40.975149 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/controllers/guess/excluded_terms_controller_spec.rb" "spec/views/admin/bank_feeds/index.html.erb_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:1:2:1:1]" "spec/models/invoice_spec.rb[1:56:2:1]"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:108:4:1", "1:1:2"], "./spec/controllers/invoices_controller_spec.rb"=>["7:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+admin/dev_dashboard/apps/cards/_app_card
+  renders an app information partial from a response
+  checks the api enabled conditional when api_enabled is true
+  checks the api enabled conditional when api_enabled is false
+  checks the practice enabled conditional when practice_enabled is true
+  checks the practice enabled conditional when practice_enabled is false
+
+Invoice
+  default settings
+    is expected to have many expenses through invoice_items
+  with a CIS category
+    on a written off invoice
+      can't be changed
+
+RecurringInvoiceProfileItemsController GET #new
+  returns the modal for the invoice item
+  when a price list item id is sent
+    uses the price list item to populate the new recurring invoice profile item
+  when requesting html
+    responds with as an unacceptable request
+
+InvoicesController GET show with an invoice with 'always_show_bic_and_iban'
+  displays the bic and iban numbers if set on the primary bank account
+
+Accounting::YearEndApprovedEmailJob
+  #perform
+    sends the email
+    when the year end has been deleted
+      does not send the emails
+
+Importer::Sanitiser
+  .sanitise_row
+    is expected to be a kind of CSV::Row
+    sanitises a csv row
+  .sanitise_array!
+    is expected to eq ["Awesome Header", "Awesome Field"]
+  .sanitise_string
+    is expected to eq "Awesome Header,Awesome Field"
+    when sanitising a string
+      is expected to eq "Only one value"
+    when spliting the csv we have a empty string as result
+      is expected to eq "Awesome"
+    when passing an empty string
+      is expected to eq ""
+    when passing a nil value
+      is expected to eq ""
+
+Contacts::VcardsController
+  when downloading the VCards
+  download VCard for a single contact
+
+I, [2022-12-15T10:01:43.971960 #244]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:43.972033 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/views/admin/dev_dashboard/apps/cards/_app_card.html.erb_spec.rb" "spec/models/invoice_spec.rb[1:108:4:1]" "spec/controllers/recurring_invoice_profile_items_controller/new_spec.rb" "spec/controllers/invoices_controller_spec.rb[7:1]" "spec/jobs/accounting/year_end_approved_email_job_spec.rb" "spec/integrations/importer/sanitiser_spec.rb" "spec/controllers/contacts/vcards_controller_spec.rb" "spec/models/invoice_spec.rb[1:1:2]"
+Knapsack Pro Queue finished!
+
+
+Finished in 2 minutes 19.4 seconds
+635 examples, 0 failures
+I, [2022-12-15T10:01:43.994209 #244]  INFO -- : [knapsack_pro] To retry all the tests assigned to this CI node, please run the following command on your machine:
+I, [2022-12-15T10:01:43.994323 #244]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_38.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_38.xml --default-path spec "spec/models/concerns/freeagent/user_spec.rb" "spec/requests/api/estimate_integration_spec.rb" "spec/controllers/bank_accounts_controller_spec.rb" "spec/features/settings/communication_settings_spec.rb" "spec/acceptance/project_profit_and_loss/native_currencies.feature" "spec/requests/admin/admin_companies_integration_spec.rb" "spec/models/reseller_spec.rb" "spec/features/bank_feeds/yodlee_feed_spec.rb" "spec/models/radar/todo_items/account_with_unexplained_transactions_spec.rb" "spec/features/admin/migrate_to_fapdrbsg_spec.rb" "spec/models/paypal/paypal_feed_spec.rb" "spec/views/api/bank_integrations/_bank_integration_common_spec.rb" "spec/models/banking/guess/explanation_tracker_spec.rb" "spec/models/email_template_spec.rb" "spec/views/properties/expenses/index.html.erb_spec.rb" "spec/controllers/getting_started/open_banking_setups_controller_spec.rb" "spec/models/invoice_spec.rb[1:69:6:1]" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:1:2:7:4:3]" "spec/views/recurring_invoices/new.html.erb_spec.rb" "spec/models/subscription/accountancy_practice_unlinker_spec.rb" "spec/views/vat_transactions/vat_purchases.html.erb_spec.rb" "spec/controllers/admin/companies/hmrc_controller_spec.rb" "spec/controllers/api/estimates/default_additional_text_spec.rb" "spec/controllers/admin/account_owner_changes_controller_spec.rb" "spec/jobs/admin/vat_return_unlocker_job_spec.rb" "spec/controllers/guess/excluded_terms_controller_spec.rb" "spec/views/admin/bank_feeds/index.html.erb_spec.rb" "spec/models/uk_accounts_mapper_spec.rb[1:3:1:1:2:1:1]" "spec/models/invoice_spec.rb[1:56:2:1]" "spec/views/admin/dev_dashboard/apps/cards/_app_card.html.erb_spec.rb" "spec/models/invoice_spec.rb[1:108:4:1]" "spec/controllers/recurring_invoice_profile_items_controller/new_spec.rb" "spec/controllers/invoices_controller_spec.rb[7:1]" "spec/jobs/accounting/year_end_approved_email_job_spec.rb" "spec/integrations/importer/sanitiser_spec.rb" "spec/controllers/contacts/vcards_controller_spec.rb" "spec/models/invoice_spec.rb[1:1:2]"
+2022-12-15T10:01:44.038Z pid=244 tid=9rw INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}

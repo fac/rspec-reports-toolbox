@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe TestRun::SpecReports do
-  let(:test_run) { TestRun.new(123, 1) }
+  let(:test_run) { TestRun.new(3702976218, 1) }
   let(:spec_reports) { TestRun::SpecReports.new(test_run) }
 
   before do
     allow(ENV).to receive(:fetch)
                     .with("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
-                    .and_return("spec/fixtures")
+                    .and_return("./spec/fixtures")
   end
 
   describe "#initialize" do
@@ -19,9 +19,9 @@ RSpec.describe TestRun::SpecReports do
   describe "#overall_summary" do
     it "reads all the files to get the overall summary" do
       expected = {
-        "duration" => 224.079857726,
-        "example_count" => 54237,
-        "failure_count" => 0,
+        "duration" => 387.367279796,
+        "example_count" => 54147,
+        "failure_count" => 1,
         "pending_count" => 3,
       }
 
@@ -37,10 +37,10 @@ RSpec.describe TestRun::SpecReports do
       expect(per_dir_summary.keys).to include("spec/freeagent")
 
       expected_dir_summary = {
-        "example_count" => 2586,
+        "example_count" => 2528,
         "failure_count" => 0,
         "pending_count" => 0,
-        "duration" => 7.68,
+        "duration" => 7.56,
       }
 
       expect(per_dir_summary.fetch("spec/freeagent")).to eq(expected_dir_summary)

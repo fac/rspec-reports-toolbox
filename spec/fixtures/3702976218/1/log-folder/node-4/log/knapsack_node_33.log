@@ -1,0 +1,665 @@
+I, [2022-12-15T09:58:57.179920 #246]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual 'it's. Thanks to that a single slow test file can be split across parallel CI nodes). Analyzing 7 slow test files.
+2022-12-15T09:59:13.078Z pid=314 tid=9ly INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Audit Trail Report
+  Audit trail report view
+Capybara starting Puma...
+* Version 6.0.0 , codename: Sunflower
+* Min threads: 0, max threads: 4
+* Listening on http://0.0.0.0:9889
+[2] [0] Found unpermitted params: audit_trail
+[2] [0] Found unpermitted params: audit_trail
+    User can see their audits for their company and view a full history for each item
+[2] [1] Found unpermitted params: audit_trail
+[2] [1] Found unpermitted params: audit_trail
+[2] [1] Found unpermitted params: audit_trail
+    User can search and filter their results
+[2] [2] Found unpermitted params: audit_trail
+[2] [2] Found unpermitted params: audit_trail
+    Search, filters, and per_page are preserved when User changes sort order
+[2] [3] Found unpermitted params: audit_trail
+[2] [3] Found unpermitted params: audit_trail
+    Search and filters are preserved when User changes number of audit entries per page
+[2] [4] Found unpermitted params: audit_trail
+[2] [4] Found unpermitted params: audit_trail
+[2] [4] Found unpermitted params: audit_trail
+[2] [4] Found unpermitted params: audit_trail
+    Sort order, direction, and per_page are preserved when User changes search query or filters
+[2] [5]   
+[2] [5] [2] [5] NoMethodError (undefined method `[]' for nil:NilClass
+[2] [5] 
+[2] [5]       @json["hits"]["total"].is_a?(Numeric) ? @json["hits"]["total"] : @json["hits"]["total"]["value"]
+[2] [5]            ^^^^^^^^):
+[2] [5] [2] [5]   
+[2] [5] [2] [5] app/controllers/concerns/collection_from_search.rb:22:in `block in collection_from_search'
+[2] [5] [2] [5] app/controllers/concerns/collection_from_search.rb:21:in `collection_from_search'
+[2] [5] [2] [5] app/controllers/accounting/audit_trail_controller.rb:99:in `search_using_elasticsearch'
+[2] [5] [2] [5] app/controllers/accounting/audit_trail_controller.rb:26:in `index'
+[2] [5] [2] [5] app/controllers/concerns/current_context_setting.rb:28:in `set_current_context'
+[2] [5] [2] [5] app/controllers/concerns/reset_locale.rb:12:in `block in with_default_locale'
+[2] [5] [2] [5] app/controllers/concerns/reset_locale.rb:11:in `with_default_locale'
+[2] [5] [2] [5] lib/middleware/additional_log_fields_middleware.rb:12:in `block in call'
+[2] [5] [2] [5] lib/middleware/additional_log_fields_middleware.rb:11:in `call'
+[2] [5] [2] [5] lib/middleware/datadog_tagging_middleware.rb:12:in `call'
+[2] [5] [2] [5] lib/middleware/handle_malformed_strings_middleware.rb:19:in `call'
+[2] [5] [2] [5] lib/middleware/api_error_rescue_middleware.rb:8:in `call'
+[2] [5] [2] [5] lib/middleware/handle_invalid_request_middleware.rb:15:in `call'
+[2] [5] [2] [5] lib/middleware/credit_card_statement_sanitiser_middleware.rb:21:in `call'
+[2] [5] [2] [5] lib/middleware/version_middleware.rb:11:in `call'
+    Google Analytics events are tracked for any configured filters
+[2] [6] Found unpermitted params: audit_trail
+    User sees empty report message when there are no audit entries recorded in their account
+[2] [7] Found unpermitted params: audit_trail
+[2] [7] Found unpermitted params: audit_trail
+    User sees no results message when there are no results when filtering/searching
+    audit_trail_search feature flag is disabled
+      Unavailable warning message is displayed
+
+My Details
+[2] [9] Found unpermitted params: security_notifications
+[2] [9] Found unpermitted params: security_notifications
+[2] [9] Found unpermitted params: security_notifications
+[ActiveJob] [Jobs::Mai…] [33462ad9-…] Failed to delete Jobs::MailerJob (Job ID: 33462ad9-fcc1-42b9-b4b9-e7b50172579c) from staged jobs, not found
+[ActiveJob] [Jobs::Mai…] [04107106-…] Failed to delete Jobs::MailerJob (Job ID: 04107106-a0a5-42de-b1ff-185d0482b904) from staged jobs, not found
+  updating personal details
+[2] [10] Found unpermitted params: security_notifications
+  trying to update required fields with empty inputs
+[2] [11] Found unpermitted params: security_notifications
+  trying to update with bad email
+  cancelling changes
+  with 2FA enabled
+[2] [13] Found unpermitted params: security_notifications
+    trying to change name to empty string
+  when accessed from the account managers page
+[2] [14] Found unpermitted params: security_notifications
+[2] [14] Found unpermitted params: security_notifications
+[2] [14] Found unpermitted params: security_notifications
+    updating personal user details
+    cancelling changes
+  when changing passwords from the account managers page
+[2] [16] Found unpermitted params: security_notifications
+[2] [16] Found unpermitted params: security_notifications
+[2] [16] Found unpermitted params: security_notifications
+[ActiveJob] [Jobs::Mai…] [5c50fb4d-…] Failed to delete Jobs::MailerJob (Job ID: 5c50fb4d-f687-45c9-a42e-d8d75baf4d05) from staged jobs, not found
+    changing password
+    blocking a compromised password
+    blocking a compromised password check fields are preserved
+[2] [19] Found unpermitted params: security_notifications
+[2] [19] Found unpermitted params: security_notifications
+[2] [19] Found unpermitted params: security_notifications
+[ActiveJob] [Jobs::Mai…] [abc67b87-…] Failed to delete Jobs::MailerJob (Job ID: abc67b87-787e-4312-96ae-ac98418e079e) from staged jobs, not found
+    blocking a compromised password check feature disabled
+
+Accounting::FinalAccounts::Mailer
+  #submission_filed
+    behaves like a final accounts mailer
+      with a direct company
+        sets the recipient correctly
+        sets the subject correctly
+        sets reply_to correctly
+        sets the sender correctly
+        sends the email with the correct body text
+        sets the return path correctly
+      with a practice managed company
+        which is not whitelabelled
+          sets the recipient correctly
+          sets the subject correctly
+          sets reply_to correctly
+          sets the sender correctly
+          sends the email with the correct body text
+          sets the return path correctly
+        which is whitelabelled
+          sends the email with the correct body text
+          sets the return path correctly
+          behaves like it sets the right headers
+            sets the recipient correctly
+            sets the subject correctly
+            sets reply_to correctly
+            sets the sender correctly
+  #submission_rejected
+    behaves like a final accounts mailer
+      with a direct company
+        sets the recipient correctly
+        sets the subject correctly
+        sets reply_to correctly
+        sets the sender correctly
+        sends the email with the correct body text
+        sets the return path correctly
+      with a practice managed company
+        which is not whitelabelled
+          sets the recipient correctly
+          sets the subject correctly
+          sets reply_to correctly
+          sets the sender correctly
+          sends the email with the correct body text
+          sets the return path correctly
+        which is whitelabelled
+          sends the email with the correct body text
+          sets the return path correctly
+          behaves like it sets the right headers
+            sets the recipient correctly
+            sets the subject correctly
+            sets reply_to correctly
+            sets the sender correctly
+  #submission_status_check_failed
+    behaves like a final accounts mailer
+      with a direct company
+        sets the recipient correctly
+        sets the subject correctly
+        sets reply_to correctly
+        sets the sender correctly
+        sends the email with the correct body text
+        sets the return path correctly
+      with a practice managed company
+        which is not whitelabelled
+          sets the recipient correctly
+          sets the subject correctly
+          sets reply_to correctly
+          sets the sender correctly
+          sends the email with the correct body text
+          sets the return path correctly
+        which is whitelabelled
+          sends the email with the correct body text
+          sets the return path correctly
+          behaves like it sets the right headers
+            sets the recipient correctly
+            sets the subject correctly
+            sets reply_to correctly
+            sets the sender correctly
+
+I, [2022-12-15T10:00:46.469524 #246]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:00:46.469598 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/features/accounting/audit_trail_report_spec.rb" "spec/features/practice_dashboard/my_details_spec.rb" "spec/mailers/accounting/final_accounts/mailer_spec.rb"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Opening Balances
+  a company with journals and opening balances
+    has 1 balanced journal set
+    has balancing accounts
+    when changing the opening bank balance
+      automatically balances the opening balances journal set
+      has balancing accounts
+      and changing it back
+        automatically balances the opening balances journal set
+        has balancing accounts
+    when changing an opening balance journal
+      automatically balances the opening balances journal set
+      has balancing accounts
+    when changing a stock item opening balance
+      automatically balances the opening balances journal set
+      has balancing accounts
+    when adding a new stock item
+      automatically balances the opening balances journal set
+      has balancing accounts
+    when adding a new bank account
+      automatically balances the opening balances journal set
+      has balancing accounts
+
+Invoicing::PortionPaymentCollection
+  #fetch
+    using ordered payments
+      apportions payments after CIS deductions, in portion order
+      returns the totals less CIS deductions and payments as the due amounts
+      invoice is active
+        returns zero for the written-off amounts
+    using proportional payments
+      apportions payments after CIS deductions, in portion order
+      returns the totals less CIS deductions and payments as the due amounts
+      invoice is active
+        returns zero for the written-off amounts
+    invoice has been written-off
+      using ordered payments
+        returns the totals less suffered CIS deductions and payments for the written-off amounts
+      using proportional payments
+        returns the totals less suffered CIS deductions and payments for the written-off amounts
+
+VAT Payable
+  with VAT due, and insufficient funds
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [dd4e777f-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: dd4e777f-2a76-4c49-8093-9a8c8c10a1f5) from staged jobs, not found
+[ActiveJob] [AccountsR…] [16ec4760-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [16ec4760-…] Failed to delete AccountsRecalculationJob (Job ID: 16ec4760-a7c7-4104-8f59-16acda293c54) from staged jobs, not found
+[ActiveJob] [Accountin…] [ae15f501-…] Failed to delete Accounting::VatReturnRecalculationJob (Job ID: ae15f501-9e08-4d01-880e-77e71def0d41) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [e09643f4-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: e09643f4-ceda-400a-866f-97946deaafe3) from staged jobs, not found
+    renders the VAT payment details and appropriate copy
+    when the VatPayable rule does not apply
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [f3edc420-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: f3edc420-b51b-4349-b801-30df601387f6) from staged jobs, not found
+[ActiveJob] [AccountsR…] [246cd817-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [246cd817-…] Failed to delete AccountsRecalculationJob (Job ID: 246cd817-5e49-4c72-bf27-d8bbfc0a9c7b) from staged jobs, not found
+[ActiveJob] [Accountin…] [24ed245d-…] Failed to delete Accounting::VatReturnRecalculationJob (Job ID: 24ed245d-7b99-4e93-a3ed-434a8d91597a) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [348b8ad3-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 348b8ad3-af0f-4d3a-ab9d-56f0ea40b89f) from staged jobs, not found
+      renders appropriate copy
+    when the VatPayable rule applies
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [552933f0-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 552933f0-cad4-40cc-a2f7-a0c9e5aad7c8) from staged jobs, not found
+[ActiveJob] [AccountsR…] [533870e3-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [533870e3-…] Failed to delete AccountsRecalculationJob (Job ID: 533870e3-4a74-4101-b7e3-821332659d59) from staged jobs, not found
+[ActiveJob] [Accountin…] [fcdd0fbe-…] Failed to delete Accounting::VatReturnRecalculationJob (Job ID: fcdd0fbe-213a-4e64-b9ce-534401b5f2cc) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [32c4027c-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 32c4027c-0cb7-48ff-b5ea-6b0aa166d1c9) from staged jobs, not found
+      renders appropriate copy
+    when the VatPayable rule has expired
+      but it still applies
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [c4b99787-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: c4b99787-52a8-44c7-8657-952e8414f1f8) from staged jobs, not found
+[ActiveJob] [AccountsR…] [52f7337f-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [52f7337f-…] Failed to delete AccountsRecalculationJob (Job ID: 52f7337f-c7e3-42db-a2e5-fb3cbb25367a) from staged jobs, not found
+[ActiveJob] [Accountin…] [66e5dde8-…] Failed to delete Accounting::VatReturnRecalculationJob (Job ID: 66e5dde8-1831-4e00-89a0-cc7b29bbecc9) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [d5d225c6-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: d5d225c6-8c91-467b-b091-a4aa5aae1ab4) from staged jobs, not found
+        renders appropriate copy
+      and it does not apply
+Scoped order is ignored, it's forced to be batch order.
+[ActiveJob] [EmailMark…] [d7b9c00a-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: d7b9c00a-5406-4255-a255-e9577413a2ed) from staged jobs, not found
+[ActiveJob] [AccountsR…] [9fd1ab9d-…] Unexpected company rebuilding state ''
+[ActiveJob] [AccountsR…] [9fd1ab9d-…] Failed to delete AccountsRecalculationJob (Job ID: 9fd1ab9d-07ca-4e44-b0ee-f05c352bfdfc) from staged jobs, not found
+[ActiveJob] [Accountin…] [40ec6d95-…] Failed to delete Accounting::VatReturnRecalculationJob (Job ID: 40ec6d95-0421-4477-8100-7e82f82a48f0) from staged jobs, not found
+[ActiveJob] [BulkOpera…] [93712160-…] Failed to delete BulkOperation::Radar::RuleEvaluationBatchJob (Job ID: 93712160-c120-45a6-aa66-6345053e1eb6) from staged jobs, not found
+        renders appropriate copy
+
+SubscriptionsController
+  GET :show
+    logged in as the account owner
+      with invoices
+        shows the invoice history
+      when not set up
+Unable to cancel gocardless mandates for company: 895397985 (Oauth not enabled)
+        does not deny access
+      an expired trial account
+        is able to access the company account page
+      as a suspended account
+        lets me update my payment details
+      A company with no practice which is not resold
+        sees the cancel account button
+      A company with an accountancy practice
+        does not see the cancel account button
+      a BCSG company
+        does not have access to the page
+        with invoices
+          is expected to respond with status code :ok (200)
+          does not see the cancel account button
+        with add-ons
+          is expected to respond with status code :ok (200)
+          does not see the cancel account button
+    logged in as a linked account manager
+      denies access
+  orders correctly
+    orders by dated_on descending by default
+    orders by dated_on ascending when reverse true
+    orders by dated_on descending when reverse false
+    orders correctly when unknown ordering specified and reverse true
+    orders correctly when unknown ordering specified and reverse false
+    remembers ascending order
+    remembers descending order
+    orders descending for unknown reverse parameter
+
+I, [2022-12-15T10:01:10.349605 #246]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:10.349682 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/models/opening_balances_spec.rb" "spec/models/invoicing/portion_payment_collection_spec.rb" "spec/requests/radar/insights/vat_payable_spec.rb" "spec/controllers/subscriptions_controller_spec.rb"
+Run options:
+  include {:ids=>{"./spec/features/ltd_company_year_ends_navigation_spec.rb"=>["1:1:2:3"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+SalesTax::InvoiceSourceItemBuilder
+  returns a source item
+  includes the payments
+  references the original source item in the payments
+  when a payment_source_item is provided
+    includes the provided payment
+  an invoice with a credit note reconciliation
+    has the correct attributes
+    pre-reconciled invoice with VAT
+      has the correct attributes
+
+Capital assets
+  Users can use capital asset index, show and edit pages
+
+Accounting::PerformanceBenchmarking::QuarterlyCostsReport
+  #values_this_year
+    when given a full set of 8 quarters
+      returns operating profit for the last 4 quarters
+    when given a a partial set of quarters
+      returns nil for nil quarters
+  #values_last_year
+    when given a full set of 8 quarters
+      returns operating profit for the first 4 quarters
+    when given a a partial set of quarters
+      returns nil for nil quarters
+  #latest_complete_quarter
+    returns operating profit for the second latest quarter
+  #latest_complete_quarter_last_year
+    when there's a value for last year's quarter
+      returns operating profit for the second latest quarter last year
+    when there isn't a value for last year's quarter
+      returns 0
+
+Limited company year end navigation
+  with an unmanaged company
+    for a level 7 user
+      cannot access the final accounts page, CT600
+
+Capital Allowances
+  Company doesn't change the tax treatment of the asset
+[ActiveJob] [EmailMark…] [4f87e82c-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 4f87e82c-6755-431d-aff5-3fbfb8df2e26) from staged jobs, not found
+    Given the "capital_allowance_calculator_no_legacy_periods" feature is enabled -> And the current date is 2018-12-31 -> And a UK Limited Company which was started on 2018-01-01 -> And its first accounting year ends on 2018-12-31 -> And the company has the following bank transactions: -> Then the capital asset with description "big asset" has the following history -> And for the corporation tax return ending on 2018-12-31 the capital allowance computations are -> And the corporation tax return ending on 2018-12-31 should have ledger entries
+  Company adds a purchase with 18% writing down allowances selected
+[ActiveJob] [EmailMark…] [4d8cee69-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 4d8cee69-55aa-4557-bd30-23c433d1b201) from staged jobs, not found
+    Given the "capital_allowance_calculator_no_legacy_periods" feature is enabled -> And the current date is 2018-12-31 -> And a UK Limited Company which was started on 2018-01-01 -> And its first accounting year ends on 2018-12-31 -> And the company has the following bank transactions: -> When the company has the following bank transactions: -> And the capital asset with description "small asset" has its tax treatment set to "Main Pool" -> Then the capital asset with description "small asset" has the following history -> And for the corporation tax return ending on 2018-12-31 the capital allowance computations are -> And the corporation tax return ending on 2018-12-31 should have ledger entries
+  Company disposes of asset on same day as purchase
+[ActiveJob] [EmailMark…] [40587c30-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: 40587c30-b118-40a9-a27c-6b3151dc084f) from staged jobs, not found
+    Given the "capital_allowance_calculator_no_legacy_periods" feature is enabled -> And the current date is 2018-12-31 -> And a UK Limited Company which was started on 2018-01-01 -> And its first accounting year ends on 2018-12-31 -> And the company has the following bank transactions: -> When the company has the following bank transactions: -> And the capital asset with description "small asset" has its tax treatment set to "Main Pool" -> And the asset with description "small asset" is disposed on 2018-12-31 for £5000 -> Then the capital asset with description "small asset" has the following history -> And for the corporation tax return ending on 2018-12-31 the capital allowance computations are -> And the corporation tax return ending on 2018-12-31 should have ledger entries
+  Company disposes of "big asset" and a year passes
+[ActiveJob] [EmailMark…] [efc0f628-…] Failed to delete EmailMarketing::CreateCompanyAndUserJob (Job ID: efc0f628-b585-4bc1-b762-bdc99618d341) from staged jobs, not found
+    Given the "capital_allowance_calculator_no_legacy_periods" feature is enabled -> And the current date is 2018-12-31 -> And a UK Limited Company which was started on 2018-01-01 -> And its first accounting year ends on 2018-12-31 -> And the company has the following bank transactions: -> When the company has the following bank transactions: -> And the capital asset with description "small asset" has its tax treatment set to "Main Pool" -> And the asset with description "small asset" is disposed on 2018-12-31 for £5000 -> And the current date is 2019-12-31 -> And the asset with description "big asset" is disposed on 2019-06-01 for £8000 -> Then the capital asset with description "big asset" has the following history -> And for the corporation tax return ending on 2019-12-31 the capital allowance computations are -> And the corporation tax return ending on 2019-12-31 should have ledger entries
+
+I, [2022-12-15T10:01:26.014479 #246]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:26.014540 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/models/sales_tax/invoice_source_item_builder_spec.rb" "spec/features/capital_assets/capital_assets_spec.rb" "spec/freeagent/accounting/performance_benchmarking/quarterly_costs_report_spec.rb" "spec/features/ltd_company_year_ends_navigation_spec.rb[1:1:2:3]" "spec/acceptance/capital_allowances/capital_allowances.feature"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Complimentary Company
+  A company with a billing profile
+    should have its billing profile made free
+    should make the subscription status complimentary
+    should return true when made free
+    should deactivate its recurring billing
+    should not update its referrer billing
+    where something might explode during reactivation
+      should not commit changes
+      should not persist the subscription status when made free
+  A suspended company
+    should have its billing profile made free
+    should result in an active subscription
+  A cancelled company
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+    should have its billing profile made free
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+    should result in an active subscription
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+    should persist the change to cancelled_at on subscription
+Unable to cancel gocardless mandates for company: 895397833 (Oauth not enabled)
+    should clear the cancellation time
+  A company with no billing profile
+    should end up with a free billing profile
+    should persist changes to the free_trial_expires_on date
+    should result in an active subscription
+    should clear free trial expiry date
+  A getting started company
+    should be able to be made free
+
+Annual Investment Allowance
+  Annual Invesment Alllowance computed by Freeagent
+    Given a UK sole trader with company start date: 2011-04-06, first accounting year end: 2012-04-05 -> And the company has the following bank transactions: -> Then the self assessment return for 2012/13 will show the following boxes: -> When the SA103F is selected for 2012/13 -> Then the self assessment return for 2012/13 will show the following boxes:
+  Annual Invesment Alllowance overridden
+    Given a UK sole trader with company start date: 2011-04-06, first accounting year end: 2012-04-05 -> And the company has the following bank transactions: -> When the customer fills in the following boxes for 2012/13: -> Then the self assessment return for 2012/13 will show the following boxes: -> When the SA103F is selected for 2012/13 -> And the customer fills in the following boxes for 2012/13: -> Then the self assessment return for 2012/13 will show the following boxes:
+
+Admin::CopilotAddonsController
+  when logged in as a support user
+    GET #show
+      when not enrolled
+        is expected to redirect to "/admin/subscriptions/1032075343"
+        flashes an error message
+      when on a cancelled addon
+        is expected to redirect to "/admin/subscriptions/1032075345"
+        flashes an error message
+      when on an active addon
+        is expected to be successful
+        is expected not to render template _approval_notice
+  when logged in as a user without edit permissions
+    GET #show
+      is successful
+
+Branding::Selector
+  should assign a Branding::Direct to a company otherwise
+  initialisation
+    should figure out the company if the user is a User
+    should figure out the accountancy practice if the user is an AccountManager
+    should figure out the accountancy practice if the company is practice managed
+  Practice Managed
+    should assign a Branding::PracticeManaged to a company managed by a non white label practice
+  Linked company
+    should assign a Branding::Direct to a direct company linked to a practice
+  White labels
+    should assign a Branding::Fapd::MyAccountantFriend to a company managed by a MAF practice
+    should assign a Branding::Fapd::MyAccountantFriend if we are in the myaccountantfriend login domain
+    should assign a Branding::Fapd::Advantage if we are in the advantage login domain
+    should assign a Branding::WhiteLabelled::FapdWhiteLabelled to a company managed by a generic white label practice
+  Resold Companies
+    should assign a Branding::Reseller::Bcsg to a company resold by Bcsg
+    resold by RBSG
+      when RBS resold
+        should assign RBS branding
+      when NatWest resold
+        should assign NatWest branding
+    when the company has an FAPDRBSG Subscription, resold by RBS
+      returns the RBS branding
+    when the company has an FAPDRBSG Subscription, resold by NatWest
+      returns the RBS branding
+    with an account manager viewing an FAPDRBSG company
+      returns the RBS branding
+    which are then linked
+      should assign the resold branding
+  for a BCSG company
+    chooses bcsg branding
+  for a MAF company
+    chooses MAF branding
+
+Radar::Insights::Rules::PerformanceBenchmarkingNewQuarterAvailable
+  behaves like an insight rule
+    behaves like a ping rule
+      #category
+        returns a category defined on the Insight model
+      #send_notifications?
+        returns a boolean
+    #category
+      has category Insight
+  .companies_for_evaluation
+    when the company has a start date in the last six months
+      is expected not to include #<UkLimitedCompany id: 895398046, name: "FreeAgent Central">
+    when a company is not uk-based
+      is expected not to include #<UkLimitedCompany id: 895398047, name: "FreeAgent Central">
+    when a company is a whitelabelled company
+      is expected not to include #<UkLimitedCompany id: 895398048, name: "FreeAgent Central">
+  #should_evaluate?
+    when a company has less than two quarters data
+      is expected to equal false
+    when it is a day after a company's new quarter being released
+      is expected to equal true
+  #cohort_eligible
+    when the company doesn't have preferences set
+      is expected to equal false
+    when the company is opted-in
+      but the cohort is not eligible
+        is expected to equal false
+      and the cohort is eligible
+        is expected to equal true
+  #details
+    when cohort_eligible is true
+      includes the cohort_eligible as true
+      includes the company business category
+      includes the company preferences region
+    when cohort_eligible is false
+      includes the cohort_eligble as false
+  #key
+    includes the rule name, company ID, business category and region
+
+I, [2022-12-15T10:01:33.176502 #246]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:33.176568 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/models/lifecycle/company_complimentary_spec.rb" "spec/acceptance/self_assessment/annual_investment_allowance.feature" "spec/controllers/admin/copilot_addons_controller_spec.rb" "spec/models/branding/selector_spec.rb" "spec/models/radar/insights/rules/performance_benchmarking_new_quarter_available_spec.rb"
+Run options:
+  include {:ids=>{"./spec/models/company/forget_company_data_spec.rb"=>["1:1:1:7:2"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Company::ForgetCompanyData
+  Deleting all data
+    for a VAT registered UK company
+      for s3 objects
+Unable to cancel gocardless mandates for company: 314262342 (Oauth not enabled)
+        handle company logo being nil
+
+CapitalAssetSearch
+  A company with 2 current and one disposed asset
+
+PracticeAlerts::Rules::UpcomingYearEnd
+  when the year ends of managed companies year ends are to far in the future or are where in the past
+  creating notifications for managed companies year ends
+    creates a notification for a company who's first year end is approaching
+    a day on
+      does not create additional notifications
+    year end now in the past (but not close enough to the next year end)
+      removes previous notifications
+    a year on and within threshold for second year end
+      creates a new notification for the next year end
+
+Part prepaid Foreign Currency Bills
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Not registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then Any basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, FRS, then Cash basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, FRS, then Invoice basis, FRS -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  No VAT
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then de-registered -> Then it does not appear on the VAT return report -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then Invoice basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Not registered, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Invoice basis, not FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Any basis, FRS, then Cash basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT on bill payment and de-registration
+    Given a uk sole trader -> And a foreign currency bill: part prepaid -> And exchange rates are setup -> Given VAT settings: Cash basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+I, [2022-12-15T10:01:37.724042 #246]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:37.724105 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/models/company/forget_company_data_spec.rb[1:1:1:7:2]" "spec/models/capital_asset_search_spec.rb" "spec/models/practice_alerts/rules/upcoming_year_end_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_part_prepaid.feature"
+Run options:
+  include {:ids=>{"./spec/models/invoice_spec.rb"=>["1:132:2:1"]}}
+  exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+admin/companies/consents/show
+  displays the authorised accounts ordered by authorised account name
+  provides a link to the sudo bank account page for each connected account
+
+admin/dev_dashboard/apps/show
+  for accounts with freeagent users
+    when rendering the page
+      contains the correct partials
+      contains the expected data
+  for accounts with accountancy practice users
+    when rendering the page
+      contains the correct partials
+      contains the expected data
+
+Admin::AccountManagersSearchController
+  json format search
+    queries elasticsearch successfully
+    returns empty results if no query is specified
+#<Search::ElasticSearchError: Search::ElasticSearchError>
+app/controllers/admin/account_managers_search_controller.rb:29:in `render_json_search_results'
+app/controllers/admin/account_managers_search_controller.rb:14:in `block (2 levels) in show'
+app/controllers/admin/account_managers_search_controller.rb:12:in `show'
+app/controllers/concerns/reset_locale.rb:12:in `block in with_default_locale'
+app/controllers/concerns/reset_locale.rb:11:in `with_default_locale'
+lib/tasks/patches.rake:26:in `execute'
+lib/tasks/patches.rake:72:in `execute'
+    handles errors from ES gracefully
+    request for all account managers without the exclude-whitelabelled parameter, includes account managers that belong to whitelabelled practices
+    request for all account managers with the exclude-whitelabelled parameter, does not include account managers that belong to whitelabelled practices
+    returns an internal server error if the search times out
+
+Invoice
+  .total_due_value_in_native_currency
+    with CIS invoices
+      returns the sum
+
+I, [2022-12-15T10:01:40.524416 #246]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:40.524480 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/views/admin/companies/consents/show.html.erb_spec.rb" "spec/views/admin/dev_dashboard/apps/show.html.erb_spec.rb" "spec/controllers/admin/account_managers_search_controller_spec.rb" "spec/models/invoice_spec.rb[1:132:2:1]"
+Run options: exclude {:"known-failure"=>true, :factorybot_lint=>true, :visual_regression=>true}
+
+Api::PropertiesController
+  #create
+    flying start event tracking
+      behaves like FlyingStart::TrackAddPropertyCompletion
+        for landlord companies
+          on successful creation
+            completes the add_property event
+          on unsuccessful creation
+            doesn't complete the add_property event
+        for non-landlord companies
+          doesn't complete the add_property event
+
+Capital assets worth under £2000 and purchased as EC Goods
+  Reverse charge
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reverse charge
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, not FRS, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reverse charge
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, not FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  Reverse charge
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, not FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due on FRS
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, FRS -> Given VAT settings: Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due on FRS
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, FRS, then Any basis, FRS -> Given VAT settings: Any basis, FRS, then Any basis, FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due on FRS
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, FRS, then Any basis, not FRS -> Given VAT settings: Any basis, FRS, then Any basis, not FRS -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+  VAT due on FRS
+    Given a uk sole trader -> And a bill: capital asset ec goods under 2000 -> Given VAT settings: Any basis, FRS, then de-registered -> Given VAT settings: Any basis, FRS, then de-registered -> Then it appears on the VAT return report as -> And for the accruals accounting basis it has these transactions -> And for the cash accounting basis it has these transactions
+
+freestyle/components/_page_columns_column
+  renders a primary freestyle page layout column when content is passed
+  renders a secondary freestyle page layout column when the property is passed
+  renders a sticky freestyle page layout column when the property is passed
+  renders ensures that a column is not printable when the propert is passed
+  renders a focused freestyle page layout column when the property is passed
+
+UpToDateConfirmationEmailJob
+  #perform
+    for an unknown company
+      does not send an email
+    for a company without an account manager
+      does not send an email
+    for a company with an account manager
+      emails the account manager confirmation of the company being up to date
+
+Exporter::ExportableData::AllCompanyData::YearEnds
+  has no nested data
+  returns the correct exportable type
+  sorts year ends by date
+
+RecurringInvoiceProfile Search
+  when indexing a recurring invoice profile without project
+    extracts data for indexing
+  when indexing a recurring invoice profile with a project
+    extracts data for indexing
+
+PromotedCompanyPracticeTransfer
+  A company with a promotion
+    when transferred to a practice
+      becomes practice managed
+      becomes active
+      retains the promotion when then made direct again
+
+I, [2022-12-15T10:01:43.847201 #246]  INFO -- : [knapsack_pro] To retry the last batch of tests fetched from the API Queue, please run the following command on your machine:
+I, [2022-12-15T10:01:43.847268 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/controllers/api/properties_controller_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/capital_assets_ec_goods_under_2000.feature" "spec/views/freestyle/components/_page_columns_column.html.erb_spec.rb" "spec/jobs/up_to_date_confirmation_email_job_spec.rb" "spec/models/integrations/exporter/exportable_data/all_company_data/year_ends_spec.rb" "spec/models/search/recurring_invoice_profile_search_spec.rb" "spec/models/promoted_company_practice_transfer_spec.rb"
+Knapsack Pro Queue finished!
+
+
+Finished in 2 minutes 20.2 seconds
+266 examples, 0 failures
+I, [2022-12-15T10:01:43.872166 #246]  INFO -- : [knapsack_pro] To retry all the tests assigned to this CI node, please run the following command on your machine:
+I, [2022-12-15T10:01:43.872260 #246]  INFO -- : [knapsack_pro] bundle exec rspec --format doc --require rails_helper --require turnip/rspec --require knapsack_helper --format json --out tmp/rspec_tmp_33.json --format SpecTypeJunitFormatter --out tmp/rspec_tmp_33.xml --default-path spec "spec/features/accounting/audit_trail_report_spec.rb" "spec/features/practice_dashboard/my_details_spec.rb" "spec/mailers/accounting/final_accounts/mailer_spec.rb" "spec/models/opening_balances_spec.rb" "spec/models/invoicing/portion_payment_collection_spec.rb" "spec/requests/radar/insights/vat_payable_spec.rb" "spec/controllers/subscriptions_controller_spec.rb" "spec/models/sales_tax/invoice_source_item_builder_spec.rb" "spec/features/capital_assets/capital_assets_spec.rb" "spec/freeagent/accounting/performance_benchmarking/quarterly_costs_report_spec.rb" "spec/features/ltd_company_year_ends_navigation_spec.rb[1:1:2:3]" "spec/acceptance/capital_allowances/capital_allowances.feature" "spec/models/lifecycle/company_complimentary_spec.rb" "spec/acceptance/self_assessment/annual_investment_allowance.feature" "spec/controllers/admin/copilot_addons_controller_spec.rb" "spec/models/branding/selector_spec.rb" "spec/models/radar/insights/rules/performance_benchmarking_new_quarter_available_spec.rb" "spec/models/company/forget_company_data_spec.rb[1:1:1:7:2]" "spec/models/capital_asset_search_spec.rb" "spec/models/practice_alerts/rules/upcoming_year_end_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/foreign_currency_part_prepaid.feature" "spec/views/admin/companies/consents/show.html.erb_spec.rb" "spec/views/admin/dev_dashboard/apps/show.html.erb_spec.rb" "spec/controllers/admin/account_managers_search_controller_spec.rb" "spec/models/invoice_spec.rb[1:132:2:1]" "spec/controllers/api/properties_controller_spec.rb" "spec/accounting_and_sales_tax/uk_vat/bills/capital_assets_ec_goods_under_2000.feature" "spec/views/freestyle/components/_page_columns_column.html.erb_spec.rb" "spec/jobs/up_to_date_confirmation_email_job_spec.rb" "spec/models/integrations/exporter/exportable_data/all_company_data/year_ends_spec.rb" "spec/models/search/recurring_invoice_profile_search_spec.rb" "spec/models/promoted_company_practice_transfer_spec.rb"
+2022-12-15T10:01:43.912Z pid=246 tid=9ry INFO: Sidekiq 7.0.1 connecting to Redis with options {:url=>nil, :network_timeout=>2, :reconnect_attempts=>0, :size=>5, :pool_name=>"internal"}

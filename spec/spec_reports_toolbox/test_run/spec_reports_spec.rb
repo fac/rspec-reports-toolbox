@@ -5,9 +5,8 @@ RSpec.describe TestRun::SpecReports do
   let(:spec_reports) { TestRun::SpecReports.new(test_run) }
 
   before do
-    allow(ENV)
-      .to receive(:fetch).with("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
-      .and_return("spec/fixtures")
+    allow(ENV).to receive(:fetch).with("SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR")
+                    .and_return("spec/fixtures")
   end
 
   describe "#initialize" do
@@ -37,10 +36,10 @@ RSpec.describe TestRun::SpecReports do
       expect(per_dir_summary.keys).to include("spec/freeagent")
 
       expected_dir_summary = {
-        "example_count"=>2586,
-        "failure_count"=>0,
-        "pending_count"=>0,
-        "duration"=>7.68
+        "example_count" => 2586,
+        "failure_count" => 0,
+        "pending_count" => 0,
+        "duration" => 7.68,
       }
 
       expect(per_dir_summary.fetch("spec/freeagent")).to eq(expected_dir_summary)
@@ -48,11 +47,10 @@ RSpec.describe TestRun::SpecReports do
   end
 
   describe "#fetch!" do
-    let(:artifact_manager_double) { double(TestRun::SpecReports::ArtifactManager)}
+    let(:artifact_manager_double) { double(TestRun::SpecReports::ArtifactManager) }
 
     before do
-      allow(TestRun::SpecReports::ArtifactManager)
-        .to receive(:new).with(test_run).and_return(artifact_manager_double)
+      allow(TestRun::SpecReports::ArtifactManager).to receive(:new).with(test_run, "test_suite_json_reports").and_return(artifact_manager_double)
     end
 
     it "calls fetch_from_s3!" do

@@ -8,7 +8,6 @@ class FailedSpecsLogPrinter
     @test_run = test_run
     @overall_summary = test_run.spec_reports.overall_summary
     @spec_reports = test_run.spec_reports.artifact_manager.files
-    # @spec_reports = Dir["spec/reports/rspec*.json"]
     raise "Error: No spec reports discovered!" if @spec_reports.empty?
   end
 

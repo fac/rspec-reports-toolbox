@@ -62,5 +62,17 @@ RSpec.describe TestRun::SpecReports do
     it "returns a table" do
       expect(spec_reports.to_table).to be_kind_of(Terminal::Table)
     end
+
+    context "when there are no files" do
+      before do
+        allow(spec_reports.artifact_manager).to receive(:has_artifacts?).and_return(false)
+      end
+
+      it "raises an error" do
+        expect {
+          spec_reports.to_table
+        }.to raise_error("No spec reports found for #{test_run.run_id} attempt #{test_run.run_attempt}")
+      end
+    end
   end
 end

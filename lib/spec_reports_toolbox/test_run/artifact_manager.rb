@@ -13,6 +13,10 @@ class TestRun
       Pathname.new(artifact_download_location + "/#{@run_id}/#{@run_attempt}")
     end
 
+    def has_artifacts?
+      files.any?
+    end
+
     def files
       dir.glob("**/*.json")
     end

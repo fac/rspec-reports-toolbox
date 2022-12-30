@@ -17,15 +17,11 @@ class TestRun
       @artifact_manager.fetch_from_s3!
     end
 
-    def fetch_spec_data(key)
-      @artifact_manager.files.flat_map do |file|
-        JSON.parse(File.read(file)).fetch(key)
-      end
-    end
-
     def per_dir_summary
+      ensure_spec_report_files!
+
       # examples grouped by path
-      grouped = fetch_spec_data("examples").group_by do |example|
+      grouped = fetch_data_from_files("examples").group_by do |example|
         example["file_path"].split("/").first(3).last(2)
       end
 
@@ -46,6 +42,8 @@ class TestRun
     end
 
     def overall_summary
+      ensure_spec_report_files!
+
       result = {
         "duration" => 0,
         "example_count" => 0,
@@ -53,7 +51,7 @@ class TestRun
         "pending_count" => 0,
       }
 
-      summaries = fetch_spec_data("summary")
+      summaries = fetch_data_from_files("summary")
 
       summaries.each do |summary|
         result["duration"] += summary["duration"]
@@ -66,6 +64,8 @@ class TestRun
     end
 
     def to_table
+      ensure_spec_report_files!
+
       headings = ["directory"] + overall_summary.keys
       main_app_suite_data = [["**All tests**"] + overall_summary.values.map { |v| v.round(2) }]
       per_dir_rows = per_dir_summary.map do |dir_spec|
@@ -87,6 +87,20 @@ class TestRun
         rows: rows,
         style: { border: :markdown },
       )
+    end
+
+    private
+
+    def fetch_data_from_files(key)
+      @artifact_manager.files.flat_map do |file|
+        JSON.parse(File.read(file)).fetch(key)
+      end
+    end
+
+    def ensure_spec_report_files!
+      unless @artifact_manager.has_artifacts?
+        raise "No spec reports found for #{@test_run.run_id} attempt #{@test_run.run_attempt}"
+      end
     end
   end
 end

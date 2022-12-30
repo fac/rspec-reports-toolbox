@@ -13,5 +13,11 @@ class TestRun
     def fetch!
       @artifact_manager.fetch_from_s3!
     end
+
+    def ensure_spec_artifact_files!
+      unless @artifact_manager.has_artifacts?
+        raise "No spec artifacts found for #{@test_run.run_id} attempt #{@test_run.run_attempt}"
+      end
+    end
   end
 end

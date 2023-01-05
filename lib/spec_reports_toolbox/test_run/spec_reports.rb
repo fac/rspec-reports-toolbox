@@ -5,6 +5,34 @@ require "terminal-table"
 
 class TestRun
   class SpecReports
+    class MissingSpecReports < StandardError; end
+
+    def to_table
+      ensure_spec_report_files!
+
+      headings = ["directory"] + overall_summary.keys
+      main_app_suite_data = [["**All tests**"] + overall_summary.values.map { |v| v.round(2) }]
+      per_dir_rows = per_dir_summary.map do |dir_spec|
+        [
+          dir_spec.first,
+          dir_spec.last["duration"],
+          dir_spec.last["example_count"],
+          dir_spec.last["failure_count"],
+          dir_spec.last["pending_count"],
+        ]
+      end
+
+      rows = main_app_suite_data + per_dir_rows
+
+      rows.sort_by! { |data| -data[1] } # sort by duration
+
+      Terminal::Table.new(
+        headings: headings,
+        rows: rows,
+        style: { border: :markdown },
+      )
+    end
+
     attr_reader :test_run, :artifact_manager
 
     def initialize(test_run, options = {})
@@ -63,32 +91,6 @@ class TestRun
       result
     end
 
-    def to_table
-      ensure_spec_report_files!
-
-      headings = ["directory"] + overall_summary.keys
-      main_app_suite_data = [["**All tests**"] + overall_summary.values.map { |v| v.round(2) }]
-      per_dir_rows = per_dir_summary.map do |dir_spec|
-        [
-          dir_spec.first,
-          dir_spec.last["duration"],
-          dir_spec.last["example_count"],
-          dir_spec.last["failure_count"],
-          dir_spec.last["pending_count"],
-        ]
-      end
-
-      rows = main_app_suite_data + per_dir_rows
-
-      rows.sort_by! { |data| -data[1] } # sort by duration
-
-      Terminal::Table.new(
-        headings: headings,
-        rows: rows,
-        style: { border: :markdown },
-      )
-    end
-
     private
 
     def fetch_data_from_files(key)
@@ -98,9 +100,7 @@ class TestRun
     end
 
     def ensure_spec_report_files!
-      unless @artifact_manager.has_artifacts?
-        raise "No spec reports found for #{@test_run.run_id} attempt #{@test_run.run_attempt}"
-      end
+      raise MissingSpecReports unless @artifact_manager.has_artifacts?
     end
   end
 end

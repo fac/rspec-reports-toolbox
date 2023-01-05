@@ -71,7 +71,7 @@ RSpec.describe TestRun::SpecReports do
       it "raises an error" do
         expect {
           spec_reports.to_table
-        }.to raise_error("No spec reports found for #{test_run.run_id} attempt #{test_run.run_attempt}")
+        }.to raise_error(TestRun::SpecReports::MissingSpecReports)
       end
     end
   end

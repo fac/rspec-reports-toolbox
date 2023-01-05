@@ -28,7 +28,13 @@ begin
   test_run.spec_reports.fetch! if opts[:fetch_reports]
 
   puts test_run.spec_reports.to_table if opts[:display_table]
-  puts test_run.display_logs if opts[:display_logs]
+  puts test_run.spec_artifacts.display_logs if opts[:display_logs]
 rescue Slop::Error => error
   puts error
+rescue TestRun::SpecReports::MissingSpecReports => error
+  puts "Missing spec reports. Pass --fetch-reports and ensure run_id is valid"
+rescue TestRun::SpecArtifacts::MissingSpecArtifacts => error
+  puts "Missing spec artifacts. Pass --fetch-artifacts and ensure run_id is valid"
+ensure
+  puts "Done!"
 end

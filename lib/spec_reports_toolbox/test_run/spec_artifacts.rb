@@ -2,6 +2,8 @@ require "spec_reports_toolbox/test_run/artifact_manager"
 
 class TestRun
   class SpecArtifacts
+    class MissingSpecArtifacts < StandardError; end
+
     attr_reader :test_run, :artifact_manager
 
     def initialize(test_run, options = {})
@@ -15,9 +17,12 @@ class TestRun
     end
 
     def ensure_spec_artifact_files!
-      unless @artifact_manager.has_artifacts?
-        raise "No spec artifacts found for #{@test_run.run_id} attempt #{@test_run.run_attempt}"
-      end
+      raise MissingSpecArtifacts unless @artifact_manager.has_artifacts?
+    end
+
+    def display_logs
+      ensure_spec_artifact_files!
+      FailedSpecsLogPrinter.new(self).run
     end
   end
 end

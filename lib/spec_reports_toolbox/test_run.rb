@@ -16,8 +16,4 @@ class TestRun
   def spec_artifacts
     @spec_artifacts ||= TestRun::SpecArtifacts.new(self)
   end
-
-  def display_logs
-    FailedSpecsLogPrinter.new(self).run
-  end
 end

@@ -1,4 +1,5 @@
 require "pathname"
+require "colorize"
 
 class TestRun
   class ArtifactManager
@@ -26,18 +27,27 @@ class TestRun
     end
 
     def delete_dir!
-      raise NotImplementedError
+      dir.rmtree
     end
 
     def dir
       artifacts_base_dir + @artifact_name
     end
 
-    def fetch_from_s3!
-      puts "Fetching #{@artifact_name} artifacts from S3"
-      output_directory = dir.to_path
-      cmd = "aws-vault exec fa-ci-prod -- aws s3 cp --recursive --include '*' s3://raw-test-suite-data-fa-ci-prod/#{@artifact_name}/#{@run_id}/#{@run_attempt} #{output_directory}"
-      system(cmd)
+    def fetch_from_s3!(options = {})
+      puts "Directory already exists at: #{dir}" if exist?
+
+      if options[:force]
+        puts "Deleting existing directory at: #{dir} because --force was passed".yellow
+        delete_dir!
+      end
+
+      if !exist?
+        puts "Fetching #{@artifact_name} artifacts from S3"
+        output_directory = dir.to_path
+        cmd = "aws-vault exec fa-ci-prod -- aws s3 cp --recursive --include '*' s3://raw-test-suite-data-fa-ci-prod/#{@artifact_name}/#{@run_id}/#{@run_attempt} #{output_directory}"
+        system(cmd)
+      end
     end
   end
 end

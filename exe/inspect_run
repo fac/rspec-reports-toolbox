@@ -16,6 +16,7 @@ begin
     options.bool "-fr", "--fetch-reports", "Fetch reports from S3", default: false
     options.bool "-t", "--display-table", "Display table", default: false
     options.bool "-l", "--display-logs", "Display logs", default: false
+    options.bool "--force", "Force artifacts to be deleted and re-fetched", default: false
 
     options.on "-h", "--help" do
       puts options
@@ -24,8 +25,8 @@ begin
   end
 
   test_run = TestRun.new(opts[:run_id], opts[:run_attempt])
-  test_run.spec_artifacts.fetch! if opts[:fetch_artifacts]
-  test_run.spec_reports.fetch! if opts[:fetch_reports]
+  test_run.spec_artifacts.fetch!(force: opts[:force]) if opts[:fetch_artifacts]
+  test_run.spec_reports.fetch!(force: opts[:force]) if opts[:fetch_reports]
 
   puts test_run.spec_reports.to_table if opts[:display_table]
   puts test_run.spec_artifacts.display_logs if opts[:display_logs]

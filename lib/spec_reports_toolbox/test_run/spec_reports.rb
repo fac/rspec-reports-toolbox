@@ -41,8 +41,8 @@ class TestRun
       @artifact_manager = TestRun::ArtifactManager.new(@test_run, "test-suite-json-reports")
     end
 
-    def fetch!
-      @artifact_manager.fetch_from_s3!
+    def fetch!(options = {})
+      @artifact_manager.fetch_from_s3!(options)
     end
 
     def per_dir_summary

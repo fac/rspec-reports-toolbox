@@ -3,7 +3,6 @@
 $LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
 
 require "spec_reports_toolbox/test_run"
-require "spec_reports_toolbox/test_run/failed_spec_log_printer"
 require "slop"
 
 begin

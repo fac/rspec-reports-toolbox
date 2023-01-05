@@ -15,7 +15,7 @@ class TestRun
     end
 
     def has_artifacts?
-      files.any?
+      dir.glob("**/*").any?
     end
 
     def files

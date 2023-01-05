@@ -1,4 +1,5 @@
 require "spec_reports_toolbox/test_run/artifact_manager"
+require "spec_reports_toolbox/test_run/failed_spec_log_printer"
 
 class TestRun
   class SpecArtifacts
@@ -12,8 +13,8 @@ class TestRun
       @artifact_manager = TestRun::ArtifactManager.new(@test_run, "log-folder")
     end
 
-    def fetch!
-      @artifact_manager.fetch_from_s3!
+    def fetch!(options = {})
+      @artifact_manager.fetch_from_s3!(options)
     end
 
     def ensure_spec_artifact_files!
@@ -22,7 +23,7 @@ class TestRun
 
     def display_logs
       ensure_spec_artifact_files!
-      FailedSpecsLogPrinter.new(self).run
+      FailedSpecsLogPrinter.new(@test_run).run
     end
   end
 end

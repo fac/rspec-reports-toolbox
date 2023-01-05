@@ -58,9 +58,11 @@ RSpec.describe TestRun::SpecReports do
     end
   end
 
-  describe "#to_table" do
+  describe "#table" do
+    let(:options) { options = { format: "terminal" } }
+
     it "returns a table" do
-      expect(spec_reports.to_table).to be_kind_of(Terminal::Table)
+      expect(spec_reports.table(options)).to be_kind_of(Terminal::Table)
     end
 
     context "when there are no files" do
@@ -70,7 +72,7 @@ RSpec.describe TestRun::SpecReports do
 
       it "raises an error" do
         expect {
-          spec_reports.to_table
+          spec_reports.table
         }.to raise_error(TestRun::SpecReports::MissingSpecReports)
       end
     end

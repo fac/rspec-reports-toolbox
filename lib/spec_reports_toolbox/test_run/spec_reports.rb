@@ -7,11 +7,12 @@ class TestRun
   class SpecReports
     class MissingSpecReports < StandardError; end
 
-    def to_table
-      ensure_spec_report_files!
+    def headings
+      @headings ||= ["directory"] + overall_summary.keys
+    end
 
-      headings = ["directory"] + overall_summary.keys
-      main_app_suite_data = [["**All tests**"] + overall_summary.values.map { |v| v.round(2) }]
+    def rows
+      @rows ||= main_app_suite_data = [["All tests"] + overall_summary.values.map { |v| v.round(2) }]
       per_dir_rows = per_dir_summary.map do |dir_spec|
         [
           dir_spec.first,
@@ -23,14 +24,30 @@ class TestRun
       end
 
       rows = main_app_suite_data + per_dir_rows
-
       rows.sort_by! { |data| -data[1] } # sort by duration
+      rows
+    end
 
+    def table(options = {})
+      ensure_spec_report_files!
+
+      if options[:format] == "json"
+        json_table
+      elsif options[:format] == "terminal"
+        terminal_table
+      end
+    end
+
+    def terminal_table
       Terminal::Table.new(
         headings: headings,
         rows: rows,
         style: { border: :markdown },
       )
+    end
+
+    def json_table
+      rows.map { |row| headings.zip(row).to_h }.to_json
     end
 
     attr_reader :test_run, :artifact_manager

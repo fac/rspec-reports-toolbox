@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
 
 require "spec_reports_toolbox/test_run"
 require "slop"
+require "pry"
 
 begin
   opts = Slop.parse do |options|
@@ -15,7 +16,10 @@ begin
     options.bool "-fr", "--fetch-reports", "Fetch reports from S3", default: false
     options.bool "-t", "--display-table", "Display table", default: false
     options.bool "-l", "--display-logs", "Display logs", default: false
+
     options.bool "--force", "Force artifacts to be deleted and re-fetched", default: false
+
+    options.string "--format", "Format of output", default: "terminal"
 
     options.on "-h", "--help" do
       puts options
@@ -27,7 +31,7 @@ begin
   test_run.spec_artifacts.fetch!(force: opts[:force]) if opts[:fetch_artifacts]
   test_run.spec_reports.fetch!(force: opts[:force]) if opts[:fetch_reports]
 
-  puts test_run.spec_reports.to_table if opts[:display_table]
+  puts test_run.spec_reports.table(opts) if opts[:display_table]
   puts test_run.spec_artifacts.display_logs if opts[:display_logs]
 rescue Slop::Error => error
   puts error
@@ -35,6 +39,4 @@ rescue TestRun::SpecReports::MissingSpecReports => error
   puts "Missing spec reports. Pass --fetch-reports and ensure run_id is valid"
 rescue TestRun::SpecArtifacts::MissingSpecArtifacts => error
   puts "Missing spec artifacts. Pass --fetch-artifacts and ensure run_id is valid"
-ensure
-  puts "Done!"
 end

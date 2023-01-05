@@ -28,7 +28,7 @@ class TestRun
       rows
     end
 
-    def table(options = {})
+    def table(options = { format: "terminal" })
       ensure_spec_report_files!
 
       if options[:format] == "json"

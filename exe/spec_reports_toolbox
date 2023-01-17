@@ -25,7 +25,6 @@ module SpecReportsToolbox
       cmd.flag :run_attempt, default: 1, desc: "Run attempt, defaults to 1"
       cmd.flag :format, default_value: "terminal", desc: "Output format"
       cmd.switch :force, :negatable => false, default_value: false, desc: "Force deletion of artifacts before re-downloading"
-      cmd.switch :no_logs_explainer_message, :negatable => false, default_value: false, desc: "Don't print the explainer message about the logs"
 
       cmd.desc "Interact with spec reports - i.e. JSON files output by rspec during test runs"
       cmd.command :reports do |cmd|
@@ -43,6 +42,8 @@ module SpecReportsToolbox
       cmd.command :artifacts do |cmd|
         cmd.desc "Print log"
         cmd.command :print_summary do |cmd|
+          cmd.switch :no_logs_explainer_message, :negatable => false, default_value: false, desc: "Don't print the explainer message about the logs"
+
           cmd.action do |global_options, options, args|
             test_run = TestRun.new(options[:run_id], options[:run_attempt])
             test_run.spec_reports.fetch!(force: options[:force])

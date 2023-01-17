@@ -3,8 +3,6 @@
 $LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
 
 # TODO: rename spec_reports_toolbox to ci_toolbox
-# require "spec_reports_toolbox/test_run"
-# require "spec_reports_toolbox/action"
 require "spec_reports_toolbox/test_run"
 
 require "gli"
@@ -15,18 +13,22 @@ module SpecReportsToolbox
 
     desc "Poke CI builds and artifacts"
     long_desc %{
-    Artifacts will be downloaded to "/tmp". This can be overridden by setting the SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR env var\n
-    Artifacts are automatically downloaded when required\n
-    If the artifacts are corrupted, or need to be re-downloaded, pass the --force flag
+      Artifacts will be downloaded to "/tmp". 
+
+      This can be overridden by setting the SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR env var. 
+
+      Artifacts are automatically downloaded when required. 
+
+      If the artifacts are corrupted, or need to be re-downloaded, pass the --force flag.
     }
+
     command :ci do |cmd|
-      cmd.desc "Interact with spec reports"
       cmd.flag :run_id, type: Integer, desc: "Run ID", required: true
       cmd.flag :run_attempt, default: 1, desc: "Run attempt, defaults to 1"
       cmd.flag :format, default_value: "terminal", desc: "Output format"
-      cmd.switch :force, :negatable => false, default_value: false, desc: "Force deletion of artifacts before re-downloading"
+      cmd.switch :force, :negatable => false, default_value: false, desc: "Force deletion of artifacts and re-download them"
 
-      cmd.desc "Interact with spec reports - i.e. JSON files output by rspec during test runs"
+      cmd.desc "Interact with spec reports - i.e. JSON files output by RSpec during test runs"
       cmd.command :reports do |cmd|
         cmd.desc "Print specs durations, counts, failures, pendings for all tests and per directory"
         cmd.command :display_table do |cmd|
@@ -34,16 +36,24 @@ module SpecReportsToolbox
             test_run = TestRun.new(options[:run_id], options[:run_attempt])
             test_run.spec_reports.fetch!(force: options[:force])
             puts test_run.spec_reports.table(options)
+          rescue TestRun::SpecReports::MissingSpecReports
+            puts "No spec reports found - are you sure the run ID is correct?"
           end
         end
       end
 
-      cmd.desc "Interact with spec artifacts - i.e. the entire log/ folder from a build. This includes screenshots and all log files"
+      cmd.desc "Interact with spec artifacts - i.e. the entire log/ folder from a build. This includes screenshots and log files"
       cmd.command :artifacts do |cmd|
-        cmd.desc "Print log"
+        cmd.desc "Print log summary"
+        cmd.long_desc %{
+          For all the failed specs on a run, find the corresponding log file and print the summary section of the log.
+
+          This allows the user to quickly see the failure reason without having to open the log file.
+
+          This is primarily dessigned for running in GitHub Actions, and is formatted with that in mind.
+        }
         cmd.command :print_summary do |cmd|
           cmd.switch :no_logs_explainer_message, :negatable => false, default_value: false, desc: "Don't print the explainer message about the logs"
-
           cmd.action do |global_options, options, args|
             test_run = TestRun.new(options[:run_id], options[:run_attempt])
             test_run.spec_reports.fetch!(force: options[:force])

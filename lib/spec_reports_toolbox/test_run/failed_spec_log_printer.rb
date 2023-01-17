@@ -4,8 +4,9 @@ require "json"
 require "colorize"
 
 class FailedSpecsLogPrinter
-  def initialize(test_run)
+  def initialize(test_run, options = {})
     @test_run = test_run
+    @options = options
     @overall_summary = test_run.spec_reports.overall_summary
     @spec_reports = test_run.spec_reports.artifact_manager.files
     raise "Error: No spec reports discovered!" if @spec_reports.empty?
@@ -15,7 +16,7 @@ class FailedSpecsLogPrinter
     if @overall_summary["failure_count"] > 0
       puts "Printing readable logs from nodes with failed specs:".bold
       report_summary
-      print_logs_explainer_message unless ENV["TRIM_EXPLAINER"]
+      print_logs_explainer_message unless @options[:no_logs_explainer_message]
       pp_logs_from_failures
       exit 1
     else

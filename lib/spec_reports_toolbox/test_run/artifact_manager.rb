@@ -35,7 +35,7 @@ class TestRun
     end
 
     def fetch_from_s3!(options = {})
-      puts "Directory already exists at: #{dir}" if exist?
+      puts "Directory already exists at: #{dir} - this means artifacts have previously been fetched.".blue if exist?
 
       if options[:force]
         puts "Deleting existing directory at: #{dir} because --force was passed".yellow

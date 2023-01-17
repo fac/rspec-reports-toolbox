@@ -21,9 +21,13 @@ class TestRun
       raise MissingSpecArtifacts unless @artifact_manager.has_artifacts?
     end
 
-    def display_logs
+    def display_logs(options = {})
       ensure_spec_artifact_files!
-      FailedSpecsLogPrinter.new(@test_run).run
+      if @artifact_manager.has_artifacts?
+        FailedSpecsLogPrinter.new(@test_run, options).run
+      else
+        puts "No spec artifacts found for this test run, if the run passed, there won't be any artifacts."
+      end
     end
   end
 end

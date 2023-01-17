@@ -22,9 +22,10 @@ module SpecReportsToolbox
     command :ci do |cmd|
       cmd.desc "Interact with spec reports"
       cmd.flag :run_id, type: Integer, desc: "Run ID", required: true
-      cmd.flag :run_attempt, default: 1, type: Integer, desc: "Run attempt, defaults to 1"
+      cmd.flag :run_attempt, default: 1, desc: "Run attempt, defaults to 1"
       cmd.flag :format, default_value: "terminal", desc: "Output format"
-      cmd.switch :force, default_value: false, desc: "Force deletion of artifacts before re-downloading"
+      cmd.switch :force, :negatable => false, default_value: false, desc: "Force deletion of artifacts before re-downloading"
+      cmd.switch :no_logs_explainer_message, :negatable => false, default_value: false, desc: "Don't print the explainer message about the logs"
 
       cmd.desc "Interact with spec reports - i.e. JSON files output by rspec during test runs"
       cmd.command :reports do |cmd|
@@ -34,6 +35,19 @@ module SpecReportsToolbox
             test_run = TestRun.new(options[:run_id], options[:run_attempt])
             test_run.spec_reports.fetch!(force: options[:force])
             puts test_run.spec_reports.table(options)
+          end
+        end
+      end
+
+      cmd.desc "Interact with spec artifacts - i.e. the entire log/ folder from a build. This includes screenshots and all log files"
+      cmd.command :artifacts do |cmd|
+        cmd.desc "Print log"
+        cmd.command :print_summary do |cmd|
+          cmd.action do |global_options, options, args|
+            test_run = TestRun.new(options[:run_id], options[:run_attempt])
+            test_run.spec_reports.fetch!(force: options[:force])
+            test_run.spec_artifacts.fetch!(force: options[:force])
+            puts test_run.spec_artifacts.display_logs(options)
           end
         end
       end

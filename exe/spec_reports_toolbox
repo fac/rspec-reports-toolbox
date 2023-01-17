@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path("..", "lib/spec_reports_toolbox")
+
+# TODO: rename spec_reports_toolbox to ci_toolbox
+# require "spec_reports_toolbox/test_run"
+# require "spec_reports_toolbox/action"
+require "spec_reports_toolbox/test_run"
+
+require "gli"
+
+module SpecReportsToolbox
+  class App
+    extend GLI::App
+
+    desc "Poke CI builds and artifacts"
+    long_desc %{
+    Artifacts will be downloaded to "/tmp". This can be overridden by setting the SPEC_REPORTS_TOOLBOX_ARTIFACTS_DIR env var\n
+    Artifacts are automatically downloaded when required\n
+    If the artifacts are corrupted, or need to be re-downloaded, pass the --force flag
+    }
+    command :ci do |cmd|
+      cmd.desc "Interact with spec reports"
+      cmd.flag :run_id, type: Integer, desc: "Run ID", required: true
+      cmd.flag :run_attempt, default: 1, type: Integer, desc: "Run attempt, defaults to 1"
+      cmd.flag :format, default_value: "terminal", desc: "Output format"
+      cmd.switch :force, default_value: false, desc: "Force deletion of artifacts before re-downloading"
+
+      cmd.desc "Interact with spec reports - i.e. JSON files output by rspec during test runs"
+      cmd.command :reports do |cmd|
+        cmd.desc "Print specs durations, counts, failures, pendings for all tests and per directory"
+        cmd.command :display_table do |cmd|
+          cmd.action do |global_options, options, args|
+            test_run = TestRun.new(options[:run_id], options[:run_attempt])
+            test_run.spec_reports.fetch!(force: options[:force])
+            puts test_run.spec_reports.table(options)
+          end
+        end
+      end
+    end
+  end
+end
+
+SpecReportsToolbox::App.run(ARGV)

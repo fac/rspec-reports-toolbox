@@ -23,4 +23,4 @@ gem "guard-rspec", "~> 4.7"
 
 gem "terminal-table", "~> 3.0"
 
-gem "slop", "~> 4.9"
+gem "gli", "~> 2.21"

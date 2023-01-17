@@ -8,7 +8,15 @@ require "pry"
 
 begin
   opts = Slop.parse do |options|
-    options.banner = "Usage: inspect_run.rb [options]"
+    options.banner = "Usage: inspect_run.rb [artifact_type] [options]"
+    "Usage: inspect_run.rb spec_reports display_table --json --fetch_artifacts"
+    "Usage: inspect_run.rb spec_reports show_failed --json --re-run-failed"
+
+    "Usage: ci_toolbox [spec_reports|artifacts|triage] [action] [options]"
+
+    options.string "-a", "--autofetch-artifact", "", required: true
+    options.string "-d", "--directory with existing artifacts", "", required: true
+    options.string "-f", "--force-redownload", "", required: true
 
     options.string "-r", "--run-id", "Run ID", required: true
     options.integer "-a", "--run-attempt", "Run Attempt", default: 1

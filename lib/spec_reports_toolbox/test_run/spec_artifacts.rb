@@ -29,5 +29,16 @@ class TestRun
         puts "No spec artifacts found for this test run, if the run passed, there won't be any artifacts."
       end
     end
+
+    def screenshots(options = {})
+      ensure_spec_artifact_files!
+      if @artifact_manager.has_artifacts?
+        @artifact_manager.dir.glob("**/*.png").each do |file|
+          system "open #{file}"
+        end
+      else
+        puts "No spec artifacts found for this test run, if the run passed, there won't be any artifacts."
+      end
+    end
   end
 end

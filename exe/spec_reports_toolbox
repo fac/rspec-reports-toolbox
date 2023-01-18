@@ -61,6 +61,18 @@ module SpecReportsToolbox
             puts test_run.spec_artifacts.display_logs(options)
           end
         end
+
+        cmd.desc "Open screenshots"
+        cmd.long_desc %{
+          Open screenshots
+        }
+        cmd.command :open_screenshots do |cmd|
+          cmd.action do |global_options, options, args|
+            test_run = TestRun.new(options[:run_id], options[:run_attempt])
+            test_run.spec_artifacts.fetch!(force: options[:force])
+            puts test_run.spec_artifacts.screenshots(options)
+          end
+        end
       end
     end
   end

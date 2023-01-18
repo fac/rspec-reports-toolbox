@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    SpecReportsToolbox (0.1.0)
+    fa_spec_reports_toolbox (0.1.0)
       colorize
       gli
       ox
@@ -42,7 +42,7 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    ox (2.14.11)
+    ox (2.14.13)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -67,7 +67,7 @@ GEM
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     thor (1.2.1)
-    unicode-display_width (2.3.0)
+    unicode-display_width (2.4.2)
 
 PLATFORMS
   arm64-darwin-21
@@ -75,7 +75,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  SpecReportsToolbox!
+  fa_spec_reports_toolbox!
   guard
   guard-rake
   guard-rspec

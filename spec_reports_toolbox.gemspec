@@ -3,7 +3,7 @@
 require_relative "lib/spec_reports_toolbox/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "SpecReportsToolbox"
+  spec.name = "fa_spec_reports_toolbox"
   spec.version = SpecReportsToolbox::VERSION
   spec.authors = ["Peter Singh"]
   spec.email = ["peter.singh@freeagent.com"]

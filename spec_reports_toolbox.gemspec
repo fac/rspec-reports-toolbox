@@ -35,8 +35,17 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
-  spec.add_dependency "tty-prompt", "~> 0.23"
+  spec.add_runtime_dependency "colorize"
+  spec.add_runtime_dependency "ox"
+  spec.add_runtime_dependency "gli"
+  spec.add_runtime_dependency "terminal-table"
+
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "guard"
+  spec.add_development_dependency "guard-rake"
+  spec.add_development_dependency "guard-rspec"
+
 
 
   # For more information and examples about making a new gem, check out our

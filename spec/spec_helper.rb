@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "../lib/spec_reports_toolbox/test_run"
-require 'debug'
+require 'pry'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
